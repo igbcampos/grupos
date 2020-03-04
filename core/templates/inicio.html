@@ -1,0 +1,273 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block conteudo %}
+
+{% if mensagem %}
+  <script>
+    alert('{{ mensagem }}');
+  </script>
+{% endif %}
+
+{% if messages %}
+  {% for message in messages %}
+    <script>
+      alert('{{ message }}');
+    </script>
+  {% endfor %}
+{% endif %}
+
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="d-flex align-items-center">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1">
+        <h1>Transformamos seus problemas em sistemas</h1>
+        <h2>Somos uma equipe de desenvolvedores preparados para atendar suas demandas.</h2>
+        <a href="#contact" class="btn-get-started scrollto">Solicitar Serviço</a>
+      </div>
+      <div class="col-lg-6 order-1 order-lg-2 hero-img">
+        <img src="{% static 'assets/img/lasco.png' %}" class="img-fluid animated" alt="">
+      </div>
+    </div>
+  </div>
+
+</section><!-- End Hero -->
+
+<main id="main">
+
+  <!-- ======= About Section ======= -->
+  <section id="about" class="about">
+    <div class="container">
+
+      <div class="row justify-content-between">
+        <div class="col-lg-5 d-flex align-items-center justify-content-center about-img">
+          <img src="{% static 'assets/img/about-img.svg' %}" class="img-fluid" alt="" data-aos="zoom-in">
+        </div>
+        <div class="col-lg-6 pt-5 pt-lg-0">
+          <h3 data-aos="fade-up">Um braço da Superintendência de Tecnologia da Informação</h3>
+          <p data-aos="fade-up" data-aos-delay="100">
+            O LASCÔ foi criado inicialmente para suprir as demandas anteriormente passadas à STI da Universidade Federal do Piauí, como o desenvolvimento de sites de eventos e o próprio aplicativo da UFPI. Agora o Laboratório se tornou maior de idade e é autônomo.
+          </p>
+          <div class="row">
+            <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+              <i class="bx bx-receipt"></i>
+              <h4>Soluções para a Universidade</h4>
+              <p>Nossos projetos estão por toda a UFPI, facilitando a vida dos servidores e dos discentes</p>
+            </div>
+            <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
+              <i class="bx bx-cube-alt"></i>
+              <h4>Soluções para a Comunidade</h4>
+              <p>Estamos em contato direto com o mercado para desenvolver os melhores produtos</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section><!-- End About Section -->
+
+  <!-- ======= Services Section ======= -->
+  <section id="services" class="services section-bg">
+    <div class="container">
+
+      <div class="section-title" data-aos="fade-up">
+        <h2>Serviços</h2>
+        <p>Saiba os serviços que nós oferecemos</p>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+          <div class="icon-box">
+            <div class="icon"><i class="bx bxl-dribbble"></i></div>
+            <h4 class="title"><a href="">Sites</a></h4>
+            <p class="description">Criamos sites responsivos que funcionam de forma adequada em computadores e celulares</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="200">
+          <div class="icon-box">
+            <div class="icon"><i class="bx bx-file"></i></div>
+            <h4 class="title"><a href="">Aplicativos</a></h4>
+            <p class="description">Desenvolvemos aplicativos mobile para as plataformas Android e iOS</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="300">
+          <div class="icon-box">
+            <div class="icon"><i class="bx bx-tachometer"></i></div>
+            <h4 class="title"><a href="">Sistemas Web</a></h4>
+            <p class="description">Produzimos sistemas robustos que podem ser acessados em qualquer lugar pela internet</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="400">
+          <div class="icon-box">
+            <div class="icon"><i class="bx bx-world"></i></div>
+            <h4 class="title"><a href="">Sua Demanda</a></h4>
+            <p class="description">Que problema você precisa resolver? Entre em contato e encontre nossa ajuda para achar a melhor solução digital</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section><!-- End Services Section -->
+
+  <!-- ======= Portfolio Section ======= -->
+  <section id="portfolio" class="portfolio">
+    <div class="container">
+
+      <div class="section-title" data-aos="fade-up">
+        <h2>Portifólio</h2>
+        <p>Conheça algumas das nossas soluções</p>
+      </div>
+
+      <div class="row" data-aos="fade-up" data-aos-delay="100">
+        <div class="col-lg-12">
+          <ul id="portfolio-flters">
+            <li data-filter="*" class="filter-active">Todos</li>
+            <li data-filter=".filter-app">Aplicativos</li>
+            <li data-filter=".filter-card">Sites</li>
+            <li data-filter=".filter-web">Sistemas</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
+
+        {% for projeto in projetos %}
+          <div class="col-lg-4 col-md-6 portfolio-item filter-{{ projeto.classe }}">
+            <div class="portfolio-wrap">
+              <img src="{{ projeto.imagem }}" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="{{ projeto.link }}" title="Mais Detalhes"><i class="icofont-link"></i></a>
+              </div>
+              <div class="portfolio-info">
+                <h4>{{ projeto.nome }}</h4>
+                <p>{{ projeto.tipo }}</p>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+
+      </div>
+
+    </div>
+  </section><!-- End Portfolio Section -->
+
+  <!-- ======= Team Section ======= -->
+  <section id="team" class="team"  style="background-color: #fef8f5;">
+    <div class="container">
+
+      <div class="section-title" data-aos="fade-up">
+        <h2>Equipe</h2>
+        <p>Conheça a nossa equipe</p>
+      </div>
+
+      <div class="row">
+
+        {% for integrante in integrantes %}
+          <div class="col-xl-3 col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
+            <div class="member">
+              <img src="{{ integrante.imagem }}" class="img-fluid" alt="">
+              <div class="member-info">
+                <div class="member-info-content">
+                  <h4>{{ integrante.nome }}</h4>
+                  <span>{{ integrante.descricao }}</span>
+                </div>
+                <div class="social">
+                  {% if integrante.twitter %}<a href="{{ integrante.twitter }}"><i class="icofont-twitter"></i></a>{% endif %}
+                  {% if integrante.facebook %}<a href="{{ integrante.facebook }}"><i class="icofont-facebook"></i></a>{% endif %}
+                  {% if integrante.instagram %}<a href="{{ integrante.instagram }}"><i class="icofont-instagram"></i></a>{% endif %}
+                  {% if integrante.linkedin %}<a href="{{ integrante.linkedin }}"><i class="icofont-linkedin"></i></a>{% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+
+      </div>
+
+    </div>
+  </section><!-- End Team Section -->
+
+  <!-- ======= Contact Us Section ======= -->
+  <section id="contact" class="contact">
+    <div class="container">
+
+      <div class="section-title" data-aos="fade-up">
+        <h2>Contato</h2>
+        <p>Entre em contato conosco</p>
+      </div>
+
+      <div class="row">
+
+        <div class="col-lg-5 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+          <div class="info">
+            <div class="address">
+              <i class="icofont-google-map"></i>
+              <h4>Endereço:</h4>
+              <p>Superintendência de Tecnologia da Informação,<br>Universidade Federal do Piauí,<br>Campus Universitário Ministro Petrônio Portella,<br>s/n - Ininga, Teresina - PI, 64049-550</p>
+            </div>
+
+            <div class="email">
+              <i class="icofont-envelope"></i>
+              <h4>E-mail:</h4>
+              <p>lasco@ufpi.edu.br</p>
+            </div>
+
+            <div class="phone">
+              <i class="icofont-phone"></i>
+              <h4>Telefone:</h4>
+              <p>(86) 3215-5514</p>
+            </div>
+
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15897.159965214874!2d-42.7903748!3d-5.0566674!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x688982d694758862!2sSuperintend%C3%AAncia%20de%20Tecnologia%20da%20Informa%C3%A7%C3%A3o%20(STI)%20-%20UFPI!5e0!3m2!1spt-BR!2sbr!4v1581690999032!5m2!1spt-BR!2sbr" frameborder="0" style="border:0; width: 100%; height: 290px;" allowfullscreen></iframe>
+          </div>
+
+        </div>
+
+        <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+          <form action="/formulario" method="POST" class="php-email-form" id="formulario">
+            {% csrf_token %}
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="nome">Nome</label>
+                <input type="text" name="nome" class="form-control" id="nome" data-rule="minlen:4" data-msg="Por favor, digite pelo menos 4 caracteres" />
+                <div class="validate"></div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="email">E-mail</label>
+                <input type="email" class="form-control" name="email" id="email" data-rule="email" data-msg="Por favor, digite um e-mail válido" />
+                <div class="validate"></div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="assunto">Assunto</label>
+              <input type="text" class="form-control" name="assunto" id="assunto" data-rule="minlen:4" data-msg="Por favor, digite pelo menos 8 caracteres" />
+              <div class="validate"></div>
+            </div>
+            <div class="form-group">
+              <label for="mensagem">Mensagem</label>
+              <textarea class="form-control" name="mensagem" rows="10" data-rule="required" data-msg="Por favor, escreva uma mensagem"></textarea>
+              <div class="validate"></div>
+            </div>
+            <div class="mb-3">
+              <div class="loading">Carregando</div>
+              <div class="error-message"></div>
+              <div class="sent-message">Sua mensagem foi enviado. Obrigado!</div>
+            </div>
+            <div class="text-center"><button type="submit" onclick="document.getElementById('formulario').submit();">Enviar</button></div>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </section><!-- End Contact Us Section -->
+
+</main><!-- End #main -->
+
+{% endblock %}

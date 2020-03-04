@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="d-flex align-items-center">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1">
+        <h1>A página que você está tentando acessar não existe</h1>
+        <h2>Você pode voltar para a <a href="javascript:history.back()">página anterior</a>, ou retonar ao <a href="{% url 'inicio' %}">início</a></h2>
+        <a href="#contact" class="btn-get-started scrollto">Solicitar Serviço</a>
+      </div>
+      <div class="col-lg-6 order-1 order-lg-2 hero-img">
+        <img src="{% static 'assets/img/lasco.png' %}" class="img-fluid animated" alt="">
+      </div>
+    </div>
+  </div>
+
+</section><!-- End Hero -->
+
+{% endblock %}

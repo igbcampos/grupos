@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>LASCÔ</title>
+  <title>{{ grupo.informacao.sobre.sigla | upper }}</title>
   <meta content="" name="descriptison">
   <meta content="" name="keywords">
 
@@ -44,7 +44,7 @@
     <div class="container-fluid d-flex">
 
       <div class="logo mr-auto">
-        <h1 class="text-light"><a href="{% url 'core:inicio' %}"><span>LASCÔ</span></a></h1>
+        <h1 class="text-light"><a href="/{{ grupo.url }}"><span>{{ grupo.informacao.sobre.sigla | upper }}</span></a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
       </div>
@@ -53,9 +53,9 @@
         <ul>
           <li><a href="#header">Início</a></li>
           <li><a href="#about">Sobre</a></li>
-          <li><a href="#services">Serviços</a></li>
-          <li><a href="#portfolio">Portifólio</a></li>
-          <li><a href="#team">Equipe</a></li>
+          <li><a href="#services">Linhas de Pesquisa</a></li>
+          <li><a href="#portfolio">Publicações</a></li>
+          <li><a href="#team">Pesquisadores</a></li>
           <li><a href="#contact">Contato</a></li>
         </ul>
       </nav><!-- .nav-menu -->
@@ -69,16 +69,30 @@
   <!-- ======= Footer ======= -->
   <footer id="footer">
 
-    <div class="footer-top" style="background-color: #fef8f5;">
+    <div class="footer-newsletter" data-aos="fade-up">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-6">
+            <h4>Inscreva-se na nossa Newsletter</h4>
+            <p>Receba conteúdo relevante e informações importantes sobre o laboratório</p>
+            <form action="">
+              <input type="email" name="email"><input type="submit" value="Inscrever-se">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-top">
       <div class="container">
         <div class="row">
 
           <div class="col-lg-3 col-md-6 footer-contact" data-aos="fade-up" data-aos-delay="100">
-            <h3>LASCÔ</h3>
+            <h3>{{ grupo.informacao.sobre.sigla | upper }}</h3>
             <p>
-                Superintendência de Tecnologia da Informação,<br>Universidade Federal do Piauí,<br>Campus Universitário Ministro Petrônio Portella,<br>s/n - Ininga, Teresina - PI, 64049-550<br><br>
-              <strong>Telefone:</strong> (86) 3215-5514<br>
-              <strong>E-mail:</strong> lasco@ufpi.edu.br<br>
+              {{ grupo.informacao.sobre.endereco }}<br><br>
+              <strong>Telefone:</strong> {{ grupo.informacao.sobre.telefone }}<br>
+              <strong>E-mail:</strong> {{ grupo.informacao.sobre.email }}<br>
             </p>
           </div>
 
@@ -86,10 +100,10 @@
             <h4>Páginas</h4>
             <ul>
               <li><i class="bx bx-chevron-right"></i> <a href="">Início</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="">Sobre</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Serviços</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Portifólio</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Equipe</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#about">Sobre</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#services">Serviços</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#portifolio">Portifólio</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#team">Equipe</a></li>
             </ul>
           </div>
 
@@ -97,35 +111,30 @@
             <h4>Nossas Redes Sociais</h4>
             <p>Siga-nos na internet</p>
             <div class="social-links mt-3">
-              <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-              <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-              <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-              <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-              <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+              <a href="{{ grupo.informacao.sobre.twitter }}" class="twitter"><i class="bx bxl-twitter"></i></a>
+              <a href="{{ grupo.informacao.sobre.facebook }}" class="facebook"><i class="bx bxl-facebook"></i></a>
+              <a href="{{ grupo.informacao.sobre.instagram }}" class="instagram"><i class="bx bxl-instagram"></i></a>
             </div>
           </div>
 
           <div class="col-lg-3 col-md-6 footer-links" data-aos="fade-up" data-aos-delay="400">
-            <h4>Links Úteis</h4>
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'vigilancia:ocorrencias' %}">Vigilância</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'calendarios:calendarios' %}">Calendários</a></li>
-            </ul>
-          </div>
-
-          <!-- <div class="col-lg-3 col-md-6 footer-links" data-aos="fade-up" data-aos-delay="400">
             <h4>Apoio</h4>
-            <img src="{% static 'assets/img/ufpi.png' %}" class="img-fluid" alt="UFPI">
-          </div> -->
+            <a href="http://ufpi.br/"><img src="{% static 'assets/img/ufpi.png' %}" class="img-fluid" alt="UFPI"></a>
+          </div>
 
         </div>
       </div>
     </div>
 
-    <div class="container py-4">
+    <div class="container py-4" style="display: flex; align-items: center; justify-content: space-between;">
       <div class="copyright">
         &copy; Copyright <strong><span>Ninestars</span></strong>. All Rights Reserved
       </div>
+
+      <div>
+        Desenvolvido por <a href="http://lasco.ufpi.br/"><img src="{% static 'assets/img/lasco.png' %}" height="100" alt="LASCÔ"/></a>
+      </div>
+
       <div class="credits">
         <!-- All the links in the footer should remain intact. -->
         <!-- You can delete the links only if you purchased the pro version. -->

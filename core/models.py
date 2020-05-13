@@ -35,6 +35,7 @@ class Sobre(models.Model):
     sigla = models.CharField(max_length=256, blank=True, null=True)
     imagem = models.CharField(max_length=256, blank=True, null=True)
     descricao = models.CharField(max_length=1024, blank=True, null=True)
+    mapa = models.TextField(default='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3974.278131225411!2d-42.80071524911858!3d-5.058599352781233!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x77c4de0a93d78d1%3A0xfcf5d4a169075b0!2sUniversidade%20Federal%20do%20Piau%C3%AD!5e0!3m2!1spt-BR!2sbr!4v1589396552722!5m2!1spt-BR!2sbr', blank=True, null=True)
     telefone = models.CharField(max_length=256, blank=True, null=True)
     email = models.CharField(max_length=256, blank=True, null=True)
     endereco = models.CharField(max_length=256, blank=True, null=True)

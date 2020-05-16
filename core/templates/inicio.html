@@ -250,7 +250,7 @@
         {% for integrante in grupo.informacao.pesquisadores.all %}
           <div class="col-xl-3 col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
             <div class="member">
-              <img src="{{ integrante.imagem }}" class="img-fluid" alt="">
+              <img src="{{ integrante.imagem }}" class="img-fluid" alt="{{ integrante.nome }}">
               <div class="member-info">
                 <div class="member-info-content">
                   <h4>{{ integrante.nome }}</h4>
@@ -258,9 +258,13 @@
                 </div>
                 <div class="social">
                   {% if integrante.lattes %}<a href="{{ integrante.lattes }}"><i class="icofont-external-link"></i></a>{% endif %}
+                  <a><i class="icofont-rounded-down show-descricao" alt="Descrição"></i></a>
                 </div>
               </div>
             </div>
+            <h6 class="descricao-completa text-justify">
+              {{integrante.descricao_completa}}
+            </h6>
           </div>
         {% endfor %}
 

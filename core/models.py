@@ -56,8 +56,8 @@ class Pesquisador(models.Model):
     nome = models.CharField(max_length=256, blank=True, null=True)
     imagem = models.CharField(max_length=256, blank=True, null=True)
     descricao = models.CharField(max_length=1024, blank=True, null=True)
+    descricao_completa = models.TextField(max_length=300, blank=True, null=True)
     lattes = models.CharField(max_length=256, blank=True, null=True)
-    
     def __str__(self):
         return self.nome
 

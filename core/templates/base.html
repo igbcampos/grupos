@@ -16,7 +16,9 @@
   <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,600,600i,700,700i"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -25,7 +27,11 @@
   <link href="{% static 'assets/vendor/venobox/venobox.css' %}" rel="stylesheet">
   <link href="{% static 'assets/vendor/owl.carousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
   <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
-
+  <style>
+    .descricao-completa {
+      visibility: hidden;
+    }
+  </style>
   <!-- Template Main CSS File -->
   <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
 
@@ -44,7 +50,8 @@
     <div class="container-fluid d-flex">
 
       <div class="logo mr-auto">
-        <h1 class="text-light"><a href="/{{ grupo.url }}"><span>{{ grupo.informacao.sobre.sigla | upper }}</span></a></h1>
+        <h1 class="text-light"><a href="/{{ grupo.url }}"><span>{{ grupo.informacao.sobre.sigla | upper }}</span></a>
+        </h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
       </div>
@@ -80,7 +87,23 @@
 
   <!-- Template Main JS File -->
   <script src="{% static 'assets/js/main.js' %}"></script>
+  <script>
+    $(document).ready(function () {
 
+      $(".show-descricao").on('click', function () {
+        if ($(this).hasClass("icofont-rounded-up")) {
+          $(this).removeClass("icofont-rounded-up");
+          $(this).addClass("icofont-rounded-down");
+          $(this).parent().parent().parent().parent().parent().children('h6').css("visibility", 'hidden')
+        } else {
+          $(this).removeClass("icofont-rounded-down");
+          $(this).addClass("icofont-rounded-up");
+          $(this).parent().parent().parent().parent().parent().children('h6').css("visibility", 'visible')
+        }
+      })
+
+    })
+  </script>
 </body>
 
 </html>

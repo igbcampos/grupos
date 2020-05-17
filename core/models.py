@@ -1,6 +1,6 @@
 from django.db import models
+from django.utils import timezone
 from django.contrib.auth.models import User
-
 # Idiomas
 
 class Idioma(models.Model):
@@ -129,9 +129,11 @@ class Premiacao(models.Model):
 # Projeto
 
 class Projeto(models.Model):
-    nome = models.CharField(max_length=256, blank=True, null=True)
-    descricao = models.CharField(max_length=1024, blank=True, null=True)
-    
+    nome = models.CharField(verbose_name='Nome', max_length=256, blank=True, null=True)
+    descricao = models.TextField(max_length=1024, blank=True, null=True)
+    imagem = models.CharField(max_length=256, blank=True, null=True)
+    link = models.CharField(verbose_name='Link do Projeto', max_length=512, blank=True, null=True)
+    data_criacao = models.DateTimeField(verbose_name='Data de Criação', default=timezone.now)
     def __str__(self):
         return self.nome
 

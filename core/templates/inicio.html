@@ -4,17 +4,17 @@
 {% block conteudo %}
 
 {% if mensagem %}
-  <script>
-    alert('{{ mensagem }}');
-  </script>
+<script>
+  alert('{{ mensagem }}');
+</script>
 {% endif %}
 
 {% if messages %}
-  {% for message in messages %}
-    <script>
-      alert('{{ message }}');
-    </script>
-  {% endfor %}
+{% for message in messages %}
+<script>
+  alert('{{ message }}');
+</script>
+{% endfor %}
 {% endif %}
 
 <!-- ======= Hero Section ======= -->
@@ -79,13 +79,13 @@
       <div class="row">
 
         {% for linha in grupo.informacao.linhas.all %}
-          <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bxl-dribbble"></i></div>
-              <h4 class="title"><a href="">{{ linha.nome }}</a></h4>
-              <p class="description">{{ linha.descricao }}</p>
-            </div>
+        <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+          <div class="icon-box">
+            <div class="icon"><i class="bx bxl-dribbble"></i></div>
+            <h4 class="title"><a href="">{{ linha.nome }}</a></h4>
+            <p class="description">{{ linha.descricao }}</p>
           </div>
+        </div>
         {% endfor %}
 
       </div>
@@ -133,7 +133,8 @@
       </div>
 
     </div>
-  </section> --><!-- End Portfolio Section -->
+  </section> -->
+  <!-- End Portfolio Section -->
 
   <!-- ======= F.A.Q Section ======= -->
   <section id="faq" class="faq section-bg">
@@ -151,13 +152,13 @@
           <div id="faq1" class="collapse show" data-parent=".faq-list">
             <ul>
               {% for publicacao in grupo.informacao.publicacoes.all %}
-                {% if publicacao.categoria == 'Livro' %}
-                  <p>
-                    {{ publicacao.nome }} - {{ publicacao.ano }}<br>{{ publicacao.descricao }}
-                  </p>
-                {% endif %}
+              {% if publicacao.categoria == 'Livro' %}
+              <p>
+                {{ publicacao.nome }} - {{ publicacao.ano }}<br>{{ publicacao.descricao }}
+              </p>
+              {% endif %}
               {% empty %}
-                <p>Ainda não há publicações dessa categoria disponíveis.</p>
+              <p>Ainda não há publicações dessa categoria disponíveis.</p>
               {% endfor %}
             </ul>
           </div>
@@ -168,47 +169,49 @@
           <div id="faq2" class="collapse" data-parent=".faq-list">
             <ul>
               {% for publicacao in grupo.informacao.publicacoes.all %}
-                {% if publicacao.categoria == 'Journal Papers' %}
-                  <p>
-                    {{ publicacao.nome }} - {{ publicacao.ano }}<br>{{ publicacao.descricao }}
-                  </p>
-                {% endif %}
+              {% if publicacao.categoria == 'Journal Papers' %}
+              <p>
+                {{ publicacao.nome }} - {{ publicacao.ano }}<br>{{ publicacao.descricao }}
+              </p>
+              {% endif %}
               {% empty %}
-                <p>Ainda não há publicações dessa categoria disponíveis.</p>
+              <p>Ainda não há publicações dessa categoria disponíveis.</p>
               {% endfor %}
             </ul>
           </div>
         </li>
 
         <li data-aos="fade-up" data-aos-delay="300">
-          <a data-toggle="collapse" href="#faq3" class="collapsed">Conference Papers <i class="icofont-simple-up"></i></a>
+          <a data-toggle="collapse" href="#faq3" class="collapsed">Conference Papers <i
+              class="icofont-simple-up"></i></a>
           <div id="faq3" class="collapse" data-parent=".faq-list">
             <ul>
               {% for publicacao in grupo.informacao.publicacoes.all %}
-                {% if publicacao.categoria == 'Conference Papers' %}
-                  <p>
-                    {{ publicacao.nome }} - {{ publicacao.ano }}<br>{{ publicacao.descricao }}
-                  </p>
-                {% endif %}
+              {% if publicacao.categoria == 'Conference Papers' %}
+              <p>
+                {{ publicacao.nome }} - {{ publicacao.ano }}<br>{{ publicacao.descricao }}
+              </p>
+              {% endif %}
               {% empty %}
-                <p>Ainda não há publicações dessa categoria disponíveis.</p>
+              <p>Ainda não há publicações dessa categoria disponíveis.</p>
               {% endfor %}
             </ul>
           </div>
         </li>
 
         <li data-aos="fade-up" data-aos-delay="400">
-          <a data-toggle="collapse" href="#faq4" class="collapsed">Keynote Speeches <i class="icofont-simple-up"></i></a>
+          <a data-toggle="collapse" href="#faq4" class="collapsed">Keynote Speeches <i
+              class="icofont-simple-up"></i></a>
           <div id="faq4" class="collapse" data-parent=".faq-list">
             <ul>
               {% for publicacao in grupo.informacao.publicacoes.all %}
-                {% if publicacao.categoria == 'Keynote Speeches' %}
-                  <p>
-                    {{ publicacao.nome }} - {{ publicacao.ano }}<br>{{ publicacao.descricao }}
-                  </p>
-                {% endif %}
+              {% if publicacao.categoria == 'Keynote Speeches' %}
+              <p>
+                {{ publicacao.nome }} - {{ publicacao.ano }}<br>{{ publicacao.descricao }}
+              </p>
+              {% endif %}
               {% empty %}
-                <p>Ainda não há publicações dessa categoria disponíveis.</p>
+              <p>Ainda não há publicações dessa categoria disponíveis.</p>
               {% endfor %}
             </ul>
           </div>
@@ -219,13 +222,13 @@
           <div id="faq5" class="collapse" data-parent=".faq-list">
             <ul>
               {% for publicacao in grupo.informacao.publicacoes.all %}
-                {% if publicacao.categoria == 'Outro' %}
-                  <p>
-                    {{ publicacao.nome }} - {{ publicacao.ano }}<br>{{ publicacao.descricao }}
-                  </p>
-                {% endif %}
+              {% if publicacao.categoria == 'Outro' %}
+              <p>
+                {{ publicacao.nome }} - {{ publicacao.ano }}<br>{{ publicacao.descricao }}
+              </p>
+              {% endif %}
               {% empty %}
-                <p>Ainda não há publicações dessa categoria disponíveis.</p>
+              <p>Ainda não há publicações dessa categoria disponíveis.</p>
               {% endfor %}
             </ul>
           </div>
@@ -235,6 +238,37 @@
 
     </div>
   </section><!-- End F.A.Q Section -->
+
+  <section id="portfolio" class="portfolio">
+    <div class="container">
+
+      <div class="section-title" data-aos="fade-up">
+        <h2>Portifólio</h2>
+        <p>Conheça algumas dos nossos projetos</p>
+      </div>
+
+      <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
+        {% for projeto in grupo.informacao.projetos.all %}
+        <div class="col-lg-4 col-md-6 portfolio-item">
+          <div class="portfolio-wrap">
+            <img src="{{ projeto.imagem }}" class="img-fluid" alt="">
+            {% if projeto.link %}
+            <div class="portfolio-links">
+              <a href="{{ projeto.link }}" title="Mais Detalhes"><i class="icofont-link"></i></a>
+            </div>
+            {% endif %}
+            <div class="portfolio-info">
+              <h4>{{ projeto.nome }}</h4>
+              <p>{{ projeto.tipo }}</p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+
+    </div>
+  </section><!-- End Portfolio Section -->
 
   <!-- ======= Team Section ======= -->
   <section id="team" class="team">
@@ -248,24 +282,25 @@
       <div class="row">
 
         {% for integrante in grupo.informacao.pesquisadores.all %}
-          <div class="col-xl-3 col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
-            <div class="member show-descricao">
-              <img src="{{ integrante.imagem }}" class="img-fluid" alt="{{ integrante.nome }}">
-              <div class="member-info">
-                <div class="member-info-content">
-                  <h4>{{ integrante.nome }}</h4>
-                  <span>{{ integrante.descricao }}</span>
-                </div>
-                <div class="social">
-                  {% if integrante.lattes %}<a href="{{ integrante.lattes }}"><i class="icofont-external-link"></i></a>{% endif %}
-                  <!-- <a><i class="icofont-rounded-down show-descricao" alt="Descrição"></i></a> -->
-                </div>
+        <div class="col-xl-3 col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
+          <div class="member show-descricao">
+            <img src="{{ integrante.imagem }}" class="img-fluid" alt="{{ integrante.nome }}">
+            <div class="member-info">
+              <div class="member-info-content">
+                <h4>{{ integrante.nome }}</h4>
+                <span>{{ integrante.descricao }}</span>
+              </div>
+              <div class="social">
+                {% if integrante.lattes %}<a href="{{ integrante.lattes }}"><i
+                    class="icofont-external-link"></i></a>{% endif %}
+                <!-- <a><i class="icofont-rounded-down show-descricao" alt="Descrição"></i></a> -->
               </div>
             </div>
-            <h6 class="descricao-completa text-justify">
-              {{integrante.descricao_completa}}
-            </h6>
           </div>
+          <h6 class="descricao-completa text-justify">
+            {{integrante.descricao_completa}}
+          </h6>
+        </div>
         {% endfor %}
 
       </div>
@@ -284,7 +319,7 @@
 
       <div class="owl-carousel clients-carousel" data-aos="fade-up" data-aos-delay="100">
         {% for instituicao in grupo.informacao.instituicoes.all %}
-          <img src="{{ instituicao.imagem }}" alt="{{ instituicao.nome }}">
+        <img src="{{ instituicao.imagem }}" alt="{{ instituicao.nome }}">
         {% endfor %}
       </div>
 
@@ -322,7 +357,8 @@
               <p>{{ grupo.informacao.sobre.telefone }}</p>
             </div>
 
-            <iframe src="{{ grupo.informacao.sobre.mapa }}" frameborder="0" style="border:0; width: 100%; height: 290px;" allowfullscreen></iframe>
+            <iframe src="{{ grupo.informacao.sobre.mapa }}" frameborder="0"
+              style="border:0; width: 100%; height: 290px;" allowfullscreen></iframe>
           </div>
 
         </div>
@@ -333,23 +369,27 @@
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="nome">Nome</label>
-                <input type="text" name="nome" class="form-control" id="nome" data-rule="minlen:4" data-msg="Por favor, digite pelo menos 4 caracteres" />
+                <input type="text" name="nome" class="form-control" id="nome" data-rule="minlen:4"
+                  data-msg="Por favor, digite pelo menos 4 caracteres" />
                 <div class="validate"></div>
               </div>
               <div class="form-group col-md-6">
                 <label for="email">E-mail</label>
-                <input type="email" class="form-control" name="email" id="email" data-rule="email" data-msg="Por favor, digite um e-mail válido" />
+                <input type="email" class="form-control" name="email" id="email" data-rule="email"
+                  data-msg="Por favor, digite um e-mail válido" />
                 <div class="validate"></div>
               </div>
             </div>
             <div class="form-group">
               <label for="assunto">Assunto</label>
-              <input type="text" class="form-control" name="assunto" id="assunto" data-rule="minlen:4" data-msg="Por favor, digite pelo menos 8 caracteres" />
+              <input type="text" class="form-control" name="assunto" id="assunto" data-rule="minlen:4"
+                data-msg="Por favor, digite pelo menos 8 caracteres" />
               <div class="validate"></div>
             </div>
             <div class="form-group">
               <label for="mensagem">Mensagem</label>
-              <textarea class="form-control" name="mensagem" rows="10" data-rule="required" data-msg="Por favor, escreva uma mensagem"></textarea>
+              <textarea class="form-control" name="mensagem" rows="10" data-rule="required"
+                data-msg="Por favor, escreva uma mensagem"></textarea>
               <div class="validate"></div>
             </div>
             <div class="mb-3">
@@ -357,7 +397,8 @@
               <div class="error-message"></div>
               <div class="sent-message">Sua mensagem foi enviado. Obrigado!</div>
             </div>
-            <div class="text-center"><button type="submit" onclick="document.getElementById('formulario').submit();">Enviar</button></div>
+            <div class="text-center"><button type="submit"
+                onclick="document.getElementById('formulario').submit();">Enviar</button></div>
           </form>
         </div>
 
@@ -411,7 +452,7 @@
             <li><i class="bx bx-chevron-right"></i> <a href="#">Projetos</a></li>
             <li><i class="bx bx-chevron-right"></i> <a href="#">Produções</a></li>
             <li><i class="bx bx-chevron-right"></i> <a href="#">Serviços</a></li>
-            <li><i class="bx bx-chevron-right"></i> <a href="#">Portfólio</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="#portfolio">Portfólio</a></li>
             <li><i class="bx bx-chevron-right"></i> <a href="#team">Pesquisadores</a></li>
             <li><i class="bx bx-chevron-right"></i> <a href="#clients">Parceiros</a></li>
             <li><i class="bx bx-chevron-right"></i> <a href="#contact">Contato</a></li>
@@ -443,7 +484,8 @@
     </div>
 
     <div>
-      Desenvolvido por <a href="http://lasco.ufpi.br/"><img src="{% static 'assets/img/lasco.png' %}" height="100" alt="LASCÔ"/></a>
+      Desenvolvido por <a href="http://lasco.ufpi.br/"><img src="{% static 'assets/img/lasco.png' %}" height="100"
+          alt="LASCÔ" /></a>
     </div>
 
     <div class="credits">

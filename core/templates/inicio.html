@@ -81,6 +81,35 @@
     </div>
   </section><!-- End Services Section -->
 
+
+  <section id="projetos" class="team faq">
+    <div class="container">
+
+      <div class="section-title" data-aos="fade-up">
+        <h2>Projetos</h2>
+        <p>Esses são as nossos principais projetos</p>
+      </div>
+
+      <ul class="faq-list">
+        {% for projeto in grupo.informacao.projetos.all %}
+          <li data-aos="fade-up" data-aos-delay="100">
+            <a data-toggle="collapse" class="collapsed" aria-expanded="false"  href="#projeto{{projeto.id}}">{{projeto.titulo}}<i class="icofont-simple-down"></i></a>
+            <div id="projeto{{projeto.id}}" class="collapse row" data-parent=".faq-list">
+              <div class="col-lg-2 col-sm-12 col-xs-12 col-md-12 mr-0">
+                <p style="color: #eb5d1e; font-weight: bold;">{{projeto.data_inicio.year}} {% if projeto.data_fim %} - {{projeto.data_fim.year}} {% else %} - Atual {% endif %}</p>
+              </div>
+              <div class="col-lg-10 col-sm-10 col-xs-10 col-md-10 ml-0 text-justify">
+                <p>Descrição: {{projeto.descricao}}</p>
+                <p>Integrantes: {{projeto.coordenador}} - Coordenador{% for integrante in projeto.integrantes.all %} / {{integrante}} - Integrante{% endfor %}</p>
+              </div>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+
+    </div>
+  </section><!-- End F.A.Q Section -->
+
   <!-- ======= Portfolio Section ======= -->
   <!-- <section id="portfolio" class="portfolio">
     <div class="container">

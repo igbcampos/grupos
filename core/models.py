@@ -127,14 +127,29 @@ class Premiacao(models.Model):
         verbose_name = 'Premiação'
         verbose_name_plural = 'Premiações'
 
-# Projeto
+# Portifolio
 
-class Projeto(models.Model):
+class Portifolio(models.Model):
     nome = models.CharField(max_length=256, blank=True, null=True)
     descricao = models.CharField(max_length=1024, blank=True, null=True)
     
     def __str__(self):
         return self.nome
+
+    class Meta():
+        verbose_name = 'Portifolio'
+        verbose_name_plural = 'Portifolios'
+
+#Projeto
+class Projeto(models.Model):
+    titulo = models.CharField(max_length=256, blank=True, null=True)
+    descricao = models.TextField(max_length=1024, blank=True, null=True)
+    coordenador = models.ForeignKey(Pesquisador, related_name='coordenador', null=True, blank=True, on_delete=models.CASCADE)
+    integrantes = models.ManyToManyField(Pesquisador)
+    data_inicio = models.DateField(blank=True, null=True)
+    data_fim = models.DateField(blank=True, null=True)
+    def __str__(self):
+        return self.titulo
 
     class Meta():
         verbose_name = 'Projeto'
@@ -149,6 +164,7 @@ class Informacao(models.Model):
     linhas = models.ManyToManyField(Linha)
     publicacoes = models.ManyToManyField(Publicacao)
     premiacoes = models.ManyToManyField(Premiacao)
+    portifolio = models.ManyToManyField(Portifolio)
     projetos = models.ManyToManyField(Projeto)
     
     def __str__(self):

@@ -257,7 +257,8 @@
                   <span>{{ integrante.descricao }}</span>
                 </div>
                 <div class="social">
-                  {% if integrante.lattes %}<a href="{{ integrante.lattes }}"><i class="icofont-external-link"></i></a>{% endif %}
+                  {% if integrante.lattes %}<a href="{{ integrante.lattes }}" title="Currículo Lattes"><i class="ai ai-lattes"></i></a>{% endif %}
+                  {% if integrante.orcid %}<a href="{{ integrante.orcid }}" title="Orcid"><i class="ai ai-orcid"></i></a>{% endif %}
                   <!-- <a><i class="icofont-rounded-down show-descricao" alt="Descrição"></i></a> -->
                 </div>
               </div>

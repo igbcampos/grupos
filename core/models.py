@@ -166,6 +166,10 @@ class Informacao(models.Model):
     premiacoes = models.ManyToManyField(Premiacao)
     portifolio = models.ManyToManyField(Portifolio)
     projetos = models.ManyToManyField(Projeto)
+    imagem_infraestrutura1 = models.CharField(max_length=256, blank=True, null=True)
+    imagem_infraestrutura2 = models.CharField(max_length=256, blank=True, null=True)
+    imagem_infraestrutura3 = models.CharField(max_length=256, blank=True, null=True)
+    descricao_infraestrutura = models.TextField(max_length=1024, blank=True, null=True)
     
     def __str__(self):
         return self.sobre.nome

@@ -105,8 +105,8 @@
       <ul class="faq-list">
         {% for projeto in grupo.informacao.projetos.all %}
           <li data-aos="fade-up" data-aos-delay="100">
-            <a data-toggle="collapse" class="collapsed" aria-expanded="false"  href="#faq{{projeto.id}}">{{projeto.titulo}}<i class="icofont-simple-down"></i></a>
-            <div id="faq{{projeto.id}}" class="collapse row" data-parent=".faq-list">
+            <a data-toggle="collapse" class="collapsed" aria-expanded="false"  href="#projeto{{projeto.id}}">{{projeto.titulo}}<i class="icofont-simple-down"></i></a>
+            <div id="projeto{{projeto.id}}" class="collapse row" data-parent=".faq-list">
               <div class="col-lg-2 col-sm-12 col-xs-12 col-md-12 mr-0">
                 <p style="color: #eb5d1e; font-weight: bold;">{{projeto.data_inicio.year}} {% if projeto.data_fim %} - {{projeto.data_fim.year}} {% else %} - Atual {% endif %}</p>
               </div>

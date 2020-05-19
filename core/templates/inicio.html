@@ -55,32 +55,31 @@
     </div>
   </section><!-- End About Section -->
 
-  <!-- ======= F.A.Q Section ======= -->
-  <section id="services" class="faq section-bg">
+  <!-- ======= Services Section ======= -->
+  <section id="servicos" class="services section-bg">
     <div class="container">
 
       <div class="section-title" data-aos="fade-up">
-        <h2>Linhas de Pesquisa</h2>
-        <p>Saiba as principais áreas que atuamos</p>
+        <h2>Serviços</h2>
+        <p>Saiba os serviços que nós oferecemos</p>
       </div>
 
-      <ul class="faq-list">
+      <div class="row">
 
-        {% for linha in grupo.informacao.linhas.all %}
-
-          <li data-aos="fade-up" data-aos-delay="100">
-            <a data-toggle="collapse" href="#faq{{ forloop.counter }}" class="collapsed">{{ linha.nome }} <i class="icofont-simple-up"></i></a>
-            <div id="faq{{ forloop.counter }}" class="collapse" data-parent=".faq-list">
-              <p>{{ linha.descricao }}</p>
+        {% for servico in grupo.informacao.servicos.all %}
+          <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+            <div class="icon-box">
+              <div class="icon"><i class="bx bxs-cog"></i></div>
+              <h4 class="title"><a href="">{{ servico.nome }}</a></h4>
+              <p class="description">{{ servico.descricao }}</p>
             </div>
-          </li>
-
+          </div>
         {% endfor %}
 
-      </ul>
+      </div>
 
     </div>
-  </section><!-- End F.A.Q Section -->
+  </section>
 
 
   <section id="projetos" class="team faq">
@@ -446,7 +445,7 @@
             <li><i class="bx bx-chevron-right"></i> <a href="#team">Pesquisadores</a></li>
             <li><i class="bx bx-chevron-right"></i> <a href="#products">Produções</a></li>
             <li><i class="bx bx-chevron-right"></i> <a href="#projects">Projetos</a></li>
-            <li><i class="bx bx-chevron-right"></i> <a href="#services">Serviços</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="#servicos">Serviços</a></li>
             <li><i class="bx bx-chevron-right"></i> <a href="#portfolio">Portfólio</a></li> 
             <li><i class="bx bx-chevron-right"></i> <a href="#infrastructure">Infraestrutura</a></li>          
             <li><i class="bx bx-chevron-right"></i> <a href="#clients">Parceiros</a></li>

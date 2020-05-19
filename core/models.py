@@ -96,6 +96,19 @@ class Linha(models.Model):
         verbose_name = 'Linha de Pesquisa'
         verbose_name_plural = 'Linhas de Pesquisa'
 
+# Serviço
+
+class Servico(models.Model):
+    nome = models.CharField(max_length=256, blank=True, null=True)
+    descricao = models.CharField(max_length=1024, blank=True, null=True)
+    
+    def __str__(self):
+        return self.nome
+
+    class Meta():
+        verbose_name = 'Serviço'
+        verbose_name_plural = 'Serviços'
+
 # Publicação
 
 class Publicacao(models.Model):
@@ -200,6 +213,7 @@ class Informacao(models.Model):
     pesquisadores = models.ManyToManyField(Pesquisador)
     instituicoes = models.ManyToManyField(Instituicao)
     linhas = models.ManyToManyField(Linha)
+    servicos = models.ManyToManyField(Servico)
     publicacoes = models.ManyToManyField(Publicacao)
     premiacoes = models.ManyToManyField(Premiacao)
     portifolio = models.ManyToManyField(Portifolio)

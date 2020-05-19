@@ -56,8 +56,9 @@ class Pesquisador(models.Model):
     nome = models.CharField(max_length=256, blank=True, null=True)
     imagem = models.CharField(max_length=256, blank=True, null=True)
     descricao = models.CharField(max_length=1024, blank=True, null=True)
+    descricao_completa = models.TextField(max_length=300, blank=True, null=True)
     lattes = models.CharField(max_length=256, blank=True, null=True)
-    
+    orcid = models.CharField(max_length=256, blank=True, null=True)
     def __str__(self):
         return self.nome
 
@@ -78,8 +79,8 @@ class Instituicao(models.Model):
         return self.nome
 
     class Meta():
-        verbose_name = 'Instituição'
-        verbose_name_plural = 'Instituições'
+        verbose_name = 'Parceiros/Colaboradores'
+        verbose_name_plural = 'Parceiros/Colaboradores'
 
 # Linha de Pesquisa
 
@@ -92,25 +93,76 @@ class Linha(models.Model):
         return self.nome
 
     class Meta():
-        verbose_name = 'Linha'
-        verbose_name_plural = 'Linhass'
+        verbose_name = 'Linha de Pesquisa'
+        verbose_name_plural = 'Linhas de Pesquisa'
 
-# Publicação
+# Serviço
 
-class Publicacao(models.Model):
-    categorias = [('Livro', 'Livro'), ('Journal Papers', 'Journal Papers'), ('Conference Papers', 'Conference Papers'), ('Keynote Speeches', 'Keynote Speeches'), ('Outro', 'Outro')]
-
+class Servico(models.Model):
     nome = models.CharField(max_length=256, blank=True, null=True)
-    ano = models.CharField(max_length=256, blank=True, null=True)
     descricao = models.CharField(max_length=1024, blank=True, null=True)
-    categoria = models.CharField(max_length=256, blank=True, null=True, choices=categorias)
     
     def __str__(self):
         return self.nome
 
     class Meta():
-        verbose_name = 'Publicação'
-        verbose_name_plural = 'Publicações'
+        verbose_name = 'Serviço'
+        verbose_name_plural = 'Serviços'
+
+# Publicação
+
+class Publicacao(models.Model):
+    categorias = [
+        ('Produção Bibliográfica', 'Produção Bibliográfica'),
+        ('Produção Técnica', 'Produção Técnica'),
+        ('Outra produção artística/cultural', 'Outra produção artística/cultural')
+    ]
+
+    subcategorias = [
+        ('Artigos completos publicados em periódicos', 'Artigos completos publicados em periódicos'),
+        ('Artigos aceitos para publicação', 'Artigos aceitos para publicação'),
+        ('Livros e capítulos', 'Livros e capítulos'),
+        ('Texto em jornal ou revista (magazine)', 'Texto em jornal ou revista (magazine)'),
+        ('Trabalhos publicados em anais de eventos', 'Trabalhos publicados em anais de eventos'),
+        ('Apresentação de trabalho e palestra', 'Apresentação de trabalho e palestra'),
+        ('Partitura musical', 'Partitura musical'),
+        ('Tradução', 'Tradução'),
+        ('Prefácio, posfácio', 'Prefácio, posfácio'),
+        ('Outra produção bibliográfica', 'Outra produção bibliográfica'),
+        ('Assessoria e consultoria', 'Assessoria e consultoria'),
+        ('Extensão tecnológica', 'Extensão tecnológica'),
+        ('Programa de computador sem registro', 'Programa de computador sem registro'),
+        ('Produtos', 'Produtos'),
+        ('Processos ou técnicas', 'Processos ou técnicas'),
+        ('Trabalhos técnicos', 'Trabalhos técnicos'),
+        ('Cartas, mapas ou similares', 'Cartas, mapas ou similares'),
+        ('Curso de curta duração ministrado', 'Curso de curta duração ministrado'),
+        ('Desenvolvimento de material didático ou instrucional', 'Desenvolvimento de material didático ou instrucional'),
+        ('Editoração', 'Editoração'),
+        ('Manutenção de obra artística', 'Manutenção de obra artística'),
+        ('Maquete', 'Maquete'),
+        ('Entrevistas, mesas redondas, programas e comentários na mídia', 'Entrevistas, mesas redondas, programas e comentários na mídia'),
+        ('Relatório de pesquisa', 'Relatório de pesquisa'),
+        ('Redes sociais, websites e blogs', 'Redes sociais, websites e blogs'),
+        ('Outra produção técnica', 'Outra produção técnica'),
+        ('Artes cênicas', 'Artes cênicas'),
+        ('Música', 'Música'),
+        ('Artes visuais', 'Artes visuais'),
+        ('Outra produção artística/cultural', 'Outra produção artística/cultural')
+    ]
+
+    nome = models.CharField(max_length=256, blank=True, null=True)
+    ano = models.CharField(max_length=256, blank=True, null=True)
+    descricao = models.CharField(max_length=1024, blank=True, null=True)
+    categoria = models.CharField(max_length=256, blank=True, null=True, choices=categorias)
+    subcategoria = models.CharField(max_length=256, blank=True, null=True, choices=subcategorias)
+    
+    def __str__(self):
+        return self.nome
+
+    class Meta():
+        verbose_name = 'Produção'
+        verbose_name_plural = 'Produções'
 
 # Premiação
 
@@ -126,14 +178,29 @@ class Premiacao(models.Model):
         verbose_name = 'Premiação'
         verbose_name_plural = 'Premiações'
 
-# Projeto
+# Portifolio
 
-class Projeto(models.Model):
+class Portifolio(models.Model):
     nome = models.CharField(max_length=256, blank=True, null=True)
     descricao = models.CharField(max_length=1024, blank=True, null=True)
     
     def __str__(self):
         return self.nome
+
+    class Meta():
+        verbose_name = 'Portifolio'
+        verbose_name_plural = 'Portifolios'
+
+#Projeto
+class Projeto(models.Model):
+    titulo = models.CharField(max_length=256, blank=True, null=True)
+    descricao = models.TextField(max_length=1024, blank=True, null=True)
+    coordenador = models.ForeignKey(Pesquisador, related_name='coordenador', null=True, blank=True, on_delete=models.CASCADE)
+    integrantes = models.ManyToManyField(Pesquisador)
+    data_inicio = models.DateField(blank=True, null=True)
+    data_fim = models.DateField(blank=True, null=True)
+    def __str__(self):
+        return self.titulo
 
     class Meta():
         verbose_name = 'Projeto'
@@ -146,9 +213,15 @@ class Informacao(models.Model):
     pesquisadores = models.ManyToManyField(Pesquisador)
     instituicoes = models.ManyToManyField(Instituicao)
     linhas = models.ManyToManyField(Linha)
+    servicos = models.ManyToManyField(Servico)
     publicacoes = models.ManyToManyField(Publicacao)
     premiacoes = models.ManyToManyField(Premiacao)
+    portifolio = models.ManyToManyField(Portifolio)
     projetos = models.ManyToManyField(Projeto)
+    imagem_infraestrutura1 = models.CharField(max_length=256, blank=True, null=True)
+    imagem_infraestrutura2 = models.CharField(max_length=256, blank=True, null=True)
+    imagem_infraestrutura3 = models.CharField(max_length=256, blank=True, null=True)
+    descricao_infraestrutura = models.TextField(max_length=1024, blank=True, null=True)
     
     def __str__(self):
         return self.sobre.nome

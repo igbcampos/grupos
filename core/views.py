@@ -4,7 +4,20 @@ from .models import Grupo
 def inicio(request, grupo):
     grupo = get_object_or_404(Grupo, sigla=grupo)
 
+    categorias = []
+    subcategorias = []
+
+    for publicacao in grupo.informacoes.first().publicacoes.all():
+        if publicacao.categoria not in categorias:
+            categorias.append(publicacao.categoria)
+        if publicacao.subcategoria not in subcategorias:
+            subcategorias.append(publicacao.subcategoria)
+
+    print(categorias, subcategorias)
+
     setattr(grupo, 'informacao', grupo.informacoes.first)
+    setattr(grupo, 'categorias', categorias)
+    setattr(grupo, 'subcategorias', subcategorias)
 
     contexto = {'grupo': grupo}
 

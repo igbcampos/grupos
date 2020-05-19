@@ -55,8 +55,8 @@
     </div>
   </section><!-- End About Section -->
 
-  <!-- ======= Services Section ======= -->
-  <section id="servicos" class="services section-bg">
+  <!-- ======= F.A.Q Section ======= -->
+  <section id="services" class="faq section-bg">
     <div class="container">
 
       <div class="section-title" data-aos="fade-up">
@@ -64,7 +64,7 @@
         <p>Saiba os serviços que nós oferecemos</p>
       </div>
 
-      <div class="row">
+      <ul class="faq-list">
 
         {% for servico in grupo.informacao.servicos.all %}
           <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
@@ -73,13 +73,14 @@
               <h4 class="title"><a href="">{{ servico.nome }}</a></h4>
               <p class="description">{{ servico.descricao }}</p>
             </div>
-          </div>
+          </li>
+
         {% endfor %}
 
-      </div>
+      </ul>
 
     </div>
-  </section><!-- End Services Section -->
+  </section><!-- End F.A.Q Section -->
 
 
   <section id="projetos" class="team faq">
@@ -157,101 +158,100 @@
     <div class="container">
 
       <div class="section-title" data-aos="fade-up">
-        <h2>Publicações</h2>
-        <p>Essas são as nossas principais publicações</p>
+        <h2>Produções</h2>
+        <p>Essas são as nossas principais produções</p>
       </div>
+      
+      <!-- <div>
+        {% for categoria in grupo.categorias %}
+          <a data-toggle="collapse">{{ categoria }} </p>
+        {% endfor %}
+      </div> -->
+
+      <ul class="faq-list" style="display: flex; flex-direction: row; justify-content: space-evenly;">
+        {% for categoria in grupo.categorias %}
+          <a data-toggle="collapse" class="collapsed categorias" onclick="selecionarCategoria('{{categoria}}')">{{ categoria }}</a>
+        {% endfor %}
+      </ul>
+      
+      <br>
 
       <ul class="faq-list">
-
-        <li data-aos="fade-up" data-aos-delay="100">
-          <a data-toggle="collapse" class="" href="#faq1">Livros <i class="icofont-simple-up"></i></a>
-          <div id="faq1" class="collapse show" data-parent=".faq-list">
-            <ul>
-              {% for publicacao in grupo.informacao.publicacoes.all %}
-                {% if publicacao.categoria == 'Livro' %}
-                  <p>
-                    {{ publicacao.nome }} - {{ publicacao.ano }}<br>{{ publicacao.descricao }}
-                  </p>
-                {% endif %}
-              {% empty %}
-                <p>Ainda não há publicações dessa categoria disponíveis.</p>
-              {% endfor %}
-            </ul>
-          </div>
-        </li>
-
-        <li data-aos="fade-up" data-aos-delay="200">
-          <a data-toggle="collapse" href="#faq2" class="collapsed">Jornal Papers <i class="icofont-simple-up"></i></a>
-          <div id="faq2" class="collapse" data-parent=".faq-list">
-            <ul>
-              {% for publicacao in grupo.informacao.publicacoes.all %}
-                {% if publicacao.categoria == 'Journal Papers' %}
-                  <p>
-                    {{ publicacao.nome }} - {{ publicacao.ano }}<br>{{ publicacao.descricao }}
-                  </p>
-                {% endif %}
-              {% empty %}
-                <p>Ainda não há publicações dessa categoria disponíveis.</p>
-              {% endfor %}
-            </ul>
-          </div>
-        </li>
-
-        <li data-aos="fade-up" data-aos-delay="300">
-          <a data-toggle="collapse" href="#faq3" class="collapsed">Conference Papers <i class="icofont-simple-up"></i></a>
-          <div id="faq3" class="collapse" data-parent=".faq-list">
-            <ul>
-              {% for publicacao in grupo.informacao.publicacoes.all %}
-                {% if publicacao.categoria == 'Conference Papers' %}
-                  <p>
-                    {{ publicacao.nome }} - {{ publicacao.ano }}<br>{{ publicacao.descricao }}
-                  </p>
-                {% endif %}
-              {% empty %}
-                <p>Ainda não há publicações dessa categoria disponíveis.</p>
-              {% endfor %}
-            </ul>
-          </div>
-        </li>
-
-        <li data-aos="fade-up" data-aos-delay="400">
-          <a data-toggle="collapse" href="#faq4" class="collapsed">Keynote Speeches <i class="icofont-simple-up"></i></a>
-          <div id="faq4" class="collapse" data-parent=".faq-list">
-            <ul>
-              {% for publicacao in grupo.informacao.publicacoes.all %}
-                {% if publicacao.categoria == 'Keynote Speeches' %}
-                  <p>
-                    {{ publicacao.nome }} - {{ publicacao.ano }}<br>{{ publicacao.descricao }}
-                  </p>
-                {% endif %}
-              {% empty %}
-                <p>Ainda não há publicações dessa categoria disponíveis.</p>
-              {% endfor %}
-            </ul>
-          </div>
-        </li>
-
-        <li data-aos="fade-up" data-aos-delay="500">
-          <a data-toggle="collapse" href="#faq5" class="collapsed">Outros <i class="icofont-simple-up"></i></a>
-          <div id="faq5" class="collapse" data-parent=".faq-list">
-            <ul>
-              {% for publicacao in grupo.informacao.publicacoes.all %}
-                {% if publicacao.categoria == 'Outro' %}
-                  <p>
-                    {{ publicacao.nome }} - {{ publicacao.ano }}<br>{{ publicacao.descricao }}
-                  </p>
-                {% endif %}
-              {% empty %}
-                <p>Ainda não há publicações dessa categoria disponíveis.</p>
-              {% endfor %}
-            </ul>
-          </div>
-        </li>
-
+        {% for subcategoria in grupo.subcategorias %}
+          <li data-aos="fade-up" data-aos-delay="100">
+            <a data-toggle="collapse" href="#faq{{forloop.counter}}" class="collapsed">{{ subcategoria }} <i class="icofont-simple-up"></i></a>
+            <div id="faq{{forloop.counter}}" class="collapse" data-parent=".faq-list">
+              <ul>
+                {% for publicacao in grupo.informacao.publicacoes.all %}
+                  {% if publicacao.subcategoria == subcategoria %}
+                    <p class="producao {{publicacao.categoria}}">
+                      {{ publicacao.nome }} - {{ publicacao.ano }}<br>{{ publicacao.descricao }}
+                    </p>
+                  {% endif %}
+                {% empty %}
+                  <p>Ainda não há publicações dessa categoria disponíveis.</p>
+                {% endfor %}
+              </ul>
+            </div>
+          </li>
+        {% endfor %}
       </ul>
 
     </div>
   </section><!-- End F.A.Q Section -->
+
+  <!-- ======= Infrastructure Section ======= -->
+  <section id="infrastructure" class="infrastructure">
+    <div class="container">
+      
+      <div class="section-title" data-aos="fade-up">
+        <h2>Infraestrutura</h2>
+        <p>Conheça um pouco a infraestrutura do nosso laboratório</p>
+      </div>
+
+      <div class="row justify-content-between">
+        <div class="col-lg-5 d-flex align-items-center justify-content-center about-img">
+          <div id="demo" class="carousel slide" data-ride="carousel">
+
+            <!-- Indicators -->
+            <ul class="carousel-indicators">
+              <li data-target="#demo" data-slide-to="0" class="active"></li>
+              <li data-target="#demo" data-slide-to="1"></li>
+              <li data-target="#demo" data-slide-to="2"></li>
+            </ul>
+            
+            <!-- The slideshow -->
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="{{ grupo.informacao.imagem_infraestrutura1 }}" alt="" class="img-fluid" style="width: auto; height: 500px;">
+              </div>
+              <div class="carousel-item">
+                <img src="{{ grupo.informacao.imagem_infraestrutura2 }}" alt="" class="img-fluid" style="width: auto; height: 500px;">
+              </div>
+              <div class="carousel-item">
+                <img src="{{ grupo.informacao.imagem_infraestrutura3 }}" alt="" class="img-fluid" style="width: auto; height: 500px;">
+              </div>
+            </div>
+            
+            <!-- Left and right controls -->
+            <a class="carousel-control-prev" href="#demo" data-slide="prev">
+              <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a class="carousel-control-next" href="#demo" data-slide="next">
+              <span class="carousel-control-next-icon"></span>
+            </a>
+          </div>
+          <!--<img src="{{ grupo.informacao.imagem_infraestrutura2 }}" class="img-fluid" alt="" data-aos="zoom-in">!-->
+        </div>
+        <div class="col-lg-6 pt-5 pt-lg-0">
+          <p data-aos="fade-up" data-aos-delay="100">
+            {{ grupo.informacao.descricao_infraestrutura }}
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section><!-- End Infrastructure Section -->
 
   <!-- ======= Team Section ======= -->
   <section id="team" class="team">
@@ -387,7 +387,24 @@
 </main><!-- End #main -->
 
 <script>
-  console.log('{{grupo.informacao}}')
+  window.onload = () => {
+    let categoria = document.getElementsByClassName('categorias')[0].innerText;
+    
+    selecionarCategoria(categoria);
+  }
+
+  function selecionarCategoria(categoria) {
+    let producoes = document.getElementsByClassName('producao');
+
+    Object.values(producoes).map(producao => {
+      if(producao.classList.toString().includes(categoria)) {
+        producao.parentElement.parentElement.parentElement.hidden = false;
+      }
+      else {
+        producao.parentElement.parentElement.parentElement.hidden = true;
+      }
+    });
+  }
 </script>
 
 <!-- ======= Footer ======= -->

@@ -55,8 +55,8 @@
     </div>
   </section><!-- End About Section -->
 
-  <!-- ======= F.A.Q Section ======= -->
-  <section id="services" class="faq section-bg">
+  <!-- ======= Services Section ======= -->
+  <section id="servicos" class="services section-bg">
     <div class="container">
 
       <div class="section-title" data-aos="fade-up">
@@ -64,7 +64,7 @@
         <p>Saiba os serviços que nós oferecemos</p>
       </div>
 
-      <ul class="faq-list">
+      <div class="row">
 
         {% for servico in grupo.informacao.servicos.all %}
           <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
@@ -73,14 +73,13 @@
               <h4 class="title"><a href="">{{ servico.nome }}</a></h4>
               <p class="description">{{ servico.descricao }}</p>
             </div>
-          </li>
-
+          </div>
         {% endfor %}
 
-      </ul>
+      </div>
 
     </div>
-  </section><!-- End F.A.Q Section -->
+  </section>
 
 
   <section id="projetos" class="team faq">

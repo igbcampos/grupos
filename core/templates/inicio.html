@@ -49,18 +49,6 @@
           <p data-aos="fade-up" data-aos-delay="100">
             {{ grupo.informacao.sobre.descricao }}
           </p>
-          <div class="row">
-            <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
-              <i class="bx bx-receipt"></i>
-              <h4>Soluções para a Universidade</h4>
-              <p>Nossos projetos estão por toda a UFPI, facilitando a vida dos servidores e dos discentes</p>
-            </div>
-            <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
-              <i class="bx bx-cube-alt"></i>
-              <h4>Soluções para a Comunidade</h4>
-              <p>Estamos em contato direto com o mercado para desenvolver os melhores produtos</p>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -92,6 +80,35 @@
 
     </div>
   </section><!-- End Services Section -->
+
+
+  <section id="projetos" class="team faq">
+    <div class="container">
+
+      <div class="section-title" data-aos="fade-up">
+        <h2>Projetos</h2>
+        <p>Esses são as nossos principais projetos</p>
+      </div>
+
+      <ul class="faq-list">
+        {% for projeto in grupo.informacao.projetos.all %}
+          <li data-aos="fade-up" data-aos-delay="100">
+            <a data-toggle="collapse" class="collapsed" aria-expanded="false"  href="#projeto{{projeto.id}}">{{projeto.titulo}}<i class="icofont-simple-down"></i></a>
+            <div id="projeto{{projeto.id}}" class="collapse row" data-parent=".faq-list">
+              <div class="col-lg-2 col-sm-12 col-xs-12 col-md-12 mr-0">
+                <p style="color: #eb5d1e; font-weight: bold;">{{projeto.data_inicio.year}} {% if projeto.data_fim %} - {{projeto.data_fim.year}} {% else %} - Atual {% endif %}</p>
+              </div>
+              <div class="col-lg-10 col-sm-10 col-xs-10 col-md-10 ml-0 text-justify">
+                <p>Descrição: {{projeto.descricao}}</p>
+                <p>Integrantes: {{projeto.coordenador}} - Coordenador{% for integrante in projeto.integrantes.all %} / {{integrante}} - Integrante{% endfor %}</p>
+              </div>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+
+    </div>
+  </section><!-- End F.A.Q Section -->
 
   <!-- ======= Portfolio Section ======= -->
   <!-- <section id="portfolio" class="portfolio">
@@ -195,18 +212,23 @@
 
         {% for integrante in grupo.informacao.pesquisadores.all %}
           <div class="col-xl-3 col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
-            <div class="member">
-              <img src="{{ integrante.imagem }}" class="img-fluid" alt="">
+            <div class="member show-descricao">
+              <img src="{{ integrante.imagem }}" class="img-fluid" alt="{{ integrante.nome }}">
               <div class="member-info">
                 <div class="member-info-content">
                   <h4>{{ integrante.nome }}</h4>
                   <span>{{ integrante.descricao }}</span>
                 </div>
                 <div class="social">
-                  {% if integrante.lattes %}<a href="{{ integrante.lattes }}"><i class="icofont-external-link"></i></a>{% endif %}
+                  {% if integrante.lattes %}<a href="{{ integrante.lattes }}" title="Currículo Lattes"><i class="ai ai-lattes"></i></a>{% endif %}
+                  {% if integrante.orcid %}<a href="{{ integrante.orcid }}" title="Orcid"><i class="ai ai-orcid"></i></a>{% endif %}
+                  <!-- <a><i class="icofont-rounded-down show-descricao" alt="Descrição"></i></a> -->
                 </div>
               </div>
             </div>
+            <h6 class="descricao-completa text-justify">
+              {{integrante.descricao_completa}}
+            </h6>
           </div>
         {% endfor %}
 
@@ -220,8 +242,8 @@
     <div class="container">
 
       <div class="section-title" data-aos="fade-up">
-        <h2>Instituições</h2>
-        <p>Instituições que colaboram</p>
+        <h2>Parceiros</h2>
+        <p>Parceiros e colaboradores</p>
       </div>
 
       <div class="owl-carousel clients-carousel" data-aos="fade-up" data-aos-delay="100">
@@ -366,9 +388,15 @@
           <ul>
             <li><i class="bx bx-chevron-right"></i> <a href="">Início</a></li>
             <li><i class="bx bx-chevron-right"></i> <a href="#about">Sobre</a></li>
-            <li><i class="bx bx-chevron-right"></i> <a href="#faq">Publicações</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="#services">Linhas de Pesquisa</a></li>
             <li><i class="bx bx-chevron-right"></i> <a href="#team">Pesquisadores</a></li>
-            <li><i class="bx bx-chevron-right"></i> <a href="#team">Equipe</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="#products">Produções</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="#projects">Projetos</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="#services">Serviços</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="#portfolio">Portfólio</a></li> 
+            <li><i class="bx bx-chevron-right"></i> <a href="#infrastructure">Infraestrutura</a></li>          
+            <li><i class="bx bx-chevron-right"></i> <a href="#clients">Parceiros</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="#contact">Contato</a></li>
           </ul>
         </div>
 

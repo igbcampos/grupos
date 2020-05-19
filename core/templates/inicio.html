@@ -55,8 +55,8 @@
     </div>
   </section><!-- End About Section -->
 
-  <!-- ======= Services Section ======= -->
-  <section id="services" class="services section-bg">
+  <!-- ======= F.A.Q Section ======= -->
+  <section id="services" class="faq section-bg">
     <div class="container">
 
       <div class="section-title" data-aos="fade-up">
@@ -64,22 +64,23 @@
         <p>Saiba as principais áreas que atuamos</p>
       </div>
 
-      <div class="row">
+      <ul class="faq-list">
 
         {% for linha in grupo.informacao.linhas.all %}
-          <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bxl-dribbble"></i></div>
-              <h4 class="title"><a href="">{{ linha.nome }}</a></h4>
-              <p class="description">{{ linha.descricao }}</p>
+
+          <li data-aos="fade-up" data-aos-delay="100">
+            <a data-toggle="collapse" href="#faq{{ forloop.counter }}" class="collapsed">{{ linha.nome }} <i class="icofont-simple-up"></i></a>
+            <div id="faq{{ forloop.counter }}" class="collapse" data-parent=".faq-list">
+              <p>{{ linha.descricao }}</p>
             </div>
-          </div>
+          </li>
+
         {% endfor %}
 
-      </div>
+      </ul>
 
     </div>
-  </section><!-- End Services Section -->
+  </section><!-- End F.A.Q Section -->
 
 
   <section id="projetos" class="team faq">

@@ -35,6 +35,19 @@
     .descricao-completa {
       visibility: hidden;
     }
+
+    .footer-end {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    @media (max-width: 388px) {
+      .footer-end {
+        flex-direction: column;
+      }
+    }
   </style>
   <!-- Template Main CSS File -->
   <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">

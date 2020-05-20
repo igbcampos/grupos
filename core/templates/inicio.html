@@ -96,7 +96,7 @@
       {% for integrante in grupo.informacao.pesquisadores.all %}
         <div class="col-xl-3 col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
           <div class="member show-descricao">
-            <img src="{{ integrante.imagem }}" class="img-fluid" alt="{{ integrante.nome }}" style="height: 300; width: auto;">
+            <img src="{{ integrante.imagem }}" class="img-fluid" alt="{{ integrante.nome }}" style="height: 300px; width: 100%; object-fit: cover;">
             <div class="member-info">
               <div class="member-info-content">
                 <h4>{{ integrante.nome }}</h4>

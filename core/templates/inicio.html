@@ -77,16 +77,17 @@
     </div>
   </section><!-- End F.A.Q Section -->
 
-  <!-- ======= Team Section ======= -->
-  <section id="team" class="team">
-    <div class="container">
+<!-- ======= Team Section ======= -->
+<section id="team" class="team">
+  <div class="container">
 
-      <div class="section-title" data-aos="fade-up">
-        <h2>Pesquisadores</h2>
-        <p>Conheça a nossa equipe</p>
-      </div>
+    <div class="section-title" data-aos="fade-up">
+      <h2>Pesquisadores</h2>
+      <p>Conheça a nossa equipe</p>
+    </div>
 
-      <div class="row">
+    <div class="row">
+
       {% for integrante in grupo.informacao.pesquisadores.all %}
         <div class="col-xl-3 col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
           <div class="member show-descricao">
@@ -102,17 +103,17 @@
                 <!-- <a><i class="icofont-rounded-down show-descricao" alt="Descrição"></i></a> -->
               </div>
             </div>
-            <h6 class="descricao-completa text-justify">
-              {{integrante.descricao_completa}}
-            </h6>
           </div>
-        {% endfor %}
-
-      </div>
+          <h6 class="descricao-completa text-justify">
+            {{integrante.descricao_completa}}
+          </h6>
+        </div>
+      {% endfor %}
 
     </div>
-  </section><!-- End Team Section -->
 
+  </div>
+</section><!-- End Team Section -->
 <!-- ======= F.A.Q Section ======= -->
 <section id="products" class="faq section-bg">
   <div class="container">

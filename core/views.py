@@ -44,6 +44,15 @@ def deslogar(request):
     
     return redirect('/')
 
+@login_required(login_url='/login')
+def administracao(request):
+    grupo = Grupo.objects.get(responsavel=request.user)
+    setattr(grupo, 'informacao', grupo.informacoes.first)
+    
+    contexto = {'grupo': grupo}
+
+    return render(request, 'administracao/administracao.html', contexto) 
+
 def grupo(request, grupo):
     grupo = get_object_or_404(Grupo, sigla=grupo)
 

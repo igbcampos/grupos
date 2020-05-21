@@ -1,7 +1,13 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Grupo
 
-def inicio(request, grupo):
+def inicio(request):
+    grupos = Grupo.objects.all()
+    contexto = {'grupos': grupos}
+
+    return render(request, 'inicio.html', contexto) 
+
+def grupo(request, grupo):
     grupo = get_object_or_404(Grupo, sigla=grupo)
 
     categorias = []
@@ -21,4 +27,4 @@ def inicio(request, grupo):
 
     contexto = {'grupo': grupo}
 
-    return render(request, 'inicio.html', contexto)
+    return render(request, 'template/grupo.html', contexto)

@@ -1,0 +1,473 @@
+{% extends 'template/base.html' %}
+{% load static %}
+
+{% block conteudo %}
+
+{% if mensagem %}
+  <script>
+    alert('{{ mensagem }}');
+  </script>
+{% endif %}
+
+{% if messages %}
+  {% for message in messages %}
+    <script>
+      alert('{{ message }}');
+    </script>
+  {% endfor %}
+{% endif %}
+
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="d-flex align-items-center">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1">
+        <h1>{{ grupo.informacao.sobre.nome }}</h1>
+        <a href="#about" class="btn-get-started scrollto">Sobre</a>
+      </div>
+      <div class="col-lg-6 order-1 order-lg-2 hero-img">
+        <img src="{{ grupo.informacao.sobre.imagem }}" class="img-fluid" alt="">
+      </div>
+    </div>
+  </div>
+
+</section><!-- End Hero -->
+
+<main id="main">
+
+  <!-- ======= About Section ======= -->
+  <section id="about" class="about">
+    <div class="container">
+
+      <div class="row justify-content-between">
+        <div class="col-lg-5 d-flex align-items-center justify-content-center about-img">
+          <img src="{% static 'template/assets/img/about-img.svg' %}" class="img-fluid" alt="" data-aos="zoom-in">
+        </div>
+        <div class="col-lg-6 pt-5 pt-lg-0">
+          <h3 data-aos="fade-up">Sobre</h3>
+          <p data-aos="fade-up" data-aos-delay="100">
+            {{ grupo.informacao.sobre.descricao }}
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section><!-- End About Section -->
+
+  <section id="lines" class="team faq">
+    <div class="container">
+
+      <div class="section-title" data-aos="fade-up">
+        <h2>Linhas de Pesquisa</h2>
+        <p>Saiba as principais áreas que atuamos</p>
+      </div>
+
+      <ul class="faq-list">
+        {% for linha in grupo.informacao.linhas.all %}
+          <li data-aos="fade-up" data-aos-delay="100">
+            <a data-toggle="collapse" href="#faq{{ forloop.counter }}" class="collapsed">{{ linha.nome }} <i class="icofont-simple-up"></i></a>
+            <div id="faq{{ forloop.counter }}" class="collapse" data-parent=".faq-list">
+              <p>{{ linha.descricao }}</p>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+
+    </div>
+  </section><!-- End F.A.Q Section -->
+
+<!-- ======= Team Section ======= -->
+<section id="team" class="team">
+  <div class="container">
+
+    <div class="section-title" data-aos="fade-up">
+      <h2>Pesquisadores</h2>
+      <p>Conheça a nossa equipe</p>
+    </div>
+
+    <div class="row">
+
+      {% for integrante in grupo.informacao.pesquisadores.all %}
+        <div class="col-xl-3 col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
+          <div class="member show-descricao">
+            <img src="{{ integrante.imagem }}" class="img-fluid" alt="{{ integrante.nome }}" style="height: 300px; width: 100%; object-fit: cover;">
+            <div class="member-info">
+              <div class="member-info-content">
+                <h4>{{ integrante.nome }}</h4>
+                <span>{{ integrante.descricao }}</span>
+              </div>
+              <div class="social">
+                {% if integrante.lattes %}<a href="{{ integrante.lattes }}" title="Currículo Lattes"><i class="ai ai-lattes"></i></a>{% endif %}
+                {% if integrante.orcid %}<a href="{{ integrante.orcid }}" title="Orcid"><i class="ai ai-orcid"></i></a>{% endif %}
+                <!-- <a><i class="icofont-rounded-down show-descricao" alt="Descrição"></i></a> -->
+              </div>
+            </div>
+          </div>
+          <h6 class="descricao-completa text-justify">
+            {{integrante.descricao_completa}}
+          </h6>
+        </div>
+      {% endfor %}
+
+    </div>
+
+  </div>
+</section><!-- End Team Section -->
+<!-- ======= F.A.Q Section ======= -->
+<section id="products" class="faq section-bg">
+  <div class="container">
+
+    <div class="section-title" data-aos="fade-up">
+      <h2>Produções</h2>
+      <p>Essas são as nossas principais produções</p>
+    </div>
+    
+    <!-- <div>
+      {% for categoria in grupo.categorias %}
+        <a data-toggle="collapse">{{ categoria }} </p>
+      {% endfor %}
+    </div> -->
+
+    <ul class="faq-list" style="display: flex; flex-direction: row; justify-content: space-evenly;">
+      {% for categoria in grupo.categorias %}
+        <a data-toggle="collapse" class="collapsed categorias" onclick="selecionarCategoria('{{categoria}}')">{{ categoria }}</a>
+      {% endfor %}
+    </ul>
+    
+    <br>
+
+    <ul class="faq-list">
+      {% for subcategoria in grupo.subcategorias %}
+        <li data-aos="fade-up" data-aos-delay="100">
+          <a data-toggle="collapse" href="#faq{{forloop.counter}}" class="collapsed">{{ subcategoria }} <i class="icofont-simple-up"></i></a>
+          <div id="faq{{forloop.counter}}" class="collapse" data-parent=".faq-list">
+            <ul>
+              {% for publicacao in grupo.informacao.publicacoes.all %}
+                {% if publicacao.subcategoria == subcategoria %}
+                  <p class="producao {{publicacao.categoria}}">
+                    {{ publicacao.nome }} - {{ publicacao.ano }}<br>{{ publicacao.descricao }}
+                  </p>
+                {% endif %}
+              {% empty %}
+                <p>Ainda não há publicações dessa categoria disponíveis.</p>
+              {% endfor %}
+            </ul>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+
+  </div>
+</section><!-- End F.A.Q Section -->
+
+  <section id="projects" class="team faq">
+    <div class="container">
+
+      <div class="section-title" data-aos="fade-up">
+        <h2>Projetos</h2>
+        <p>Esses são as nossos principais projetos</p>
+      </div>
+
+      <ul class="faq-list">
+        {% for projeto in grupo.informacao.projetos.all %}
+          <li data-aos="fade-up" data-aos-delay="100">
+            <a data-toggle="collapse" class="collapsed" aria-expanded="false"  href="#projeto{{projeto.id}}">{{projeto.titulo}}<i class="icofont-simple-down"></i></a>
+            <div id="projeto{{projeto.id}}" class="collapse row" data-parent=".faq-list">
+              <div class="col-lg-2 col-sm-12 col-xs-12 col-md-12 mr-0">
+                <p style="color: #eb5d1e; font-weight: bold;">{{projeto.data_inicio.year}} {% if projeto.data_fim %} - {{projeto.data_fim.year}} {% else %} - Atual {% endif %}</p>
+              </div>
+              <div class="col-lg-10 col-sm-10 col-xs-10 col-md-10 ml-0 text-justify">
+                <p>Descrição: {{projeto.descricao}}</p>
+                <p>Integrantes: {{projeto.coordenador}} - Coordenador{% for integrante in projeto.integrantes.all %} / {{integrante}} - Integrante{% endfor %}</p>
+              </div>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+
+    </div>
+  </section><!-- End F.A.Q Section -->
+
+  <!-- ======= Services Section ======= -->
+  <section id="servicos" class="services section-bg">
+    <div class="container">
+
+      <div class="section-title" data-aos="fade-up">
+        <h2>Serviços</h2>
+        <p>Saiba os serviços que nós oferecemos</p>
+      </div>
+
+      <div class="row">
+
+        {% for servico in grupo.informacao.servicos.all %}
+          <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+            <div class="icon-box">
+              <div class="icon"><i class="bx bxs-cog"></i></div>
+              <h4 class="title"><a href="">{{ servico.nome }}</a></h4>
+              <p class="description">{{ servico.descricao }}</p>
+            </div>
+          </div>
+        {% endfor %}
+
+      </div>
+
+    </div>
+  </section>
+  
+
+  <!-- ======= Infrastructure Section ======= -->
+  <section id="infrastructure" class="infrastructure">
+    <div class="container">
+      
+      <div class="section-title" data-aos="fade-up">
+        <h2>Infraestrutura</h2>
+        <p>Conheça um pouco a infraestrutura do nosso laboratório</p>
+      </div>
+
+      <div class="row justify-content-between">
+        <div class="col-lg-5 d-flex align-items-center justify-content-center about-img">
+          <div id="demo" class="carousel slide" data-ride="carousel">
+
+            <!-- Indicators -->
+            <ul class="carousel-indicators">
+              <li data-target="#demo" data-slide-to="0" class="active"></li>
+              <li data-target="#demo" data-slide-to="1"></li>
+              <li data-target="#demo" data-slide-to="2"></li>
+            </ul>
+            
+            <!-- The slideshow -->
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="{{ grupo.informacao.imagem_infraestrutura1 }}" alt="" class="img-fluid" style="width: auto; height: 500px;">
+              </div>
+              <div class="carousel-item">
+                <img src="{{ grupo.informacao.imagem_infraestrutura2 }}" alt="" class="img-fluid" style="width: auto; height: 500px;">
+              </div>
+              <div class="carousel-item">
+                <img src="{{ grupo.informacao.imagem_infraestrutura3 }}" alt="" class="img-fluid" style="width: auto; height: 500px;">
+              </div>
+            </div>
+            
+            <!-- Left and right controls -->
+            <a class="carousel-control-prev" href="#demo" data-slide="prev">
+              <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a class="carousel-control-next" href="#demo" data-slide="next">
+              <span class="carousel-control-next-icon"></span>
+            </a>
+          </div>
+          <!--<img src="{{ grupo.informacao.imagem_infraestrutura2 }}" class="img-fluid" alt="" data-aos="zoom-in">!-->
+        </div>
+        <div class="col-lg-6 pt-5 pt-lg-0">
+          <p data-aos="fade-up" data-aos-delay="100">
+            {{ grupo.informacao.descricao_infraestrutura }}
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section><!-- End Infrastructure Section -->
+
+  <!-- ======= Clients Section ======= -->
+  <section id="clients" class="clients section-bg">
+    <div class="container">
+
+      <div class="section-title" data-aos="fade-up">
+        <h2>Parceiros</h2>
+        <p>Parceiros e colaboradores</p>
+      </div>
+
+      <div class="owl-carousel clients-carousel" data-aos="fade-up" data-aos-delay="100">
+        {% for instituicao in grupo.informacao.instituicoes.all %}
+          <img src="{{ instituicao.imagem }}" alt="{{ instituicao.nome }}">
+        {% endfor %}
+      </div>
+
+    </div>
+  </section><!-- End Clients Section -->
+
+  <!-- ======= Contact Us Section ======= -->
+  <section id="contact" class="contact">
+    <div class="container">
+
+      <div class="section-title" data-aos="fade-up">
+        <h2>Contato</h2>
+        <p>Entre em contato conosco</p>
+      </div>
+
+      <div class="row">
+
+        <div class="col-lg-5 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+          <div class="info">
+            <div class="address">
+              <i class="icofont-google-map"></i>
+              <h4>Endereço:</h4>
+              <p>{{ grupo.informacao.sobre.endereco }}</p>
+            </div>
+
+            <div class="email">
+              <i class="icofont-envelope"></i>
+              <h4>E-mail:</h4>
+              <p>{{ grupo.informacao.sobre.email }}</p>
+            </div>
+
+            <div class="phone">
+              <i class="icofont-phone"></i>
+              <h4>Telefone:</h4>
+              <p>{{ grupo.informacao.sobre.telefone }}</p>
+            </div>
+
+            <iframe src="{{ grupo.informacao.sobre.mapa }}" frameborder="0" style="border:0; width: 100%; height: 290px;" allowfullscreen></iframe>
+          </div>
+
+        </div>
+
+        <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+          <form action="" method="POST" class="php-email-form" id="formulario">
+            {% csrf_token %}
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="nome">Nome</label>
+                <input type="text" name="nome" class="form-control" id="nome" data-rule="minlen:4" data-msg="Por favor, digite pelo menos 4 caracteres" />
+                <div class="validate"></div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="email">E-mail</label>
+                <input type="email" class="form-control" name="email" id="email" data-rule="email" data-msg="Por favor, digite um e-mail válido" />
+                <div class="validate"></div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="assunto">Assunto</label>
+              <input type="text" class="form-control" name="assunto" id="assunto" data-rule="minlen:4" data-msg="Por favor, digite pelo menos 8 caracteres" />
+              <div class="validate"></div>
+            </div>
+            <div class="form-group">
+              <label for="mensagem">Mensagem</label>
+              <textarea class="form-control" name="mensagem" rows="10" data-rule="required" data-msg="Por favor, escreva uma mensagem"></textarea>
+              <div class="validate"></div>
+            </div>
+            <div class="mb-3">
+              <div class="loading">Carregando</div>
+              <div class="error-message"></div>
+              <div class="sent-message">Sua mensagem foi enviado. Obrigado!</div>
+            </div>
+            <div class="text-center"><button type="submit" onclick="document.getElementById('formulario').submit();">Enviar</button></div>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </section><!-- End Contact Us Section -->
+
+</main><!-- End #main -->
+
+<script>
+  window.onload = () => {
+    let categoria = document.getElementsByClassName('categorias')[0].innerText;
+    
+    selecionarCategoria(categoria);
+  }
+
+  function selecionarCategoria(categoria) {
+    let producoes = document.getElementsByClassName('producao');
+
+    Object.values(producoes).map(producao => {
+      if(producao.classList.toString().includes(categoria)) {
+        producao.parentElement.parentElement.parentElement.hidden = false;
+      }
+      else {
+        producao.parentElement.parentElement.parentElement.hidden = true;
+      }
+    });
+  }
+</script>
+
+<!-- ======= Footer ======= -->
+<footer id="footer">
+
+  <div class="footer-newsletter" data-aos="fade-up">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-6">
+          <h4>Inscreva-se na nossa Newsletter</h4>
+          <p>Receba conteúdo relevante e informações importantes sobre o laboratório</p>
+          <form action="">
+            <input type="email" name="email"><input type="submit" value="Inscrever-se">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-top">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-lg-3 col-md-6 footer-contact" data-aos="fade-up" data-aos-delay="100">
+          <h3>{{ grupo.informacao.sobre.sigla | upper }}</h3>
+          <p>
+            {{ grupo.informacao.sobre.endereco }}<br><br>
+            <strong>Telefone:</strong> {{ grupo.informacao.sobre.telefone }}<br>
+            <strong>E-mail:</strong> {{ grupo.informacao.sobre.email }}<br>
+          </p>
+        </div>
+
+        <div class="col-lg-3 col-md-6 footer-links" data-aos="fade-up" data-aos-delay="200">
+          <h4>Páginas</h4>
+          <ul>
+            <li><i class="bx bx-chevron-right"></i> <a href="#header">Início</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="#about">Sobre</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="#lines">Linhas de Pesquisa</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="#team">Pesquisadores</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="#products">Produções</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="#projects">Projetos</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="#servicos">Serviços</a></li>
+            <!-- <li><i class="bx bx-chevron-right"></i> <a href="#portfolio">Portfólio</a></li>  -->
+            <li><i class="bx bx-chevron-right"></i> <a href="#infrastructure">Infraestrutura</a></li>          
+            <li><i class="bx bx-chevron-right"></i> <a href="#clients">Parceiros</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="#contact">Contato</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-6 footer-links" data-aos="fade-up" data-aos-delay="300">
+          <h4>Nossas Redes Sociais</h4>
+          <p>Siga-nos na internet</p>
+          <div class="social-links mt-3">
+            <a href="{{ grupo.informacao.sobre.twitter }}" class="twitter"><i class="bx bxl-twitter"></i></a>
+            <a href="{{ grupo.informacao.sobre.facebook }}" class="facebook"><i class="bx bxl-facebook"></i></a>
+            <a href="{{ grupo.informacao.sobre.instagram }}" class="instagram"><i class="bx bxl-instagram"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 footer-links" data-aos="fade-up" data-aos-delay="400">
+          <h4>Apoio</h4>
+          <a href="http://ufpi.br/"><img src="{% static 'assets/img/ufpi.png' %}" class="img-fluid" alt="UFPI"></a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="container py-4" style="display: flex; align-items: center; justify-content: space-between;">
+    <div class="copyright">
+      &copy; Copyright <strong><span>Ninestars</span></strong>. All Rights Reserved
+    </div>
+
+    <div>
+      Desenvolvido por <a href="http://lasco.ufpi.br/"><img src="{% static 'assets/img/lasco.png' %}" height="100" alt="LASCÔ"/></a>
+    </div>
+
+    <div class="credits">
+      <!-- All the links in the footer should remain intact. -->
+      <!-- You can delete the links only if you purchased the pro version. -->
+      <!-- Licensing information: https://bootstrapmade.com/license/ -->
+      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/ninestars-free-bootstrap-3-theme-for-creative/ -->
+      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+    </div>
+  </div>
+</footer><!-- End Footer -->
+
+{% endblock %}

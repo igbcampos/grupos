@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import inicio
+from .views import inicio, grupo
 
 urlpatterns = [
-    path('<grupo>', inicio, name='inicio')
+    path('', inicio, name='inicio'),
+    path('<grupo>', grupo, name='grupo'),
 ]

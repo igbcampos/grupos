@@ -53,6 +53,21 @@ def administracao(request):
 
     return render(request, 'administracao/administracao.html', contexto) 
 
+@login_required(login_url='/login')
+def newsletter(request):
+    contexto = {}
+
+    return render(request, 'administracao/newsletter.html', contexto) 
+
+@login_required(login_url='/login')
+def criar_newsletter(request):
+    grupo = Grupo.objects.get(responsavel=request.user)
+    setattr(grupo, 'informacao', grupo.informacoes.first)
+    
+    contexto = {'grupo': grupo}
+
+    return render(request, 'administracao/criar_newsletter.html', contexto) 
+
 def grupo(request, grupo):
     grupo = get_object_or_404(Grupo, sigla=grupo)
 

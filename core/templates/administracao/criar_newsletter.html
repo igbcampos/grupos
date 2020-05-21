@@ -1,0 +1,50 @@
+{% extends 'administracao/base_logado.html' %}
+{% load static %}
+
+{% block conteudo_logado %}
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="page-header">
+                <h2 class="pageheader-title">Criar Newsletter </h2>
+                <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>
+                <div class="page-breadcrumb">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'newsletter' %}" class="breadcrumb-link">Newsletter</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Criar</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="email-compose-fields">
+            <div class="subject">
+                <div class="form-group row pt-2">
+                    <label class="col-md-1 control-label">Assunto</label>
+                    <div class="col-md-11">
+                        <input class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="email editor">
+            <div class="col-md-12 p-0">
+                <div class="form-group">
+                    <label class="control-label sr-only" for="summernote">Descriptions </label>
+                    <textarea class="form-control" id="summernote" name="editordata" rows="6" placeholder="Crie sua Newsletter!"></textarea>
+                </div>
+            </div>
+            <div class="email action-send">
+                <div class="col-md-12 ">
+                    <div class="form-group">
+                        <button class="btn btn-success btn-space" type="submit"><i class="icon s7-mail"></i> Enviar</button>
+                        <a href="{% url 'newsletter' %}"><button class="btn btn-danger btn-space" type="button"><i class="icon s7-close"></i> Cancelar</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

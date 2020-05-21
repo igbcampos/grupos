@@ -1,0 +1,37 @@
+{% extends 'administracao/base_logado.html' %}
+{% load static %}
+
+{% block conteudo_logado %}
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="page-header">
+                <h2 class="pageheader-title">Newsletter </h2>
+                <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>
+                <div class="page-breadcrumb">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item active" aria-current="page">Newsletter</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="{% url 'criar_newsletter' %}" class="btn btn-success" style="margin-bottom: 16px;">Criar newsletter</a>
+
+    {% for newsletter in grupos.newsletters %}
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    {{ newsletter.assunto }}
+                </div>
+                <div class="card-body">
+                    {{ newsletter.mensagem }}
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <h3>Ainda não foram cadastradas newsletters.</h3>
+    {% endfor %}
+{% endblock %}

@@ -17,6 +17,16 @@
     <link rel="stylesheet" href="{% static 'administracao/assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css' %}">
     <link rel="stylesheet" href="{% static 'administracao/assets/vendor/charts/c3charts/c3.css' %}">
     <link rel="stylesheet" href="{% static 'administracao/assets/vendor/fonts/flag-icon-css/flag-icon.min.css' %}">
+
+    <!-- Newsletter -->
+    <link rel="stylesheet" href="{% static 'administracao/assets/vendor/bootstrap/css/bootstrap.min.css' %}">
+    <link href="{% static 'administracao/assets/vendor/fonts/circular-std/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'administracao/assets/libs/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'administracao/assets/vendor/fonts/fontawesome/css/fontawesome-all.css' %}">
+    <link rel="stylesheet" href="{% static 'administracao/assets/vendor/select2/css/select2.css' %}">
+    <link rel="stylesheet" href="{% static 'administracao/assets/vendor/summernote/css/summernote-bs4.css' %}">
+    <link rel="stylesheet" href="{% static 'administracao/assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css' %}">
+
     <title>Grupos de Pesquisa - UFPI</title>
 </head>
 
@@ -134,6 +144,27 @@
     <script src="{% static 'administracao/assets/vendor/charts/c3charts/d3-5.4.0.min.js' %}"></script>
     <script src="{% static 'administracao/assets/vendor/charts/c3charts/C3chartjs.js' %}"></script>
     <script src="{% static 'administracao/assets/libs/js/dashboard-ecommerce.js' %}"></script>
+
+    <!-- Newsletter -->
+    <script src="{% static 'administracao/assets/vendor/jquery/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'administracao/assets/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
+    <script src="{% static 'administracao/assets/vendor/slimscroll/jquery.slimscroll.js' %}"></script>
+    <script src="{% static 'administracao/assets/vendor/select2/js/select2.min.js' %}"></script>
+    <script src="{% static 'administracao/assets/vendor/summernote/js/summernote-bs4.js' %}"></script>
+    <script src="{% static 'administracao/assets/libs/js/main-js.js' %}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2({ tags: true });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#summernote').summernote({
+                height: 300
+
+            });
+        });
+    </script>
 </body>
  
 </html>

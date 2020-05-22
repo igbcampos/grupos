@@ -43,10 +43,10 @@
 
                             <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
                                 <div class="card">
-                                    <img class="card-img-top img-fluid" src="{{ grupo.informacoes.first.sobre.imagem }}" alt="Card image cap">
+                                    <img class="card-img-top img-fluid" src="/media/{{ grupo.imagem }}" alt="Card image cap">
                                     <div class="card-body">
-                                        <h3 class="card-title">{{ grupo.informacoes.first.sobre.nome }}</h3>
-                                        <p class="card-text">{{ grupo.informacoes.first.sobre.descricao|slice:":300" }}...</p>
+                                        <h3 class="card-title">{{ grupo.nome }}</h3>
+                                        <p class="card-text">{{ grupo.informacoes.first.descricao|slice:":300" }}...</p>
                                         <a href="/{{ grupo.sigla }}" class="btn btn-primary">Saiba mais</a>
                                     </div>
                                 </div>

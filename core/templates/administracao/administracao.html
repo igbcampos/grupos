@@ -70,7 +70,7 @@
 
                             <div class="row">
                                 <div class="col">
-                                    <img src="{{ grupo.informacao.sobre.imagem }}" alt="" height="150" style="object-fit: cover;">
+                                    <img src="/media/{{ grupo.imagem }}" alt="" height="150" style="object-fit: cover;">
                                 </div>
                                 
                                 <div class="form-group col">
@@ -82,53 +82,53 @@
                             <div class="row">
                                 <div class="form-group col">
                                     <label for="sobre-input-nome" class="col-form-label">Nome</label>
-                                    <input id="sobre-input-nome" type="text" class="form-control" value="{{ grupo.informacao.sobre.nome }}" maxlength="256">
+                                    <input id="sobre-input-nome" type="text" class="form-control" value="{{ grupo.nome }}" maxlength="256">
                                 </div>
                     
                                 <div class="form-group col">
                                     <label for="sobre-input-sigla" class="col-form-label">Sigla</label>
-                                    <input id="sobre-input-sigla" type="text" class="form-control" value="{{ grupo.informacao.sobre.sigla }}" maxlength="256">
+                                    <input id="sobre-input-sigla" type="text" class="form-control" value="{{ grupo.sigla }}" maxlength="256">
                                 </div>
                             </div>
                 
                             <div class="form-group">
                                 <label for="sobre-input-descricao">Descrição</label>
-                                <textarea class="form-control" id="sobre-input-descricao" rows="3" maxlength="1024">{{ grupo.informacao.sobre.descricao }}</textarea>
+                                <textarea class="form-control" id="sobre-input-descricao" rows="3" maxlength="1024">{{ grupo.informacao.descricao }}</textarea>
                             </div>
                 
                             <div class="row">
                                 <div class="form-group col">
                                     <label for="sobre-input-telefone" class="col-form-label">Telefone</label>
-                                    <input id="sobre-input-telefone" type="text" class="form-control" value="{{ grupo.informacao.sobre.telefone }}" maxlength="256">
+                                    <input id="sobre-input-telefone" type="text" class="form-control" value="{{ grupo.telefone }}" maxlength="256">
                                 </div>
 
                                 <div class="form-group col">
                                     <label for="sobre-input-endereco" class="col-form-label">Endereço</label>
-                                    <input id="sobre-input-endereco" type="text" class="form-control" value="{{ grupo.informacao.sobre.endereco }}" maxlength="256">
+                                    <input id="sobre-input-endereco" type="text" class="form-control" value="{{ grupo.endereco }}" maxlength="256">
                                 </div>
                             </div>
                 
                             <div class="row">            
                                 <div class="form-group col">
                                     <label for="sobre-input-email" class="col-form-label">E-mail</label>
-                                    <input id="sobre-input-email" type="email" class="form-control" value="{{ grupo.informacao.sobre.email }}" maxlength="256">
+                                    <input id="sobre-input-email" type="email" class="form-control" value="{{ grupo.email }}" maxlength="256">
                                 </div>
                     
                                 <div class="form-group col">
                                     <label for="sobre-input-facebook" class="col-form-label">Facebook</label>
-                                    <input id="sobre-input-facebook" type="text" class="form-control" value="{{ grupo.informacao.sobre.facebook }}" maxlength="256">
+                                    <input id="sobre-input-facebook" type="text" class="form-control" value="{{ grupo.facebook }}" maxlength="256">
                                 </div>
                             </div>
                 
                             <div class="row">
                                 <div class="form-group col">
                                     <label for="sobre-input-twitter" class="col-form-label">Twitter</label>
-                                    <input id="sobre-input-twitter" type="text" class="form-control" value="{{ grupo.informacao.sobre.twitter }}" maxlength="256">
+                                    <input id="sobre-input-twitter" type="text" class="form-control" value="{{ grupo.twitter }}" maxlength="256">
                                 </div>
                     
                                 <div class="form-group col">
                                     <label for="sobre-input-instagram" class="col-form-label">Instagram</label>
-                                    <input id="sobre-input-instagram" type="text" class="form-control" value="{{ grupo.informacao.sobre.instagram }}" maxlength="256">
+                                    <input id="sobre-input-instagram" type="text" class="form-control" value="{{ grupo.instagram }}" maxlength="256">
                                 </div>
                             </div>
                         </div>
@@ -146,12 +146,12 @@
                             <a href="#" class="btn btn-success">Salvar</a>
                         </div>
                     </div>
-                    {% for pesquisador in grupo.informacao.pesquisadores.all %}
+                    {% for pesquisador in grupo.pesquisadores.all %}
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-2">
-                                        <img src="{{ pesquisador.imagem }}" alt="" class="rounded-circle" height="150" width="150" style="object-fit: cover;">
+                                        <img src="/media/{{ pesquisador.imagem }}" alt="" class="rounded-circle" height="150" width="150" style="object-fit: cover;">
                                     </div>
 
                                     <div class="col">
@@ -206,12 +206,12 @@
                             <a href="#" class="btn btn-success">Salvar</a>
                         </div>
                     </div>
-                    {% for instituicao in grupo.informacao.instituicoes.all %} 
+                    {% for instituicao in grupo.instituicoes.all %} 
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-2">
-                                        <img src="{{ instituicao.imagem }}" alt="" class="rounded-circle" height="150" width="150" style="object-fit: cover;">
+                                        <img src="/media/{{ instituicao.imagem }}" alt="" class="rounded-circle" height="150" width="150" style="object-fit: cover;">
                                     </div>
 
                                     <div class="col">
@@ -252,7 +252,7 @@
                             <a href="#" class="btn btn-success">Salvar</a>
                         </div>
                     </div>
-                    {% for linha in grupo.informacao.linhas.all %}
+                    {% for linha in grupo.linhas.all %}
                         <div class="card">
                             <div class="card-body">
                                 <div class="form-group">
@@ -282,7 +282,7 @@
                             <a href="#" class="btn btn-success">Salvar</a>
                         </div>
                     </div>
-                    {% for servico in grupo.informacao.servicos.all %}
+                    {% for servico in grupo.servicos.all %}
                         <div class="card">
                             <div class="card-body">
                                 <div class="form-group">
@@ -312,7 +312,7 @@
                             <a href="#" class="btn btn-success">Salvar</a>
                         </div>
                     </div>
-                    {% for publicacao in grupo.informacao.publicacoes.all %} 
+                    {% for publicacao in grupo.publicacoes.all %} 
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
@@ -385,7 +385,7 @@
                             <a href="#" class="btn btn-success">Salvar</a>
                         </div>
                     </div>
-                    {% for premiacao in grupo.informacao.premiacoes.all %}
+                    {% for premiacao in grupo.premiacoes.all %}
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
@@ -422,7 +422,7 @@
                             <a href="#" class="btn btn-success">Salvar</a>
                         </div>
                     </div>
-                    {% for portifolio in grupo.informacao.portifolio.all %}
+                    {% for portifolio in grupo.portifolio.all %}
                         <div class="card">
                             <div class="card-body">
                                 <div class="form-group">
@@ -452,7 +452,7 @@
                             <a href="#" class="btn btn-success">Salvar</a>
                         </div>
                     </div>
-                    {% for projeto in grupo.informacao.projetos.all %}
+                    {% for projeto in grupo.projetos.all %}
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
@@ -478,9 +478,9 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="projeto-input-categoria{{ forloop.counter }}">Categoria</label>
-                                    <select class="form-control" id="projeto-input-categoria{{ forloop.counter }}">
-                                        {% for pesquisador in grupo.informacao.pesquisadores.all %}
+                                    <label for="projeto-input-coordenador{{ forloop.counter }}">Coordenador</label>
+                                    <select class="form-control" id="projeto-input-coordenador{{ forloop.counter }}">
+                                        {% for pesquisador in grupo.pesquisadores.all %}
                                             <option {% if projeto.coordenador == pesquisador %} selected {% endif %}>{{ pesquisador.nome }}</option>
                                         {% endfor %}
                                     </select>

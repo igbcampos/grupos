@@ -13,8 +13,8 @@ urlpatterns = [
     path('newsletter', newsletter, name='newsletter'),
     path('newsletter/criar', criar_newsletter, name='criar_newsletter'),
 
-    path('<sigla>', grupo, name='grupo'),
-    path('<sigla>/inscrever', inscrever, name='inscrever'),
+    path('<sigla>/<idioma>', grupo, name='grupo'),
+    path('<sigla>/<idioma>/inscrever', inscrever, name='inscrever'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -73,6 +74,13 @@
           <li><a href="#infrastructure">Infraestrutura</a></li>
           <li><a href="#clients">Parceiros</a></li>
           <li><a href="#contact">Contato</a></li>
+          <li class="drop-down"><a href="#"><img src="/media/{{ grupo.informacao.idioma.imagem }}" height="32"> {{ grupo.informacao.idioma.nome }}</a>
+            <ul>
+              {% for informacao in grupo.informacoes.all %}
+                <li><a href="/{{ grupo.sigla }}/{{ informacao.idioma.sigla }}"><img src="/media/{{ informacao.idioma.imagem }}" height="32"> {{ informacao.idioma.nome }}</a></li>
+              {% endfor %}
+            </ul>
+          </li>
         </ul>
       </nav><!-- .nav-menu -->
 

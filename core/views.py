@@ -70,7 +70,9 @@ def administracao(request):
 
 @login_required(login_url='/login')
 def newsletter(request):
-    contexto = {}
+    grupo = Grupo.objects.get(responsavel=request.user)
+    
+    contexto = {'grupo': grupo}
 
     return render(request, 'administracao/newsletter.html', contexto) 
 
@@ -83,7 +85,7 @@ def criar_newsletter(request):
 
     return render(request, 'administracao/criar_newsletter.html', contexto) 
 
-def grupo(request, sigla):
+def grupo(request, sigla, idioma = None):
     grupo = get_object_or_404(Grupo, sigla=sigla)
 
     categorias = []
@@ -96,6 +98,12 @@ def grupo(request, sigla):
             subcategorias.append(publicacao.subcategoria)
 
     setattr(grupo, 'informacao', grupo.informacoes.first)
+
+    if idioma:
+        for informacao in grupo.informacoes.all():
+            if idioma == informacao.idioma.sigla:
+                setattr(grupo, 'informacao', informacao)
+
     setattr(grupo, 'categorias', categorias)
     setattr(grupo, 'subcategorias', subcategorias)
 
@@ -103,7 +111,7 @@ def grupo(request, sigla):
 
     return render(request, 'template/grupo.html', contexto)
 
-def inscrever(request, sigla):
+def inscrever(request, sigla, idioma = None):
     grupo = get_object_or_404(Grupo, sigla=sigla)
 
     email = request.POST.get('email', '')
@@ -112,4 +120,10 @@ def inscrever(request, sigla):
     grupo.inscritos.add(inscrito)
 
     messages.success(request, 'E-mail registrado com sucesso na nossa newsletter. Em breve daremos notícias.')
-    return redirect('/' + str(sigla))
+
+    ulr = '/' + str(sigla)
+
+    if idioma:
+        url += '/' + str(idioma)
+
+    return redirect(url)

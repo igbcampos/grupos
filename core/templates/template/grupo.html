@@ -17,11 +17,11 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1">
-        <h1>{{ grupo.informacao.sobre.nome }}</h1>
+        <h1>{{ grupo.nome }}</h1>
         <a href="#about" class="btn-get-started scrollto">Sobre</a>
       </div>
       <div class="col-lg-6 order-1 order-lg-2 hero-img">
-        <img src="{{ grupo.informacao.sobre.imagem }}" class="img-fluid" alt="">
+        <img src="/media/{{ grupo.imagem }}" class="img-fluid" alt="">
       </div>
     </div>
   </div>
@@ -41,7 +41,7 @@
         <div class="col-lg-6 pt-5 pt-lg-0">
           <h3 data-aos="fade-up">Sobre</h3>
           <p data-aos="fade-up" data-aos-delay="100">
-            {{ grupo.informacao.sobre.descricao }}
+            {{ grupo.informacao.descricao }}
           </p>
         </div>
       </div>
@@ -58,7 +58,7 @@
       </div>
 
       <ul class="faq-list">
-        {% for linha in grupo.informacao.linhas.all %}
+        {% for linha in grupo.linhas.all %}
           <li data-aos="fade-up" data-aos-delay="100">
             <a data-toggle="collapse" href="#faq{{ forloop.counter }}" class="collapsed">{{ linha.nome }} <i class="icofont-simple-up"></i></a>
             <div id="faq{{ forloop.counter }}" class="collapse" data-parent=".faq-list">
@@ -71,89 +71,84 @@
     </div>
   </section><!-- End F.A.Q Section -->
 
-<!-- ======= Team Section ======= -->
-<section id="team" class="team">
-  <div class="container">
+  <!-- ======= Team Section ======= -->
+  <section id="team" class="team">
+    <div class="container">
 
-    <div class="section-title" data-aos="fade-up">
-      <h2>Pesquisadores</h2>
-      <p>Conheça a nossa equipe</p>
-    </div>
+      <div class="section-title" data-aos="fade-up">
+        <h2>Pesquisadores</h2>
+        <p>Conheça a nossa equipe</p>
+      </div>
 
-    <div class="row">
+      <div class="row">
 
-      {% for integrante in grupo.informacao.pesquisadores.all %}
-        <div class="col-xl-3 col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
-          <div class="member show-descricao">
-            <img src="{{ integrante.imagem }}" class="img-fluid" alt="{{ integrante.nome }}" style="height: 300px; width: 100%; object-fit: cover;">
-            <div class="member-info">
-              <div class="member-info-content">
-                <h4>{{ integrante.nome }}</h4>
-                <span>{{ integrante.descricao }}</span>
-              </div>
-              <div class="social">
-                {% if integrante.lattes %}<a href="{{ integrante.lattes }}" title="Currículo Lattes"><i class="ai ai-lattes"></i></a>{% endif %}
-                {% if integrante.orcid %}<a href="{{ integrante.orcid }}" title="Orcid"><i class="ai ai-orcid"></i></a>{% endif %}
-                <!-- <a><i class="icofont-rounded-down show-descricao" alt="Descrição"></i></a> -->
+        {% for integrante in grupo.pesquisadores.all %}
+          <div class="col-xl-3 col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
+            <div class="member show-descricao">
+              <img src="/media/{{ integrante.imagem }}" class="img-fluid" alt="{{ integrante.nome }}" style="height: 300px; width: 100%; object-fit: cover;">
+              <div class="member-info">
+                <div class="member-info-content">
+                  <h4>{{ integrante.nome }}</h4>
+                  <span>{{ integrante.descricao }}</span>
+                </div>
+                <div class="social">
+                  {% if integrante.lattes %}<a href="{{ integrante.lattes }}" title="Currículo Lattes"><i class="ai ai-lattes"></i></a>{% endif %}
+                  {% if integrante.orcid %}<a href="{{ integrante.orcid }}" title="Orcid"><i class="ai ai-orcid"></i></a>{% endif %}
+                  <!-- <a><i class="icofont-rounded-down show-descricao" alt="Descrição"></i></a> -->
+                </div>
               </div>
             </div>
+            <h6 class="descricao-completa text-justify">
+              {{integrante.descricao_completa}}
+            </h6>
           </div>
-          <h6 class="descricao-completa text-justify">
-            {{integrante.descricao_completa}}
-          </h6>
-        </div>
-      {% endfor %}
+        {% endfor %}
+
+      </div>
 
     </div>
+  </section><!-- End Team Section -->
 
-  </div>
-</section><!-- End Team Section -->
-<!-- ======= F.A.Q Section ======= -->
-<section id="products" class="faq section-bg">
-  <div class="container">
+  <!-- ======= F.A.Q Section ======= -->
+  <section id="products" class="faq section-bg">
+    <div class="container">
 
-    <div class="section-title" data-aos="fade-up">
-      <h2>Produções</h2>
-      <p>Essas são as nossas principais produções</p>
+      <div class="section-title" data-aos="fade-up">
+        <h2>Produções</h2>
+        <p>Essas são as nossas principais produções</p>
+      </div>
+
+      <ul class="faq-list" style="display: flex; flex-direction: row; justify-content: space-evenly;">
+        {% for categoria in grupo.categorias %}
+          <a data-toggle="collapse" class="collapsed categorias" onclick="selecionarCategoria('{{categoria}}')">{{ categoria }}</a>
+        {% endfor %}
+      </ul>
+      
+      <br>
+
+      <ul class="faq-list">
+        {% for subcategoria in grupo.subcategorias %}
+          <li data-aos="fade-up" data-aos-delay="100">
+            <a data-toggle="collapse" href="#faq{{forloop.counter}}" class="collapsed">{{ subcategoria }} <i class="icofont-simple-up"></i></a>
+            <div id="faq{{forloop.counter}}" class="collapse" data-parent=".faq-list">
+              <ul>
+                {% for publicacao in grupo.publicacoes.all %}
+                  {% if publicacao.subcategoria == subcategoria %}
+                    <p class="producao {{publicacao.categoria}}">
+                      {{ publicacao.nome }} - {{ publicacao.ano }}<br>{{ publicacao.descricao }}
+                    </p>
+                  {% endif %}
+                {% empty %}
+                  <p>Ainda não há publicações dessa categoria disponíveis.</p>
+                {% endfor %}
+              </ul>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+
     </div>
-    
-    <!-- <div>
-      {% for categoria in grupo.categorias %}
-        <a data-toggle="collapse">{{ categoria }} </p>
-      {% endfor %}
-    </div> -->
-
-    <ul class="faq-list" style="display: flex; flex-direction: row; justify-content: space-evenly;">
-      {% for categoria in grupo.categorias %}
-        <a data-toggle="collapse" class="collapsed categorias" onclick="selecionarCategoria('{{categoria}}')">{{ categoria }}</a>
-      {% endfor %}
-    </ul>
-    
-    <br>
-
-    <ul class="faq-list">
-      {% for subcategoria in grupo.subcategorias %}
-        <li data-aos="fade-up" data-aos-delay="100">
-          <a data-toggle="collapse" href="#faq{{forloop.counter}}" class="collapsed">{{ subcategoria }} <i class="icofont-simple-up"></i></a>
-          <div id="faq{{forloop.counter}}" class="collapse" data-parent=".faq-list">
-            <ul>
-              {% for publicacao in grupo.informacao.publicacoes.all %}
-                {% if publicacao.subcategoria == subcategoria %}
-                  <p class="producao {{publicacao.categoria}}">
-                    {{ publicacao.nome }} - {{ publicacao.ano }}<br>{{ publicacao.descricao }}
-                  </p>
-                {% endif %}
-              {% empty %}
-                <p>Ainda não há publicações dessa categoria disponíveis.</p>
-              {% endfor %}
-            </ul>
-          </div>
-        </li>
-      {% endfor %}
-    </ul>
-
-  </div>
-</section><!-- End F.A.Q Section -->
+  </section><!-- End F.A.Q Section -->
 
   <section id="projects" class="team faq">
     <div class="container">
@@ -164,7 +159,7 @@
       </div>
 
       <ul class="faq-list">
-        {% for projeto in grupo.informacao.projetos.all %}
+        {% for projeto in grupo.projetos.all %}
           <li data-aos="fade-up" data-aos-delay="100">
             <a data-toggle="collapse" class="collapsed" aria-expanded="false"  href="#projeto{{projeto.id}}">{{projeto.titulo}}<i class="icofont-simple-down"></i></a>
             <div id="projeto{{projeto.id}}" class="collapse row" data-parent=".faq-list">
@@ -194,7 +189,7 @@
 
       <div class="row">
 
-        {% for servico in grupo.informacao.servicos.all %}
+        {% for servico in grupo.servicos.all %}
           <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
             <div class="icon-box">
               <div class="icon"><i class="bx bxs-cog"></i></div>
@@ -209,7 +204,6 @@
     </div>
   </section>
   
-
   <!-- ======= Infrastructure Section ======= -->
   <section id="infrastructure" class="infrastructure">
     <div class="container">
@@ -233,13 +227,13 @@
             <!-- The slideshow -->
             <div class="carousel-inner">
               <div class="carousel-item active">
-                <img src="{{ grupo.informacao.imagem_infraestrutura1 }}" alt="" class="img-fluid" style="width: auto; height: 500px;">
+                <img src="/media/{{ grupo.imagem_infraestrutura1 }}" alt="" class="img-fluid" style="width: auto; height: 500px;">
               </div>
               <div class="carousel-item">
-                <img src="{{ grupo.informacao.imagem_infraestrutura2 }}" alt="" class="img-fluid" style="width: auto; height: 500px;">
+                <img src="/media/{{ grupo.imagem_infraestrutura2 }}" alt="" class="img-fluid" style="width: auto; height: 500px;">
               </div>
               <div class="carousel-item">
-                <img src="{{ grupo.informacao.imagem_infraestrutura3 }}" alt="" class="img-fluid" style="width: auto; height: 500px;">
+                <img src="/media/{{ grupo.imagem_infraestrutura3 }}" alt="" class="img-fluid" style="width: auto; height: 500px;">
               </div>
             </div>
             
@@ -273,8 +267,8 @@
       </div>
 
       <div class="owl-carousel clients-carousel" data-aos="fade-up" data-aos-delay="100">
-        {% for instituicao in grupo.informacao.instituicoes.all %}
-          <img src="{{ instituicao.imagem }}" alt="{{ instituicao.nome }}">
+        {% for instituicao in grupo.instituicoes.all %}
+          <img src="/media/{{ instituicao.imagem }}" alt="{{ instituicao.nome }}" title="{{ instituicao.nome }}">
         {% endfor %}
       </div>
 
@@ -297,22 +291,22 @@
             <div class="address">
               <i class="icofont-google-map"></i>
               <h4>Endereço:</h4>
-              <p>{{ grupo.informacao.sobre.endereco }}</p>
+              <p>{{ grupo.endereco }}</p>
             </div>
 
             <div class="email">
               <i class="icofont-envelope"></i>
               <h4>E-mail:</h4>
-              <p>{{ grupo.informacao.sobre.email }}</p>
+              <p>{{ grupo.email }}</p>
             </div>
 
             <div class="phone">
               <i class="icofont-phone"></i>
               <h4>Telefone:</h4>
-              <p>{{ grupo.informacao.sobre.telefone }}</p>
+              <p>{{ grupo.telefone }}</p>
             </div>
 
-            <iframe src="{{ grupo.informacao.sobre.mapa }}" frameborder="0" style="border:0; width: 100%; height: 290px;" allowfullscreen></iframe>
+            <iframe src="{{ grupo.mapa }}" frameborder="0" style="border:0; width: 100%; height: 290px;" allowfullscreen></iframe>
           </div>
 
         </div>
@@ -402,11 +396,11 @@
       <div class="row">
 
         <div class="col-lg-3 col-md-6 footer-contact" data-aos="fade-up" data-aos-delay="100">
-          <h3>{{ grupo.informacao.sobre.sigla | upper }}</h3>
+          <h3>{{ grupo.sigla | upper }}</h3>
           <p>
-            {{ grupo.informacao.sobre.endereco }}<br><br>
-            <strong>Telefone:</strong> {{ grupo.informacao.sobre.telefone }}<br>
-            <strong>E-mail:</strong> {{ grupo.informacao.sobre.email }}<br>
+            {{ grupo.endereco }}<br><br>
+            <strong>Telefone:</strong> {{ grupo.telefone }}<br>
+            <strong>E-mail:</strong> {{ grupo.email }}<br>
           </p>
         </div>
 
@@ -431,15 +425,15 @@
           <h4>Nossas Redes Sociais</h4>
           <p>Siga-nos na internet</p>
           <div class="social-links mt-3">
-            <a href="{{ grupo.informacao.sobre.twitter }}" class="twitter"><i class="bx bxl-twitter"></i></a>
-            <a href="{{ grupo.informacao.sobre.facebook }}" class="facebook"><i class="bx bxl-facebook"></i></a>
-            <a href="{{ grupo.informacao.sobre.instagram }}" class="instagram"><i class="bx bxl-instagram"></i></a>
+            <a href="{{ grupo.twitter }}" class="twitter"><i class="bx bxl-twitter"></i></a>
+            <a href="{{ grupo.facebook }}" class="facebook"><i class="bx bxl-facebook"></i></a>
+            <a href="{{ grupo.instagram }}" class="instagram"><i class="bx bxl-instagram"></i></a>
           </div>
         </div>
 
         <div class="col-lg-3 col-md-6 footer-links" data-aos="fade-up" data-aos-delay="400">
           <h4>Apoio</h4>
-          <a href="http://ufpi.br/"><img src="{% static 'assets/img/ufpi.png' %}" class="img-fluid" alt="UFPI"></a>
+          <a href="http://ufpi.br/"><img src="{% static 'ufpi.png' %}" class="img-fluid" alt="UFPI"></a>
         </div>
 
       </div>
@@ -452,7 +446,7 @@
     </div>
 
     <div>
-      Desenvolvido por <a href="http://lasco.ufpi.br/"><img src="{% static 'assets/img/lasco.png' %}" height="100" alt="LASCÔ"/></a>
+      Desenvolvido por <a href="http://lasco.ufpi.br/"><img src="{% static 'lasco.png' %}" height="100" alt="LASCÔ"/></a>
     </div>
 
     <div class="credits">

@@ -89,7 +89,7 @@ def grupo(request, sigla):
     categorias = []
     subcategorias = []
 
-    for publicacao in grupo.informacoes.first().publicacoes.all():
+    for publicacao in grupo.publicacoes.all():
         if publicacao.categoria not in categorias:
             categorias.append(publicacao.categoria)
         if publicacao.subcategoria not in subcategorias:

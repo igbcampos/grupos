@@ -3,12 +3,6 @@
 
 {% block conteudo %}
 
-{% if mensagem %}
-  <script>
-    alert('{{ mensagem }}');
-  </script>
-{% endif %}
-
 {% if messages %}
   {% for message in messages %}
     <script>
@@ -394,7 +388,8 @@
         <div class="col-lg-6">
           <h4>Inscreva-se na nossa Newsletter</h4>
           <p>Receba conteúdo relevante e informações importantes sobre o laboratório</p>
-          <form action="">
+          <form action="/{{grupo.sigla}}/inscrever" method="POST">
+            {% csrf_token %}
             <input type="email" name="email"><input type="submit" value="Inscrever-se">
           </form>
         </div>

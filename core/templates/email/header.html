@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grupos de Pesquisa - UFPI</title>
+
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            width: 100%;
+            background-color: #fff;
+        }
+
+        body p {
+            margin-top: 16px;
+        }
+
+        .header {
+            background-color: #f5f5f5;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .conteudo {
+            padding: 16px;
+        }
+
+        .card {
+            background-color: #f5f5f5;
+            border-radius: 6px;
+            padding: 16px;
+            margin-top: 16px;
+        }
+
+        .footer {
+            display: flex; 
+            flex-direction: row; 
+            justify-content: space-between;
+            background-color: #f5f5f5;
+            padding: 16px;
+        }
+
+        .creditos {
+            display: flex; 
+            flex-direction: row; 
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Grupos de Pesquisa - UFPI</h1>
+    </div>
+
+    <div class="conteudo">
+        <h2>Fique em dia com a newsletter de {{ grupo.sigla|upper }}</h2>
+        
+        <div class="card">
+            <h3>Lorem ipsum dolor sit amet</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+        
+        <div class="card">
+            <h3>Lorem ipsum dolor sit amet</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+    </div>

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import inicio, logar, deslogar, administracao, newsletter, criar_newsletter, grupo
+from .views import inicio, logar, deslogar, administracao, newsletter, criar_newsletter, grupo, inscrever
 
 urlpatterns = [
     path('', inicio, name='inicio'),
@@ -11,5 +11,6 @@ urlpatterns = [
     path('newsletter', newsletter, name='newsletter'),
     path('newsletter/criar', criar_newsletter, name='criar_newsletter'),
 
-    path('<grupo>', grupo, name='grupo'),
+    path('<sigla>', grupo, name='grupo'),
+    path('<sigla>/inscrever', inscrever, name='inscrever'),
 ]

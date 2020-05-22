@@ -5,7 +5,22 @@ from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.http import Http404
-from .models import Grupo
+from .models import Grupo, Inscrito
+
+from django.template.loader import render_to_string
+from django.core.mail import send_mail
+from django.conf import settings
+import threading
+
+def email(assunto, mensagem, remetente, destinatarios, template):
+    send_mail(assunto, mensagem, remetente, destinatarios, html_message=template)
+
+def enviar_email(assunto = 'Teste', mensagem = 'Apenas mais um teste.', remetente = settings.EMAIL_HOST_USER, destinatarios = ['gabriel.costa.campos.13@gmail.com'], template = '<html></html>'):
+    template = render_to_string('email/header.html', {})
+    template += render_to_string('email/footer.html', {})
+
+    thread = threading.Thread(target=email, args=(assunto, mensagem, remetente, destinatarios, template))
+    thread.start()
 
 def inicio(request):
     grupos = Grupo.objects.all()
@@ -68,8 +83,8 @@ def criar_newsletter(request):
 
     return render(request, 'administracao/criar_newsletter.html', contexto) 
 
-def grupo(request, grupo):
-    grupo = get_object_or_404(Grupo, sigla=grupo)
+def grupo(request, sigla):
+    grupo = get_object_or_404(Grupo, sigla=sigla)
 
     categorias = []
     subcategorias = []
@@ -80,8 +95,6 @@ def grupo(request, grupo):
         if publicacao.subcategoria not in subcategorias:
             subcategorias.append(publicacao.subcategoria)
 
-    print(categorias, subcategorias)
-
     setattr(grupo, 'informacao', grupo.informacoes.first)
     setattr(grupo, 'categorias', categorias)
     setattr(grupo, 'subcategorias', subcategorias)
@@ -89,3 +102,14 @@ def grupo(request, grupo):
     contexto = {'grupo': grupo}
 
     return render(request, 'template/grupo.html', contexto)
+
+def inscrever(request, sigla):
+    grupo = get_object_or_404(Grupo, sigla=sigla)
+
+    email = request.POST.get('email', '')
+    inscrito = Inscrito.objects.create(email=email)
+
+    grupo.inscritos.add(inscrito)
+
+    messages.success(request, 'E-mail registrado com sucesso na nossa newsletter. Em breve daremos notícias.')
+    return redirect('/' + str(sigla))

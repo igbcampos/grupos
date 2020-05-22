@@ -230,11 +230,22 @@ class Informacao(models.Model):
         verbose_name = 'Informação'
         verbose_name_plural = 'Informações'
 
+class Inscrito(models.Model):
+    email = models.CharField(max_length=256, blank=True, null=True)
+    
+    def __str__(self):
+        return self.email
+
+    class Meta():
+        verbose_name = 'Inscrito'
+        verbose_name_plural = 'Inscritos'
+
 class Grupo(models.Model):
     responsavel = models.ForeignKey(User, on_delete=models.CASCADE)
     informacoes = models.ManyToManyField(Informacao)
     url = models.CharField(max_length=256, blank=True, null=True)
     sigla = models.CharField(max_length=256, blank=True, null=True)
+    inscritos = models.ManyToManyField(Inscrito)
     
     def __str__(self):
         return self.responsavel.username

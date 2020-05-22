@@ -11,6 +11,9 @@ from django.template.loader import render_to_string
 from django.core.mail import send_mail
 from django.conf import settings
 import threading
+from django.utils import translation
+
+from django.utils.translation import ugettext as _
 
 def email(assunto, mensagem, remetente, destinatarios, template):
     send_mail(assunto, mensagem, remetente, destinatarios, html_message=template)
@@ -97,12 +100,14 @@ def grupo(request, sigla, idioma = None):
         if publicacao.subcategoria not in subcategorias:
             subcategorias.append(publicacao.subcategoria)
 
-    setattr(grupo, 'informacao', grupo.informacoes.first)
-
     if idioma:
         for informacao in grupo.informacoes.all():
             if idioma == informacao.idioma.sigla:
                 setattr(grupo, 'informacao', informacao)
+                translation.activate(idioma)
+    else:
+        setattr(grupo, 'informacao', grupo.informacoes.first)
+        translation.activate(grupo.informacoes.first().idioma.sigla)
 
     setattr(grupo, 'categorias', categorias)
     setattr(grupo, 'subcategorias', subcategorias)

@@ -1,0 +1,197 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-05-22 04:52-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: templates/template/base.html:66 templates/template/grupo.html:411
+msgid "inicio"
+msgstr ""
+
+#: templates/template/base.html:67 templates/template/grupo.html:22
+#: templates/template/grupo.html:43 templates/template/grupo.html:412
+msgid "sobre"
+msgstr ""
+
+#: templates/template/base.html:68 templates/template/grupo.html:57
+#: templates/template/grupo.html:413
+msgid "linhasDePesquisa"
+msgstr ""
+
+#: templates/template/base.html:69 templates/template/grupo.html:80
+#: templates/template/grupo.html:414
+msgid "pesquisadores"
+msgstr ""
+
+#: templates/template/base.html:70 templates/template/grupo.html:118
+#: templates/template/grupo.html:415
+msgid "producoes"
+msgstr ""
+
+#: templates/template/base.html:71 templates/template/grupo.html:158
+#: templates/template/grupo.html:416
+msgid "projetos"
+msgstr ""
+
+#: templates/template/base.html:72 templates/template/grupo.html:187
+#: templates/template/grupo.html:417
+msgid "servicos"
+msgstr ""
+
+#: templates/template/base.html:73 templates/template/grupo.html:418
+msgid "portifolio"
+msgstr ""
+
+#: templates/template/base.html:74 templates/template/grupo.html:213
+#: templates/template/grupo.html:419
+msgid "infraestrutura"
+msgstr ""
+
+#: templates/template/base.html:75 templates/template/grupo.html:266
+#: templates/template/grupo.html:420
+msgid "parceiros"
+msgstr ""
+
+#: templates/template/base.html:76 templates/template/grupo.html:284
+#: templates/template/grupo.html:421
+msgid "contato"
+msgstr ""
+
+#: templates/template/grupo.html:58
+msgid "linhasDePesquisaDescricao"
+msgstr ""
+
+#: templates/template/grupo.html:81
+msgid "pesquisadoresDescricao"
+msgstr ""
+
+#: templates/template/grupo.html:119
+msgid "producoesDescricao"
+msgstr ""
+
+#: templates/template/grupo.html:159
+msgid "projetosDescricao"
+msgstr ""
+
+#: templates/template/grupo.html:171
+msgid "descricao"
+msgstr ""
+
+#: templates/template/grupo.html:172
+msgid "integrantes"
+msgstr ""
+
+#: templates/template/grupo.html:172
+msgid "coordenador"
+msgstr ""
+
+#: templates/template/grupo.html:172
+msgid "integrante"
+msgstr ""
+
+#: templates/template/grupo.html:188
+msgid "servicosDescricao"
+msgstr ""
+
+#: templates/template/grupo.html:214
+msgid "infraestruturaDescricao"
+msgstr ""
+
+#: templates/template/grupo.html:267
+msgid "parceirosDescricao"
+msgstr ""
+
+#: templates/template/grupo.html:285
+msgid "contatoDescricao"
+msgstr ""
+
+#: templates/template/grupo.html:294
+msgid "endereco"
+msgstr ""
+
+#: templates/template/grupo.html:300 templates/template/grupo.html:325
+#: templates/template/grupo.html:404
+msgid "email"
+msgstr ""
+
+#: templates/template/grupo.html:306 templates/template/grupo.html:403
+msgid "telefone"
+msgstr ""
+
+#: templates/template/grupo.html:320
+msgid "nome"
+msgstr ""
+
+#: templates/template/grupo.html:321
+msgid "nomeValidacao"
+msgstr ""
+
+#: templates/template/grupo.html:326
+msgid "emailValidacao"
+msgstr ""
+
+#: templates/template/grupo.html:331
+msgid "assunto"
+msgstr ""
+
+#: templates/template/grupo.html:332
+msgid "assuntoValidacao"
+msgstr ""
+
+#: templates/template/grupo.html:336
+msgid "mensagem"
+msgstr ""
+
+#: templates/template/grupo.html:337
+msgid "mensagemValidacao"
+msgstr ""
+
+#: templates/template/grupo.html:341
+msgid "carregando"
+msgstr ""
+
+#: templates/template/grupo.html:343
+msgid "mensagemEnviada"
+msgstr ""
+
+#: templates/template/grupo.html:384
+msgid "newsletter"
+msgstr ""
+
+#: templates/template/grupo.html:385
+msgid "newsletterDescricao"
+msgstr ""
+
+#: templates/template/grupo.html:409
+msgid "paginas"
+msgstr ""
+
+#: templates/template/grupo.html:426
+msgid "redesSociais"
+msgstr ""
+
+#: templates/template/grupo.html:427
+msgid "redesSociaisDescricao"
+msgstr ""
+
+#: templates/template/grupo.html:436
+msgid "apoio"
+msgstr ""
+
+#: templates/template/grupo.html:450
+msgid "desenvolvidoPor"
+msgstr ""

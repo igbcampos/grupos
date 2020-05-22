@@ -13,7 +13,9 @@ urlpatterns = [
     path('newsletter', newsletter, name='newsletter'),
     path('newsletter/criar', criar_newsletter, name='criar_newsletter'),
 
+    path('<sigla>', grupo, name='grupo'),
     path('<sigla>/<idioma>', grupo, name='grupo'),
+    path('<sigla>/inscrever', inscrever, name='inscrever'),
     path('<sigla>/<idioma>/inscrever', inscrever, name='inscrever'),
 ]
 

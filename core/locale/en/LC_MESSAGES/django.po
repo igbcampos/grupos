@@ -1,0 +1,197 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-05-22 04:52-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: templates/template/base.html:66 templates/template/grupo.html:411
+msgid "inicio"
+msgstr "Home"
+
+#: templates/template/base.html:67 templates/template/grupo.html:22
+#: templates/template/grupo.html:43 templates/template/grupo.html:412
+msgid "sobre"
+msgstr "About"
+
+#: templates/template/base.html:68 templates/template/grupo.html:57
+#: templates/template/grupo.html:413
+msgid "linhasDePesquisa"
+msgstr "Research fields"
+
+#: templates/template/base.html:69 templates/template/grupo.html:80
+#: templates/template/grupo.html:414
+msgid "pesquisadores"
+msgstr "Researchers"
+
+#: templates/template/base.html:70 templates/template/grupo.html:118
+#: templates/template/grupo.html:415
+msgid "producoes"
+msgstr "Productions"
+
+#: templates/template/base.html:71 templates/template/grupo.html:158
+#: templates/template/grupo.html:416
+msgid "projetos"
+msgstr "Projects"
+
+#: templates/template/base.html:72 templates/template/grupo.html:187
+#: templates/template/grupo.html:417
+msgid "servicos"
+msgstr "Services"
+
+#: templates/template/base.html:73 templates/template/grupo.html:418
+msgid "portifolio"
+msgstr "Portifolio"
+
+#: templates/template/base.html:74 templates/template/grupo.html:213
+#: templates/template/grupo.html:419
+msgid "infraestrutura"
+msgstr "Infrastructure"
+
+#: templates/template/base.html:75 templates/template/grupo.html:266
+#: templates/template/grupo.html:420
+msgid "parceiros"
+msgstr "Partners"
+
+#: templates/template/base.html:76 templates/template/grupo.html:284
+#: templates/template/grupo.html:421
+msgid "contato"
+msgstr "Contacts"
+
+#: templates/template/grupo.html:58
+msgid "linhasDePesquisaDescricao"
+msgstr "Learn about the main fields we work on"
+
+#: templates/template/grupo.html:81
+msgid "pesquisadoresDescricao"
+msgstr "Know our team"
+
+#: templates/template/grupo.html:119
+msgid "producoesDescricao"
+msgstr "These are our main productions"
+
+#: templates/template/grupo.html:159
+msgid "projetosDescricao"
+msgstr "These are our main projects"
+
+#: templates/template/grupo.html:171
+msgid "descricao"
+msgstr "Description"
+
+#: templates/template/grupo.html:172
+msgid "integrantes"
+msgstr "Teamworkers"
+
+#: templates/template/grupo.html:172
+msgid "coordenador"
+msgstr "Coordinator"
+
+#: templates/template/grupo.html:172
+msgid "integrante"
+msgstr "Teamworker"
+
+#: templates/template/grupo.html:188
+msgid "servicosDescricao"
+msgstr "These are the services we offer"
+
+#: templates/template/grupo.html:214
+msgid "infraestruturaDescricao"
+msgstr "Learn about our infrastructure"
+
+#: templates/template/grupo.html:267
+msgid "parceirosDescricao"
+msgstr "Partners and collaborators"
+
+#: templates/template/grupo.html:285
+msgid "contatoDescricao"
+msgstr "Keep in touch"
+
+#: templates/template/grupo.html:294
+msgid "endereco"
+msgstr "Address"
+
+#: templates/template/grupo.html:300 templates/template/grupo.html:325
+#: templates/template/grupo.html:404
+msgid "email"
+msgstr "Email"
+
+#: templates/template/grupo.html:306 templates/template/grupo.html:403
+msgid "telefone"
+msgstr "Phone number"
+
+#: templates/template/grupo.html:320
+msgid "nome"
+msgstr "Name"
+
+#: templates/template/grupo.html:321
+msgid "nomeValidacao"
+msgstr "Your subject must have at least 4 characters"
+
+#: templates/template/grupo.html:326
+msgid "emailValidacao"
+msgstr "Please, insert a valid email"
+
+#: templates/template/grupo.html:331
+msgid "assunto"
+msgstr "Subject"
+
+#: templates/template/grupo.html:332
+msgid "assuntoValidacao"
+msgstr "Your subject must have at least 8 characters"
+
+#: templates/template/grupo.html:336
+msgid "mensagem"
+msgstr "Message"
+
+#: templates/template/grupo.html:337
+msgid "mensagemValidacao"
+msgstr "Please, write a message"
+
+#: templates/template/grupo.html:341
+msgid "carregando"
+msgstr "Loading"
+
+#: templates/template/grupo.html:343
+msgid "mensagemEnviada"
+msgstr "Your message was sent. Thank you."
+
+#: templates/template/grupo.html:384
+msgid "newsletter"
+msgstr "Subscribe to our Newsletter"
+
+#: templates/template/grupo.html:385
+msgid "newsletterDescricao"
+msgstr "Receive relevant content and important information about the laboratory"
+
+#: templates/template/grupo.html:409
+msgid "paginas"
+msgstr "Pages"
+
+#: templates/template/grupo.html:426
+msgid "redesSociais"
+msgstr "Social Media"
+
+#: templates/template/grupo.html:427
+msgid "redesSociaisDescricao"
+msgstr "Follow our Social Media"
+
+#: templates/template/grupo.html:436
+msgid "apoio"
+msgstr "Support"
+
+#: templates/template/grupo.html:450
+msgid "desenvolvidoPor"
+msgstr "Developed by"

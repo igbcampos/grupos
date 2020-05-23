@@ -1,6 +1,7 @@
 from django.contrib import admin
-from .models import Idioma, Tema, Sobre, Pesquisador, Instituicao, Linha, Servico, Publicacao, Premiacao, Portifolio,Projeto, Informacao, Grupo
+from .models import Idioma, Documento, Tema, Sobre, Pesquisador, Instituicao, Linha, Servico, Publicacao, Premiacao, Portifolio,Projeto, Informacao, Grupo
 
+admin.site.register(Documento)
 admin.site.register(Idioma)
 admin.site.register(Tema)
 admin.site.register(Sobre)

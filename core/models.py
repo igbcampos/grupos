@@ -1,6 +1,16 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
+# Documentos
+
+class Documento(models.Model):
+    nome = models.CharField(max_length=256, blank=True, null=True)
+    link = models.CharField(max_length=256, blank=True, null=True)
+    data = models.DateField(null=True, blank=True)     
+    def __str__(self):
+        return self.nome + ' - ' + str(self.data)
+
 # Idiomas
 
 class Idioma(models.Model):

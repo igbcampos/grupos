@@ -9,7 +9,7 @@ class Documento(models.Model):
     link = models.CharField(max_length=256, blank=True, null=True)
     data = models.DateField(null=True, blank=True)     
     def __str__(self):
-        return self.nome + ' - ' + self.data
+        return self.nome + ' - ' + str(self.data)
 
 # Idiomas
 

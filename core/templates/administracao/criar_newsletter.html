@@ -20,31 +20,36 @@
     </div>
 
     <div>
-        <div class="email-compose-fields">
-            <div class="subject">
-                <div class="form-group row pt-2">
-                    <label class="col-md-1 control-label">Assunto</label>
-                    <div class="col-md-11">
-                        <input class="form-control" type="text">
+        <form action="/newsletter/enviar" method="POST">
+            {% csrf_token %}
+            
+            <div class="email-compose-fields">
+                <div class="subject">
+                    <div class="form-group row pt-2">
+                        <label class="col-md-1 control-label">Assunto</label>
+                        <div class="col-md-11">
+                            <input class="form-control" name="assunto" type="text">
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="email editor">
-            <div class="col-md-12 p-0">
-                <div class="form-group">
-                    <label class="control-label sr-only" for="summernote">Descriptions </label>
-                    <textarea class="form-control" id="summernote" name="editordata" rows="6" placeholder="Crie sua Newsletter!"></textarea>
-                </div>
-            </div>
-            <div class="email action-send">
-                <div class="col-md-12 ">
+            
+            <div class="email editor">
+                <div class="col-md-12 p-0">
                     <div class="form-group">
-                        <button class="btn btn-success btn-space" type="submit"><i class="icon s7-mail"></i> Enviar</button>
-                        <a href="{% url 'newsletter' %}"><button class="btn btn-danger btn-space" type="button"><i class="icon s7-close"></i> Cancelar</button></a>
+                        <label class="control-label sr-only" for="summernote">Mensagem </label>
+                        <textarea class="form-control" name="mensagem" id="summernote" name="editordata" rows="6" placeholder="Crie sua Newsletter!"></textarea>
+                    </div>
+                </div>
+                <div class="email action-send">
+                    <div class="col-md-12 ">
+                        <div class="form-group">
+                            <button class="btn btn-success btn-space" type="submit"><i class="icon s7-mail"></i> Enviar</button>
+                            <a href="{% url 'newsletter' %}"><button class="btn btn-danger btn-space" type="button"><i class="icon s7-close"></i> Cancelar</button></a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 {% endblock %}

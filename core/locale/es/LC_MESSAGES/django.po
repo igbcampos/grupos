@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-22 04:52-0300\n"
+"POT-Creation-Date: 2020-05-22 13:26-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -168,12 +168,20 @@ msgstr ""
 msgid "mensagemEnviada"
 msgstr ""
 
+#: templates/template/grupo.html:345
+msgid "enviarFormulario"
+msgstr ""
+
 #: templates/template/grupo.html:384
 msgid "newsletter"
 msgstr ""
 
 #: templates/template/grupo.html:385
 msgid "newsletterDescricao"
+msgstr ""
+
+#: templates/template/grupo.html:388
+msgid "inscreverNewsletter"
 msgstr ""
 
 #: templates/template/grupo.html:409
@@ -194,4 +202,20 @@ msgstr ""
 
 #: templates/template/grupo.html:450
 msgid "desenvolvidoPor"
+msgstr ""
+
+#: views.py:54 views.py:55
+msgid "loginInvalido"
+msgstr ""
+
+#: views.py:128
+msgid "formularioEnviado"
+msgstr ""
+
+#: views.py:131
+msgid "formularioNaoEnviado"
+msgstr ""
+
+#: views.py:142
+msgid "inscricaoNewssletterEnviada"
 msgstr ""

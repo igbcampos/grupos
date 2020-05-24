@@ -4,14 +4,6 @@
 
 {% block conteudo %}
 
-{% if messages %}
-  {% for message in messages %}
-    <script>
-      alert('{{ message }}');
-    </script>
-  {% endfor %}
-{% endif %}
-
 <!-- ======= Hero Section ======= -->
 <section id="hero" class="d-flex align-items-center">
 
@@ -313,7 +305,7 @@
         </div>
 
         <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
-          <form action="" method="POST" class="php-email-form" id="formulario">
+          <form action="/{{ grupo.sigla }}/{{ grupo.informacao.idioma.sigla }}/formulario" method="POST" class="php-email-form" id="formulario">
             {% csrf_token %}
             <div class="form-row">
               <div class="form-group col-md-6">
@@ -342,7 +334,7 @@
               <div class="error-message"></div>
               <div class="sent-message">{% trans 'mensagemEnviada' %}</div>
             </div>
-            <div class="text-center"><button type="submit" onclick="document.getElementById('formulario').submit();">Enviar</button></div>
+            <div class="text-center"><button type="submit" onclick="document.getElementById('formulario').submit();">{% trans 'enviarFormulario' %}</button></div>
           </form>
         </div>
 
@@ -383,9 +375,9 @@
         <div class="col-lg-6">
           <h4>{% trans 'newsletter' %}</h4>
           <p>{% trans 'newsletterDescricao' %}</p>
-          <form action="/{{grupo.sigla}}/inscrever" method="POST">
+          <form action="/{{grupo.sigla}}/{{ grupo.informacao.idioma.sigla }}/inscrever" method="POST">
             {% csrf_token %}
-            <input type="email" name="email"><input type="submit" value="Inscrever-se">
+            <input type="email" name="email"><input type="submit" value="{% trans 'inscreverNewsletter' %}">
           </form>
         </div>
       </div>

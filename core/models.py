@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 import os
 from uuid import uuid4
@@ -181,6 +182,19 @@ class Informacao(models.Model):
         verbose_name = 'Informação'
         verbose_name_plural = 'Informações'
 
+class Formulario(models.Model):
+    nome = models.CharField(verbose_name='Nome', max_length=256, blank=False, null=False)
+    email = models.CharField(verbose_name='E-mail', max_length=256, blank=False, null=False)
+    assunto = models.CharField(verbose_name='Assunto', max_length=256, blank=False, null=False)
+    mensagem = models.TextField(verbose_name='Mensagem', blank=False, null=False)
+
+    def __str__(self):
+        return self.nome
+
+    class Meta():
+        verbose_name = 'Formulário'
+        verbose_name_plural = 'Formulários'
+
 class Inscrito(models.Model):
     email = models.CharField(max_length=256, blank=True, null=True)
     
@@ -190,6 +204,18 @@ class Inscrito(models.Model):
     class Meta():
         verbose_name = 'Inscrito'
         verbose_name_plural = 'Inscritos'
+
+class Newsletter(models.Model):
+    assunto = models.CharField(verbose_name='Assunto', max_length=256, blank=False, null=False)
+    mensagem = models.TextField(verbose_name='Mensagem', blank=False, null=False)
+    data_criacao = models.DateTimeField(verbose_name='Data de criação', default=timezone.now)
+
+    def __str__(self):
+        return self.assunto
+
+    class Meta():
+        verbose_name = 'Newsletter'
+        verbose_name_plural = 'Newsletters'
 
 class Grupo(models.Model):
     responsavel = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -216,7 +242,9 @@ class Grupo(models.Model):
     premiacoes = models.ManyToManyField(Premiacao)
     portifolio = models.ManyToManyField(Portifolio)
     projetos = models.ManyToManyField(Projeto)
+    formularios = models.ManyToManyField(Formulario)
     inscritos = models.ManyToManyField(Inscrito)
+    newsletters = models.ManyToManyField(Newsletter)
 
     imagem_infraestrutura1 = models.ImageField(upload_to=caminho)
     imagem_infraestrutura2 = models.ImageField(upload_to=caminho)

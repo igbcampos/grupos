@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.http import Http404
-from .models import Grupo, Inscrito
+from .models import Grupo, Formulario, Inscrito, Newsletter
 
 from django.template.loader import render_to_string
 from django.core.mail import send_mail
@@ -13,14 +13,13 @@ from django.conf import settings
 import threading
 from django.utils import translation
 
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 def email(assunto, mensagem, remetente, destinatarios, template):
     send_mail(assunto, mensagem, remetente, destinatarios, html_message=template)
 
-def enviar_email(assunto = 'Teste', mensagem = 'Apenas mais um teste.', remetente = settings.EMAIL_HOST_USER, destinatarios = ['gabriel.costa.campos.13@gmail.com'], template = '<html></html>'):
-    template = render_to_string('email/header.html', {})
-    template += render_to_string('email/footer.html', {})
+def enviar_email(assunto = 'Teste', mensagem = 'Apenas mais um teste.', remetente = settings.EMAIL_HOST_USER, destinatarios = ['gabriel.costa.campos.13@gmail.com'], conteudo_template = ''):
+    template = render_to_string('email/header.html', {}) + conteudo_template + render_to_string('email/footer.html', {})
 
     thread = threading.Thread(target=email, args=(assunto, mensagem, remetente, destinatarios, template))
     thread.start()
@@ -49,10 +48,10 @@ def logar(request):
 
         if usuario is not None:
             login(request, usuario)
-            return redirect('/ciaten')
+            return redirect('/administracao')
         else:
-            messages.warning(request, 'Usuário e/ou senha incorretos. Por favor, tente novamente.')
-            contexto = {'email': email, 'mensagem': 'Usuário e/ou senha incorretos. Por favor, tente novamente.'}
+            messages.warning(request, _('loginInvalido'))
+            contexto = {'email': email, 'mensagem': _('loginInvalido')}
     else:
         raise Http404('Método de requisição não aceito')
 
@@ -88,6 +87,33 @@ def criar_newsletter(request):
 
     return render(request, 'administracao/criar_newsletter.html', contexto) 
 
+@login_required(login_url='/login')
+def enviar_newsletter(request):
+    try:
+        grupo = Grupo.objects.get(responsavel=request.user)
+
+        assunto = request.POST.get('assunto', '')
+        mensagem = request.POST.get('mensagem', '')
+
+        newsletter = Newsletter.objects.create(assunto=assunto, mensagem=mensagem)
+
+        grupo.newsletters.add(newsletter)
+
+        assunto = 'Novidades de {} - UFPI'.format(grupo.sigla.upper())
+        mensagem_email = 'Assunto da newsletter de {}: {}\nPara visualizar a newsletter completa tente ativar a visualização de HTML.'.format(grupo.sigla.upper(), newsletter.assunto)
+        destinatarios = Inscrito.objects.values_list('email', flat=True)
+
+        conteudo_email = '<h2>Assunto da newsletter de {}: {}</h2>'.format(grupo.sigla.upper(), newsletter.assunto)
+        conteudo_email += newsletter.mensagem
+
+        enviar_email(assunto=assunto, mensagem=mensagem_email, destinatarios=destinatarios, conteudo_template=conteudo_email)       
+
+        messages.success(request, 'Newsletter enviada com sucesso.')
+    except:
+        messages.warning(request, 'Não foi possível enviar a newsletter. Por favor, tente novamente.')
+
+    return redirect('/newsletter') 
+
 def grupo(request, sigla, idioma = None):
     grupo = get_object_or_404(Grupo, sigla=sigla)
 
@@ -116,6 +142,48 @@ def grupo(request, sigla, idioma = None):
 
     return render(request, 'template/grupo.html', contexto)
 
+def url_redirecionamento(sigla, idioma):
+    url = '/' + str(sigla)
+
+    if idioma:
+        url += '/' + str(idioma)
+
+    return url
+    
+def formulario(request, sigla, idioma = None):
+    try: 
+        grupo = get_object_or_404(Grupo, sigla=sigla)
+
+        formulario = Formulario.objects.create(
+            nome = request.POST.get('nome', ''),
+            email = request.POST.get('email', ''),
+            assunto = request.POST.get('assunto', ''),
+            mensagem = request.POST.get('mensagem', '')
+        )
+
+        grupo.formularios.add(formulario)
+
+        assunto = 'Novo contato em {}'.format(grupo.sigla.upper())
+        mensagem = 'Alguém está tentando entrar em contato pelo formulário de contato na página do {}. Abaixo estão as informações enviadas:\nRemetente: {} - {}\nAssunto: {}\nMensagem: {}'.format(grupo.sigla.upper(), formulario.nome, formulario.email, formulario.assunto, formulario.mensagem)
+        destinatarios = [grupo.responsavel.email, formulario.email]
+
+        conteudo_email = '<h2>Alguém está tentando entrar em contato pelo formulário de contato na página do {}. Abaixo estão as informações enviadas:</h2>'.format(grupo.sigla.upper())
+        conteudo_email += '<div class="card">'
+        conteudo_email += '    <h3>Remetente: {} - {}</h3>'.format(formulario.nome, formulario.email)
+        conteudo_email += '    <h4>Assunto: {}</h4>'.format(formulario.assunto)
+        conteudo_email += '    <p>Mensagem: {}</p>'.format(formulario.mensagem)
+        conteudo_email += '</div>'
+
+        enviar_email(assunto=assunto, mensagem=mensagem, destinatarios=destinatarios, conteudo_template=conteudo_email)       
+
+        messages.success(request, _('formularioEnviado'))
+    except:
+        messages.warning(request, _('formularioNaoEnviado'))
+
+    url = url_redirecionamento(sigla, idioma)
+    print(url)
+    return redirect(url)
+
 def inscrever(request, sigla, idioma = None):
     grupo = get_object_or_404(Grupo, sigla=sigla)
 
@@ -124,11 +192,7 @@ def inscrever(request, sigla, idioma = None):
 
     grupo.inscritos.add(inscrito)
 
-    messages.success(request, 'E-mail registrado com sucesso na nossa newsletter. Em breve daremos notícias.')
+    messages.success(request, _('inscricaoNewssletterEnviada'))
 
-    ulr = '/' + str(sigla)
-
-    if idioma:
-        url += '/' + str(idioma)
-
+    url = url_redirecionamento(sigla, idioma)
     return redirect(url)

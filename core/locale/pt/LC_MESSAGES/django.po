@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-22 04:40-0300\n"
+"POT-Creation-Date: 2020-05-22 13:26-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -168,6 +168,10 @@ msgstr "Carregando"
 msgid "mensagemEnviada"
 msgstr "Sua mensagem foi enviado. Obrigado!"
 
+#: templates/template/grupo.html:345
+msgid "enviarFormulario"
+msgstr "Enviar"
+
 #: templates/template/grupo.html:384
 msgid "newsletter"
 msgstr "Inscreva-se na nossa Newsletter"
@@ -175,6 +179,12 @@ msgstr "Inscreva-se na nossa Newsletter"
 #: templates/template/grupo.html:385
 msgid "newsletterDescricao"
 msgstr "Receba conteúdo relevante e informações importantes sobre o laboratório"
+
+#: templates/template/grupo.html:388
+#, fuzzy
+#| msgid "newsletter"
+msgid "inscreverNewsletter"
+msgstr "Inscrever-se"
 
 #: templates/template/grupo.html:409
 msgid "paginas"
@@ -195,3 +205,19 @@ msgstr "Apoio"
 #: templates/template/grupo.html:450
 msgid "desenvolvidoPor"
 msgstr "Desenvolvido por"
+
+#: views.py:54 views.py:55
+msgid "loginInvalido"
+msgstr "Usuário e/ou senha incorretos. Por favor, tente novamente."
+
+#: views.py:128
+msgid "formularioEnviado"
+msgstr "Sua mensagem foi enviada. Obrigado por entrar em contato! Em breve daremos um retorno."
+
+#: views.py:131
+msgid "formularioNaoEnviado"
+msgstr "Sua mensagem não foi enviada. Por favor, tente novamente."
+
+#: views.py:142
+msgid "inscricaoNewssletterEnviada"
+msgstr "E-mail registrado com sucesso na nossa newsletter. Em breve daremos notícias."

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Idioma, Inscrito, Pesquisador, Instituicao, Linha, Servico, Publicacao, Premiacao, Portifolio,Projeto, Informacao, Grupo
+from .models import Idioma, Inscrito, Pesquisador, Instituicao, Linha, Servico, Publicacao, Premiacao, Portifolio, Projeto, Formulario, Informacao, Newsletter, Grupo
 
 admin.site.register(Idioma)
 admin.site.register(Inscrito)
@@ -11,5 +11,7 @@ admin.site.register(Publicacao)
 admin.site.register(Premiacao)
 admin.site.register(Projeto)
 admin.site.register(Portifolio)
+admin.site.register(Formulario)
 admin.site.register(Informacao)
+admin.site.register(Newsletter)
 admin.site.register(Grupo)

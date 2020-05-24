@@ -20,18 +20,29 @@
 
     <a href="{% url 'criar_newsletter' %}" class="btn btn-success" style="margin-bottom: 16px;">Criar newsletter</a>
 
-    {% for newsletter in grupos.newsletters %}
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    {{ newsletter.assunto }}
-                </div>
-                <div class="card-body">
-                    {{ newsletter.mensagem }}
-                </div>
+        <div class="accrodion-regular">
+            <div id="accordion">
+                {% for newsletter in grupo.newsletters.all %}
+
+                    <div class="card">
+                        <div class="card-header" id="heading{{forloop.counter}}">
+                            <h5 class="mb-0">
+                               <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{forloop.counter}}" aria-expanded="true" aria-controls="collapse{{forloop.counter}}">
+                                {{ newsletter.assunto }} - {{ newsletter.data_criacao }}
+                               </button>
+                              </h5>
+                        </div>
+                        <div id="collapse{{forloop.counter}}" class="collapse" aria-labelledby="heading{{forloop.counter}}" data-parent="#accordion">
+                            <div class="card-body">
+                                {{ newsletter.mensagem|safe }}
+                            </div>
+                        </div>
+                    </div>
+
+            {% empty %}
+                <h3>Ainda não foram cadastradas newsletters.</h3>
+            {% endfor %}
             </div>
         </div>
-    {% empty %}
-        <h3>Ainda não foram cadastradas newsletters.</h3>
-    {% endfor %}
+            
 {% endblock %}

@@ -215,6 +215,26 @@
     </div>
   </section>
   
+<!-- ======= Documents Section ======= -->
+
+<section id="document" class="team faq">
+  <div class="container">
+
+    <div class="section-title" data-aos="fade-up">
+      <h2>Documentos</h2>
+      <p>Esses são os documentos disponíveis para download</p>
+    </div>
+
+    <ul class="faq-list">
+      {% for documento in grupo.informacao.documentos.all %}
+        <li data-aos="fade-up" data-aos-delay="100">
+          <a href="{{documento.link}}">{{documento}}</a>
+        </li>
+      {% endfor %}
+    </ul>
+
+  </div>
+</section><!-- End Documents Section -->
 
   <!-- ======= Infrastructure Section ======= -->
   <section id="infrastructure" class="infrastructure">
@@ -426,6 +446,7 @@
             <li><i class="bx bx-chevron-right"></i> <a href="#projects">Projetos</a></li>
             <li><i class="bx bx-chevron-right"></i> <a href="#servicos">Serviços</a></li>
             <!-- <li><i class="bx bx-chevron-right"></i> <a href="#portfolio">Portfólio</a></li>  -->
+            <li><i class="bx bx-chevron-right"></i> <a href="#document">Documentos</a></li> 
             <li><i class="bx bx-chevron-right"></i> <a href="#infrastructure">Infraestrutura</a></li>          
             <li><i class="bx bx-chevron-right"></i> <a href="#clients">Parceiros</a></li>
             <li><i class="bx bx-chevron-right"></i> <a href="#contact">Contato</a></li>

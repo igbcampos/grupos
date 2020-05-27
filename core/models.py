@@ -220,6 +220,7 @@ class Informacao(models.Model):
     idioma = models.ForeignKey(Idioma, on_delete=models.CASCADE)
     tema = models.ForeignKey(Tema, on_delete=models.CASCADE)
     sobre = models.ForeignKey(Sobre, on_delete=models.CASCADE)
+    documentos = models.ManyToManyField(Documento,blank=True, null=True)
     pesquisadores = models.ManyToManyField(Pesquisador)
     instituicoes = models.ManyToManyField(Instituicao)
     linhas = models.ManyToManyField(Linha)

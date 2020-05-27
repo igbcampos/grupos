@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-22 13:26-0300\n"
+"POT-Creation-Date: 2020-05-27 17:30-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,206 +18,215 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: templates/template/base.html:66 templates/template/grupo.html:411
+#: templates/template/base.html:74 templates/template/grupo.html:423
 msgid "inicio"
 msgstr "Home"
 
-#: templates/template/base.html:67 templates/template/grupo.html:22
-#: templates/template/grupo.html:43 templates/template/grupo.html:412
+#: templates/template/base.html:75 templates/template/grupo.html:14
+#: templates/template/grupo.html:35 templates/template/grupo.html:424
 msgid "sobre"
 msgstr "About"
 
-#: templates/template/base.html:68 templates/template/grupo.html:57
-#: templates/template/grupo.html:413
+#: templates/template/base.html:76 templates/template/grupo.html:49
+#: templates/template/grupo.html:425
 msgid "linhasDePesquisa"
 msgstr "Research fields"
 
-#: templates/template/base.html:69 templates/template/grupo.html:80
-#: templates/template/grupo.html:414
+#: templates/template/base.html:77 templates/template/grupo.html:72
+#: templates/template/grupo.html:426
 msgid "pesquisadores"
 msgstr "Researchers"
 
-#: templates/template/base.html:70 templates/template/grupo.html:118
-#: templates/template/grupo.html:415
+#: templates/template/base.html:78 templates/template/grupo.html:110
+#: templates/template/grupo.html:427
 msgid "producoes"
 msgstr "Productions"
 
-#: templates/template/base.html:71 templates/template/grupo.html:158
-#: templates/template/grupo.html:416
+#: templates/template/base.html:79 templates/template/grupo.html:150
+#: templates/template/grupo.html:428
 msgid "projetos"
 msgstr "Projects"
 
-#: templates/template/base.html:72 templates/template/grupo.html:187
-#: templates/template/grupo.html:417
+#: templates/template/base.html:80 templates/template/grupo.html:179
+#: templates/template/grupo.html:429
 msgid "servicos"
 msgstr "Services"
 
-#: templates/template/base.html:73 templates/template/grupo.html:418
+#: templates/template/base.html:81 templates/template/grupo.html:430
 msgid "portifolio"
 msgstr "Portifolio"
 
-#: templates/template/base.html:74 templates/template/grupo.html:213
-#: templates/template/grupo.html:419
+#: templates/template/base.html:82 templates/template/grupo.html:205
+#: templates/template/grupo.html:431
+msgid "documentos"
+msgstr "Documents"
+
+#: templates/template/base.html:83 templates/template/grupo.html:225
+#: templates/template/grupo.html:432
 msgid "infraestrutura"
 msgstr "Infrastructure"
 
-#: templates/template/base.html:75 templates/template/grupo.html:266
-#: templates/template/grupo.html:420
+#: templates/template/base.html:84 templates/template/grupo.html:278
+#: templates/template/grupo.html:433
 msgid "parceiros"
 msgstr "Partners"
 
-#: templates/template/base.html:76 templates/template/grupo.html:284
-#: templates/template/grupo.html:421
+#: templates/template/base.html:85 templates/template/grupo.html:296
+#: templates/template/grupo.html:434
 msgid "contato"
 msgstr "Contacts"
 
-#: templates/template/grupo.html:58
+#: templates/template/grupo.html:50
 msgid "linhasDePesquisaDescricao"
 msgstr "Learn about the main fields we work on"
 
-#: templates/template/grupo.html:81
+#: templates/template/grupo.html:73
 msgid "pesquisadoresDescricao"
 msgstr "Know our team"
 
-#: templates/template/grupo.html:119
+#: templates/template/grupo.html:111
 msgid "producoesDescricao"
 msgstr "These are our main productions"
 
-#: templates/template/grupo.html:159
+#: templates/template/grupo.html:151
 msgid "projetosDescricao"
 msgstr "These are our main projects"
 
-#: templates/template/grupo.html:171
+#: templates/template/grupo.html:163
 msgid "descricao"
 msgstr "Description"
 
-#: templates/template/grupo.html:172
+#: templates/template/grupo.html:164
 msgid "integrantes"
 msgstr "Teamworkers"
 
-#: templates/template/grupo.html:172
+#: templates/template/grupo.html:164
 msgid "coordenador"
 msgstr "Coordinator"
 
-#: templates/template/grupo.html:172
+#: templates/template/grupo.html:164
 msgid "integrante"
 msgstr "Teamworker"
 
-#: templates/template/grupo.html:188
+#: templates/template/grupo.html:180
 msgid "servicosDescricao"
 msgstr "These are the services we offer"
 
-#: templates/template/grupo.html:214
+#: templates/template/grupo.html:206
+msgid "documentosDescricao"
+msgstr "These are the documents available to download"
+
+#: templates/template/grupo.html:226
 msgid "infraestruturaDescricao"
 msgstr "Learn about our infrastructure"
 
-#: templates/template/grupo.html:267
+#: templates/template/grupo.html:279
 msgid "parceirosDescricao"
 msgstr "Partners and collaborators"
 
-#: templates/template/grupo.html:285
+#: templates/template/grupo.html:297
 msgid "contatoDescricao"
 msgstr "Keep in touch"
 
-#: templates/template/grupo.html:294
+#: templates/template/grupo.html:306
 msgid "endereco"
 msgstr "Address"
 
-#: templates/template/grupo.html:300 templates/template/grupo.html:325
-#: templates/template/grupo.html:404
+#: templates/template/grupo.html:312 templates/template/grupo.html:337
+#: templates/template/grupo.html:416
 msgid "email"
 msgstr "Email"
 
-#: templates/template/grupo.html:306 templates/template/grupo.html:403
+#: templates/template/grupo.html:318 templates/template/grupo.html:415
 msgid "telefone"
 msgstr "Phone number"
 
-#: templates/template/grupo.html:320
+#: templates/template/grupo.html:332
 msgid "nome"
 msgstr "Name"
 
-#: templates/template/grupo.html:321
+#: templates/template/grupo.html:333
 msgid "nomeValidacao"
 msgstr "Your subject must have at least 4 characters"
 
-#: templates/template/grupo.html:326
+#: templates/template/grupo.html:338
 msgid "emailValidacao"
 msgstr "Please, insert a valid email"
 
-#: templates/template/grupo.html:331
+#: templates/template/grupo.html:343
 msgid "assunto"
 msgstr "Subject"
 
-#: templates/template/grupo.html:332
+#: templates/template/grupo.html:344
 msgid "assuntoValidacao"
 msgstr "Your subject must have at least 8 characters"
 
-#: templates/template/grupo.html:336
+#: templates/template/grupo.html:348
 msgid "mensagem"
 msgstr "Message"
 
-#: templates/template/grupo.html:337
+#: templates/template/grupo.html:349
 msgid "mensagemValidacao"
 msgstr "Please, write a message"
 
-#: templates/template/grupo.html:341
+#: templates/template/grupo.html:353
 msgid "carregando"
 msgstr "Loading"
 
-#: templates/template/grupo.html:343
+#: templates/template/grupo.html:355
 msgid "mensagemEnviada"
 msgstr "Your message was sent. Thank you."
 
-#: templates/template/grupo.html:345
+#: templates/template/grupo.html:357
 msgid "enviarFormulario"
 msgstr "Enviar"
 
-#: templates/template/grupo.html:384
+#: templates/template/grupo.html:396
 msgid "newsletter"
 msgstr "Subscribe to our Newsletter"
 
-#: templates/template/grupo.html:385
+#: templates/template/grupo.html:397
 msgid "newsletterDescricao"
-msgstr "Receive relevant content and important information about the laboratory"
+msgstr ""
+"Receive relevant content and important information about the laboratory"
 
-#: templates/template/grupo.html:388
-#, fuzzy
-#| msgid "newsletter"
+#: templates/template/grupo.html:400
 msgid "inscreverNewsletter"
 msgstr "Subscribe"
 
-#: templates/template/grupo.html:409
+#: templates/template/grupo.html:421
 msgid "paginas"
 msgstr "Pages"
 
-#: templates/template/grupo.html:426
+#: templates/template/grupo.html:439
 msgid "redesSociais"
 msgstr "Social Media"
 
-#: templates/template/grupo.html:427
+#: templates/template/grupo.html:440
 msgid "redesSociaisDescricao"
 msgstr "Follow our Social Media"
 
-#: templates/template/grupo.html:436
+#: templates/template/grupo.html:449
 msgid "apoio"
 msgstr "Support"
 
-#: templates/template/grupo.html:450
+#: templates/template/grupo.html:463
 msgid "desenvolvidoPor"
 msgstr "Developed by"
 
-#: views.py:54 views.py:55
+#: views.py:53 views.py:54
 msgid "loginInvalido"
 msgstr "Username or password invalid. Please, try again."
 
-#: views.py:128
+#: views.py:964
 msgid "formularioEnviado"
-msgstr "Your message was sent. Thank you for reach out. Soon we will contact you."
+msgstr ""
+"Your message was sent. Thank you for reach out. Soon we will contact you."
 
-#: views.py:131
+#: views.py:966
 msgid "formularioNaoEnviado"
 msgstr "Your message was not sent. Please, try again."
 
-#: views.py:142
+#: views.py:979
 msgid "inscricaoNewssletterEnviada"
 msgstr "Registration successful. Soon we will contact you."

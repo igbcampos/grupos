@@ -16,6 +16,18 @@ def caminho(instance, filename):
 
     return os.path.join(nome_caminho, nome_arquivo)
 
+class Documento(models.Model):
+    nome = models.CharField(max_length=256, blank=True, null=True)
+    link = models.CharField(max_length=256, blank=True, null=True)
+    data = models.DateField(null=True, blank=True)     
+    
+    def __str__(self):
+        return self.nome + ' - ' + str(self.data)
+
+    class Meta():
+        verbose_name = 'Documento'
+        verbose_name_plural = 'Documentos'
+
 class Idioma(models.Model):
     nome = models.CharField(max_length=256, blank=True, null=True)
     sigla = models.CharField(max_length=256, blank=True, null=True)
@@ -244,6 +256,7 @@ class Grupo(models.Model):
     formularios = models.ManyToManyField(Formulario, blank=True)
     inscritos = models.ManyToManyField(Inscrito, blank=True)
     newsletters = models.ManyToManyField(Newsletter, blank=True)
+    documentos = models.ManyToManyField(Documento, blank=True)
 
     imagem_infraestrutura1 = models.ImageField(upload_to=caminho, blank=True)
     imagem_infraestrutura2 = models.ImageField(upload_to=caminho, blank=True)

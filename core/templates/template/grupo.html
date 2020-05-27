@@ -197,6 +197,26 @@
     </div>
   </section>
   
+  <!-- ======= Documents Section ======= -->
+  <section id="document" class="team faq">
+    <div class="container">
+  
+      <div class="section-title" data-aos="fade-up">
+        <h2>{% trans 'documentos' %}</h2>
+        <p>{% trans 'documentosDescricao' %}</p>
+      </div>
+  
+      <ul class="faq-list">
+        {% for documento in grupo.informacao.documentos.all %}
+          <li data-aos="fade-up" data-aos-delay="100">
+            <a href="{{documento.link}}">{{documento}}</a>
+          </li>
+        {% endfor %}
+      </ul>
+  
+    </div>
+  </section><!-- End Documents Section -->
+  
   <!-- ======= Infrastructure Section ======= -->
   <section id="infrastructure" class="infrastructure">
     <div class="container">
@@ -408,6 +428,7 @@
             <li><i class="bx bx-chevron-right"></i> <a href="#projects">{% trans 'projetos' %}</a></li>
             <li><i class="bx bx-chevron-right"></i> <a href="#servicos">{% trans 'servicos' %}</a></li>
             <!-- <li><i class="bx bx-chevron-right"></i> <a href="#portfolio">{% trans 'portifolio' %}</a></li>  -->
+            <li><i class="bx bx-chevron-right"></i> <a href="#document">{% trans 'documentos' %}</a></li> 
             <li><i class="bx bx-chevron-right"></i> <a href="#infrastructure">{% trans 'infraestrutura' %}</a></li>          
             <li><i class="bx bx-chevron-right"></i> <a href="#clients">{% trans 'parceiros' %}</a></li>
             <li><i class="bx bx-chevron-right"></i> <a href="#contact">{% trans 'contato' %}</a></li>

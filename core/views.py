@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.http import Http404
-from .models import Grupo, Formulario, Inscrito, Newsletter
+from .models import Idioma, Inscrito, Pesquisador, Instituicao, Linha, Servico, Publicacao, Premiacao, Portifolio, Projeto, Formulario, Informacao, Newsletter, Grupo
 
 from django.template.loader import render_to_string
 from django.core.mail import send_mail
@@ -64,11 +64,790 @@ def deslogar(request):
 @login_required(login_url='/login')
 def administracao(request):
     grupo = Grupo.objects.get(responsavel=request.user)
+    idiomas = Idioma.objects.values_list('nome', flat=True)
+    idiomas_ativos = []
+
+    for informacao in grupo.informacoes.all():
+        idiomas_ativos.append(informacao.idioma.nome)
+
     setattr(grupo, 'informacao', grupo.informacoes.first)
     
-    contexto = {'grupo': grupo}
+    contexto = {'grupo': grupo, 'idiomas': idiomas, 'idiomas_ativos': idiomas_ativos}
 
-    return render(request, 'administracao/administracao.html', contexto) 
+    return render(request, 'administracao/administracao.html', contexto)
+
+def copiar_pesquisadores(informacao_portugues, informacao_destino):
+    for pesquisador in informacao_portugues.pesquisadores.all():
+        print(pesquisador)
+        pesquisador.pk = None
+        pesquisador.save()
+
+        informacao_destino.pesquisadores.add(pesquisador)
+        informacao_destino.save()
+
+def copiar_instituicoes(informacao_portugues, informacao_destino):
+    for instituicao in informacao_portugues.instituicoes.all():
+        instituicao.pk = None
+        instituicao.save()
+
+        informacao_destino.instituicoes.add(instituicao)
+        informacao_destino.save()
+
+def copiar_linhas(informacao_portugues, informacao_destino):
+    for linha in informacao_portugues.linhas.all():
+        linha.pk = None
+        linha.save()
+
+        informacao_destino.linhas.add(linha)
+        informacao_destino.save()
+
+def copiar_servicos(informacao_portugues, informacao_destino):
+    for servico in informacao_portugues.servicos.all():
+        servico.pk = None
+        servico.save()
+
+        informacao_destino.servicos.add(servico)
+        informacao_destino.save()
+
+def copiar_publicacoes(informacao_portugues, informacao_destino):
+    for publicacao in informacao_portugues.publicacoes.all():
+        publicacao.pk = None
+        publicacao.save()
+
+        informacao_destino.publicacoes.add(publicacao)
+        informacao_destino.save()
+
+def copiar_premiacoes(informacao_portugues, informacao_destino):
+    for premiacao in informacao_portugues.premiacoes.all():
+        premiacao.pk = None
+        premiacao.save()
+
+        informacao_destino.premiacoes.add(premiacao)
+        informacao_destino.save()
+
+def copiar_portifolios(informacao_portugues, informacao_destino):
+    for portifolio in informacao_portugues.portifolio.all():
+        portifolio.pk = None
+        portifolio.save()
+
+        informacao_destino.portifolio.add(portifolio)
+        informacao_destino.save()
+
+def copiar_projetos(informacao_portugues, informacao_destino):
+    for projeto in informacao_portugues.projetos.all():
+        projeto.pk = None
+        projeto.save()
+
+        informacao_destino.projetos.add(projeto)
+        informacao_destino.save()
+
+@login_required(login_url='/login')
+def salvar_sobre(request):
+    try:
+        grupo = Grupo.objects.get(responsavel=request.user)
+        idiomas = []
+
+        grupo.nome = request.POST.get('nome', '')
+        grupo.sigla = request.POST.get('sigla', '')
+        #grupo.mapa = request.POST.get('mapa', '')
+        grupo.telefone = request.POST.get('telefone', '')
+        grupo.email = request.POST.get('email', '')
+        grupo.endereco = request.POST.get('endereco', '')
+        grupo.facebook = request.POST.get('facebook', '')
+        grupo.twitter = request.POST.get('twitter', '')
+        grupo.instagram = request.POST.get('instagram', '')
+
+        for informacao in grupo.informacoes.all():
+            idiomas.append(informacao.idioma.nome)
+
+        for informacao in grupo.informacoes.all():
+            grupo.descricao = request.POST.get('descricao-' + informacao.idioma.sigla, '')
+            grupo.descricao_infraestrutura = request.POST.get('descricao-infraestrutura-' + informacao.idioma.sigla, '')
+
+        for informacao in grupo.informacoes.all():
+            if informacao.idioma.nome not in request.POST.getlist('idiomas', ''):
+                informacao.delete()
+
+        for idioma in request.POST.getlist('idiomas', ''):
+            if idioma not in idiomas:
+                for informacao in grupo.informacoes.all():
+                    if informacao.idioma.sigla == 'pt':
+                        informacao_portugues = Informacao.objects.get(pk = informacao.pk)
+
+                        nova_informacao = informacao
+                        nova_informacao.pk = None
+                        nova_informacao.idioma = Idioma.objects.get(nome = idioma)
+                        nova_informacao.save()
+
+                        grupo.informacoes.add(nova_informacao)
+
+                        print('\t\tinformacao: {}, nova informacao: {}'.format(informacao_portugues.pk, nova_informacao.pk))
+
+                        copiar_pesquisadores(informacao_portugues, nova_informacao)
+                        copiar_instituicoes(informacao_portugues, nova_informacao)
+                        copiar_linhas(informacao_portugues, nova_informacao)
+                        copiar_servicos(informacao_portugues, nova_informacao)
+                        copiar_publicacoes(informacao_portugues, nova_informacao)
+                        copiar_premiacoes(informacao_portugues, nova_informacao)
+                        copiar_portifolios(informacao_portugues, nova_informacao)
+                        copiar_projetos(informacao_portugues, nova_informacao)
+
+        if 'imagem' in request.FILES:
+            grupo.imagem = request.FILES['imagem']
+        if 'imagem-infraestrutura1' in request.FILES:
+            grupo.imagem_infraestrutura1 = request.FILES['imagem-infraestrutura1']
+        if 'imagem-infraestrutura2' in request.FILES:
+            grupo.imagem_infraestrutura2 = request.FILES['imagem-infraestrutura2']
+        if 'imagem-infraestrutura3' in request.FILES:
+            grupo.imagem_infraestrutura3 = request.FILES['imagem-infraestrutura3']
+
+        grupo.save()
+        
+        messages.warning(request, 'As informação do grupo foram salvas com sucesso.')
+    except:
+        messages.warning(request, 'Não foi possível salvar as informações do grupo. Por favor, tente novamente.')
+    
+    return redirect('/administracao') 
+
+@login_required(login_url='/login')
+def salvar_pesquisador(request, idioma, pk = None):
+    try:
+        grupo = Grupo.objects.get(responsavel=request.user)
+
+        if pk is None:
+            for informacao in grupo.informacoes.all():
+                if idioma != 'pt':
+                    pesquisador = Pesquisador.objects.create(
+                        nome = request.POST.get('nome', ''),
+                        descricao = request.POST.get('descricao', ''),
+                        descricao_completa = request.POST.get('descricao-completa', ''),
+                        lattes = request.POST.get('lattes', ''),
+                        orcid = request.POST.get('orcid', '')
+                    )
+
+                    if 'imagem' in request.FILES:
+                        pesquisador.imagem = request.FILES['imagem']
+                        pesquisador.save()
+
+                    informacao.pesquisadores.add(pesquisador)
+                else:
+                    pesquisador = Pesquisador.objects.create(
+                        nome = request.POST.get('nome', ''),
+                        descricao = request.POST.get('descricao', ''),
+                        descricao_completa = request.POST.get('descricao-completa', ''),
+                        lattes = request.POST.get('lattes', ''),
+                        orcid = request.POST.get('orcid', '')
+                    )
+
+                    if 'imagem' in request.FILES:
+                        pesquisador.imagem = request.FILES['imagem']
+                        pesquisador.save()
+
+                    informacao.pesquisadores.add(pesquisador)
+
+            messages.warning(request, 'Pesquisador cadastrado com sucesso.')
+        else:
+            pesquisador = Pesquisador.objects.get(pk=pk)
+
+            pesquisador.nome = request.POST.get('nome', '')
+            pesquisador.descricao = request.POST.get('descricao', '')
+            pesquisador.descricao_completa = request.POST.get('descricao-completa', '')
+            pesquisador.lattes = request.POST.get('lattes', '')
+            pesquisador.orcid = request.POST.get('orcid', '')
+
+            if 'imagem' in request.FILES:
+                pesquisador.imagem = request.FILES['imagem']
+                
+            pesquisador.save()
+
+            messages.warning(request, 'Pesquisador salvo com sucesso.')
+    except:
+        messages.warning(request, 'Não foi possível salvar as informações do pesquisador. Por favor, tente novamente.')
+    
+    return redirect('/administracao')
+
+@login_required(login_url='/login')
+def copiar_pesquisador(request, idioma):
+    try:
+        grupo = Grupo.objects.get(responsavel=request.user)
+        
+        informacao_portugues = {}
+        informacao_destino = {}
+
+        for informacao in grupo.informacoes.all():
+            if informacao.idioma.sigla == 'pt':
+                informacao_portugues = informacao
+            elif informacao.idioma.sigla == idioma:
+                informacao_destino = informacao
+
+        copiar_pesquisadores(informacao_portugues, informacao_destino)
+
+        messages.warning(request, 'Pesquisadores copiados com sucesso.')
+    except:
+        messages.warning(request, 'Não foi possível copiar as informações dos pesquisadores. Por favor, tente novamente.')
+    
+    return redirect('/administracao')
+
+@login_required(login_url='/login')
+def excluir_pesquisador(request, pk):
+    try:
+        Pesquisador.objects.get(pk=pk).delete()
+
+        messages.warning(request, 'O pesquisador selecionado foi excluido com sucesso.')
+    except:
+        messages.warning(request, 'Não foi possível excluir o pesquisador selecionado.')
+    
+    return redirect('/administracao')
+
+@login_required(login_url='/login')
+def salvar_instituicao(request, idioma, pk = None):
+    try:
+        grupo = Grupo.objects.get(responsavel=request.user)
+
+        if pk is None:
+            for informacao in grupo.informacoes.all():
+                if idioma != 'pt':
+                    instituicao = Instituicao.objects.create(
+                        nome = request.POST.get('nome', ''),
+                        categoria = request.POST.get('categoria', ''),
+                    )
+
+                    if 'imagem' in request.FILES:
+                        instituicao.imagem = request.FILES['imagem']
+                        instituicao.save()
+
+                    informacao.instituicoes.add(instituicao)
+                else:
+                    instituicao = Instituicao.objects.create(
+                        nome = request.POST.get('nome', ''),
+                        categoria = request.POST.get('categoria', ''),
+                    )
+
+                    if 'imagem' in request.FILES:
+                        instituicao.imagem = request.FILES['imagem']
+                        instituicao.save()
+
+                    informacao.instituicoes.add(instituicao)
+
+            messages.warning(request, 'Parceiro cadastrado com sucesso.')
+        else:
+            instituicao = Instituicao.objects.get(pk=pk)
+
+            instituicao.nome = request.POST.get('nome', '')
+            instituicao.categoria = request.POST.get('categoria', '')
+
+            if 'imagem' in request.FILES:
+                instituicao.imagem = request.FILES['imagem']
+                
+            instituicao.save()
+
+            messages.warning(request, 'Parceiro salvo com sucesso.')
+    except:
+        messages.warning(request, 'Não foi possível salvar as informações do parceiro. Por favor, tente novamente.')
+    
+    return redirect('/administracao')
+
+@login_required(login_url='/login')
+def copiar_instituicao(request, idioma):
+    try:
+        grupo = Grupo.objects.get(responsavel=request.user)
+        
+        informacao_portugues = {}
+        informacao_destino = {}
+
+        for informacao in grupo.informacoes.all():
+            if informacao.idioma.sigla == 'pt':
+                informacao_portugues = informacao
+            elif informacao.idioma.sigla == idioma:
+                informacao_destino = informacao
+
+        copiar_instituicoes(informacao_portugues, informacao_destino)
+
+        messages.warning(request, 'Parceiros copiados com sucesso.')
+    except:
+        messages.warning(request, 'Não foi possível copiar as informações dos parceiros. Por favor, tente novamente.')
+    
+    return redirect('/administracao')
+
+@login_required(login_url='/login')
+def excluir_instituicao(request, pk):
+    try:
+        Instituicao.objects.get(pk=pk).delete()
+
+        messages.warning(request, 'O parceiro selecionado foi excluido com sucesso.')
+    except:
+        messages.warning(request, 'Não foi possível excluir o parceiro selecionada.')
+    
+    return redirect('/administracao')
+
+@login_required(login_url='/login')
+def salvar_linha(request, idioma, pk = None):
+    try:
+        grupo = Grupo.objects.get(responsavel=request.user)
+
+        if pk is None:
+            for informacao in grupo.informacoes.all():
+                if idioma != 'pt':
+                    linha = Linha.objects.create(
+                        nome = request.POST.get('nome', ''),
+                        descricao = request.POST.get('descricao', ''),
+                    )
+
+                    informacao.linhas.add(linha)
+                else:
+                    linha = Linha.objects.create(
+                        nome = request.POST.get('nome', ''),
+                        descricao = request.POST.get('descricao', ''),
+                    )
+
+                    informacao.linhas.add(linha)
+
+            messages.warning(request, 'Linha de pesquisa cadastrada com sucesso.')
+        else:
+            linha = Linha.objects.get(pk=pk)
+
+            linha.nome = request.POST.get('nome', '')
+            linha.descricao = request.POST.get('descricao', '')
+                
+            linha.save()
+
+            messages.warning(request, 'Linha de pesquisa salva com sucesso.')
+    except:
+        messages.warning(request, 'Não foi possível salvar as informações da linha de pesquisa. Por favor, tente novamente.')
+    
+    return redirect('/administracao')
+
+@login_required(login_url='/login')
+def copiar_linha(request, idioma):
+    try:
+        grupo = Grupo.objects.get(responsavel=request.user)
+        
+        informacao_portugues = {}
+        informacao_destino = {}
+
+        for informacao in grupo.informacoes.all():
+            if informacao.idioma.sigla == 'pt':
+                informacao_portugues = informacao
+            elif informacao.idioma.sigla == idioma:
+                informacao_destino = informacao
+
+        copiar_linhas(informacao_portugues, informacao_destino)
+
+        messages.warning(request, 'Linhas de pesquisa copiadas com sucesso.')
+    except:
+        messages.warning(request, 'Não foi possível copiar as informações das linhas de pesquisa. Por favor, tente novamente.')
+    
+    return redirect('/administracao')
+
+@login_required(login_url='/login')
+def excluir_linha(request, pk):
+    try:
+        Linha.objects.get(pk=pk).delete()
+
+        messages.warning(request, 'A linha de pesquisa selecionado foi excluida com sucesso.')
+    except:
+        messages.warning(request, 'Não foi possível excluir a linha de pesquisa selecionada.')
+    
+    return redirect('/administracao')
+
+@login_required(login_url='/login')
+def salvar_servico(request, idioma, pk = None):
+    try:
+        grupo = Grupo.objects.get(responsavel=request.user)
+
+        if pk is None:
+            for informacao in grupo.informacoes.all():
+                if idioma != 'pt':
+                    servico = Servico.objects.create(
+                        nome = request.POST.get('nome', ''),
+                        descricao = request.POST.get('descricao', ''),
+                    )
+
+                    informacao.servicos.add(servico)
+                else:
+                    servico = Servico.objects.create(
+                        nome = request.POST.get('nome', ''),
+                        descricao = request.POST.get('descricao', ''),
+                    )
+
+                    informacao.servicos.add(servico)
+
+            messages.warning(request, 'Serviço cadastrado com sucesso.')
+        else:
+            servico = Servico.objects.get(pk=pk)
+
+            servico.nome = request.POST.get('nome', '')
+            servico.descricao = request.POST.get('descricao', '')
+                
+            servico.save()
+
+            messages.warning(request, 'Serviço salvo com sucesso.')
+    except:
+        messages.warning(request, 'Não foi possível salvar as informações do serviço. Por favor, tente novamente.')
+    
+    return redirect('/administracao')
+
+@login_required(login_url='/login')
+def copiar_servico(request, idioma):
+    try:
+        grupo = Grupo.objects.get(responsavel=request.user)
+        
+        informacao_portugues = {}
+        informacao_destino = {}
+
+        for informacao in grupo.informacoes.all():
+            if informacao.idioma.sigla == 'pt':
+                informacao_portugues = informacao
+            elif informacao.idioma.sigla == idioma:
+                informacao_destino = informacao
+
+        copiar_servicos(informacao_portugues, informacao_destino)
+
+        messages.warning(request, 'Serviços copiados com sucesso.')
+    except:
+        messages.warning(request, 'Não foi possível copiar as informações dos serviços. Por favor, tente novamente.')
+    
+    return redirect('/administracao')
+
+@login_required(login_url='/login')
+def excluir_servico(request, pk):
+    try:
+        Servico.objects.get(pk=pk).delete()
+
+        messages.warning(request, 'O serviço selecionado foi excluido com sucesso.')
+    except:
+        messages.warning(request, 'Não foi possível excluir o serviço selecionado.')
+    
+    return redirect('/administracao')
+
+def categoria(subcategoria):
+    if subcategoria == 'Artigos completos publicados em periódicos' or subcategoria == 'Artigos aceitos para publicação' or subcategoria == 'Livros e capítulos' or subcategoria == 'Texto em jornal ou revista (magazine)' or subcategoria == 'Trabalhos publicados em anais de eventos' or subcategoria == 'Apresentação de trabalho e palestra' or subcategoria == 'Partitura musical' or subcategoria == 'Tradução' or subcategoria == 'Prefácio, posfácio' or subcategoria == 'Outra produção bibliográfica':
+        return 'Produção Bibliográfica'
+    if subcategoria == 'Assessoria e consultoria' or subcategoria == 'Extensão tecnológica' or subcategoria == 'Programa de computador sem registro' or subcategoria == 'Produtos' or subcategoria == 'Processos ou técnicas' or subcategoria == 'Trabalhos técnicos' or subcategoria == 'Cartas, mapas ou similares' or subcategoria == 'Curso de curta duração ministrado' or subcategoria == 'Desenvolvimento de material didático ou instrucional' or subcategoria == 'Editoração' or subcategoria == 'Manutenção de obra artística' or subcategoria == 'Maquete' or subcategoria == 'Entrevistas, mesas redondas, programas e comentários na mídia' or subcategoria == 'Relatório de pesquisa' or subcategoria == 'Redes sociais, websites e blogs' or subcategoria == 'Outra produção técnica':
+        return 'Produção Técnica'
+    if subcategoria == 'Artes cênicas' or subcategoria == 'Música' or subcategoria == 'Artes visuais' or subcategoria == 'Outra produção artística/cultural':
+        return 'Outra produção artística/cultural'
+
+@login_required(login_url='/login')
+def salvar_publicacao(request, idioma, pk = None):
+    try:
+        grupo = Grupo.objects.get(responsavel=request.user)
+
+        if pk is None:
+            for informacao in grupo.informacoes.all():
+                if idioma != 'pt':
+                    publicacao = Publicacao.objects.create(
+                        nome = request.POST.get('nome', ''),
+                        ano = request.POST.get('ano', ''),
+                        descricao = request.POST.get('descricao', ''),
+                        categoria = categoria(request.POST.get('subcategoria', '')),
+                        subcategoria = request.POST.get('subcategoria', '')
+                    )
+
+                    informacao.publicacoes.add(publicacao)
+                else:
+                    publicacao = Publicacao.objects.create(
+                        nome = request.POST.get('nome', ''),
+                        ano = request.POST.get('ano', ''),
+                        descricao = request.POST.get('descricao', ''),
+                        categoria = categoria(request.POST.get('subcategoria', '')),
+                        subcategoria = request.POST.get('subcategoria', '')
+                    )
+
+                    informacao.publicacoes.add(publicacao)
+
+            messages.warning(request, 'Publicação cadastrada com sucesso.')
+        else:
+            publicacao = Publicacao.objects.get(pk=pk)
+
+            publicacao.nome = request.POST.get('nome', '')
+            publicacao.ano = request.POST.get('ano', '')
+            publicacao.descricao = request.POST.get('descricao', '')
+            publicacao.categoria = categoria(request.POST.get('subcategoria', ''))
+            publicacao.subcategoria = request.POST.get('subcategoria', '')
+                
+            publicacao.save()
+
+            messages.warning(request, 'Publicação salva com sucesso.')
+    except:
+        messages.warning(request, 'Não foi possível salvar as informações da publicação. Por favor, tente novamente.')
+    
+    return redirect('/administracao')
+
+@login_required(login_url='/login')
+def copiar_publicacao(request, idioma):
+    try:
+        grupo = Grupo.objects.get(responsavel=request.user)
+        
+        informacao_portugues = {}
+        informacao_destino = {}
+
+        for informacao in grupo.informacoes.all():
+            if informacao.idioma.sigla == 'pt':
+                informacao_portugues = informacao
+            elif informacao.idioma.sigla == idioma:
+                informacao_destino = informacao
+        
+        copiar_publicacoes(informacao_portugues, informacao_destino)
+
+        messages.warning(request, 'Publicações copiadas com sucesso.')
+    except:
+        messages.warning(request, 'Não foi possível copiar as informações das publicações. Por favor, tente novamente.')
+    
+    return redirect('/administracao')
+
+@login_required(login_url='/login')
+def excluir_publicacao(request, pk):
+    try:
+        Publicacao.objects.get(pk=pk).delete()
+
+        messages.warning(request, 'A publicação selecionada foi excluida com sucesso.')
+    except:
+        messages.warning(request, 'Não foi possível excluir a publicação selecionada.')
+    
+    return redirect('/administracao')
+
+@login_required(login_url='/login')
+def salvar_premiacao(request, idioma, pk = None):
+    try:
+        grupo = Grupo.objects.get(responsavel=request.user)
+
+        if pk is None:
+            for informacao in grupo.informacoes.all():
+                if idioma != 'pt':
+                    premiacao = Premiacao.objects.create(
+                        nome = request.POST.get('nome', ''),
+                        ano = request.POST.get('ano', ''),
+                        descricao = request.POST.get('descricao', '')
+                    )
+
+                    informacao.premiacoes.add(premiacao)
+                else:
+                    premiacao = Premiacao.objects.create(
+                        nome = request.POST.get('nome', ''),
+                        ano = request.POST.get('ano', ''),
+                        descricao = request.POST.get('descricao', ''),
+                    )
+
+                    informacao.premiacoes.add(premiacao)
+
+            messages.warning(request, 'Premiação cadastrada com sucesso.')
+        else:
+            premiacao = Premiacao.objects.get(pk=pk)
+
+            premiacao.nome = request.POST.get('nome', '')
+            premiacao.ano = request.POST.get('ano', '')
+            premiacao.descricao = request.POST.get('descricao', '')
+                
+            premiacao.save()
+
+            messages.warning(request, 'Premiação salva com sucesso.')
+    except:
+        messages.warning(request, 'Não foi possível salvar as informações da premiação. Por favor, tente novamente.')
+    
+    return redirect('/administracao')
+
+@login_required(login_url='/login')
+def copiar_premiacao(request, idioma):
+    try:
+        grupo = Grupo.objects.get(responsavel=request.user)
+        
+        informacao_portugues = {}
+        informacao_destino = {}
+
+        for informacao in grupo.informacoes.all():
+            if informacao.idioma.sigla == 'pt':
+                informacao_portugues = informacao
+            elif informacao.idioma.sigla == idioma:
+                informacao_destino = informacao
+        
+        copiar_premiacoes(informacao_portugues, informacao_destino)
+
+        messages.warning(request, 'Premiações copiadas com sucesso.')
+    except:
+        messages.warning(request, 'Não foi possível copiar as informações das premiações. Por favor, tente novamente.')
+    
+    return redirect('/administracao')
+
+@login_required(login_url='/login')
+def excluir_premiacao(request, pk):
+    try:
+        Premiacao.objects.get(pk=pk).delete()
+
+        messages.warning(request, 'A premiação selecionada foi excluida com sucesso.')
+    except:
+        messages.warning(request, 'Não foi possível excluir a premiação selecionada.')
+    
+    return redirect('/administracao')
+
+@login_required(login_url='/login')
+def salvar_portifolio(request, idioma, pk = None):
+    try:
+        grupo = Grupo.objects.get(responsavel=request.user)
+
+        if pk is None:
+            for informacao in grupo.informacoes.all():
+                if idioma != 'pt':
+                    portifolio = Portifolio.objects.create(
+                        nome = request.POST.get('nome', ''),
+                        descricao = request.POST.get('descricao', ''),
+                    )
+
+                    informacao.portifolio.add(portifolio)
+                else:
+                    portifolio = Portifolio.objects.create(
+                        nome = request.POST.get('nome', ''),
+                        descricao = request.POST.get('descricao', ''),
+                    )
+
+                    informacao.portifolio.add(portifolio)
+
+            messages.warning(request, 'Portifólio cadastrado com sucesso.')
+        else:
+            portifolio = Portifolio.objects.get(pk=pk)
+
+            portifolio.nome = request.POST.get('nome', '')
+            portifolio.descricao = request.POST.get('descricao', '')
+                
+            portifolio.save()
+
+            messages.warning(request, 'Portifólio salvo com sucesso.')
+    except:
+        messages.warning(request, 'Não foi possível salvar as informações do portifólio. Por favor, tente novamente.')
+    
+    return redirect('/administracao')
+
+@login_required(login_url='/login')
+def copiar_portifolio(request, idioma):
+    try:
+        grupo = Grupo.objects.get(responsavel=request.user)
+        
+        informacao_portugues = {}
+        informacao_destino = {}
+
+        for informacao in grupo.informacoes.all():
+            if informacao.idioma.sigla == 'pt':
+                informacao_portugues = informacao
+            elif informacao.idioma.sigla == idioma:
+                informacao_destino = informacao
+        
+        copiar_portifolios(informacao_portugues, informacao_destino)
+
+        messages.warning(request, 'Portifólio copiado com sucesso.')
+    except:
+        messages.warning(request, 'Não foi possível copiar as informações do portifólio. Por favor, tente novamente.')
+    
+    return redirect('/administracao')
+
+@login_required(login_url='/login')
+def excluir_portifolio(request, pk):
+    try:
+        Portifolio.objects.get(pk=pk).delete()
+
+        messages.warning(request, 'O portifólio selecionado foi excluido com sucesso.')
+    except:
+        messages.warning(request, 'Não foi possível excluir o portifólio selecionado.')
+    
+    return redirect('/administracao')
+
+@login_required(login_url='/login')
+def salvar_projeto(request, idioma, pk = None):
+    try:
+        grupo = Grupo.objects.get(responsavel=request.user)
+
+        if pk is None:
+            for informacao in grupo.informacoes.all():
+                if idioma != 'pt':
+                    projeto = Projeto.objects.create(
+                        titulo = request.POST.get('titulo', ''),
+                        descricao = request.POST.get('descricao', ''),
+                        coordenador = Pesquisador.objects.get(pk = request.POST.get('coordenador', ''),),
+                        data_inicio = request.POST.get('data-inicio', '')
+                    )
+
+                    if request.POST.get('data-fim', ''):
+                        projeto.data_fim = request.POST.get('data-fim', '')
+
+                    for integrante in request.POST.getlist('integrantes', ''):
+                        projeto.integrantes.add(Pesquisador.objects.get(pk=int(integrante)))
+                    
+                    projeto.save()
+
+                    informacao.projetos.add(projeto)
+                else:
+                    projeto = Projeto.objects.create(
+                        titulo = request.POST.get('titulo', ''),
+                        descricao = request.POST.get('descricao', ''),
+                        coordenador = Pesquisador.objects.get(pk = request.POST.get('coordenador', ''),),
+                        data_inicio = request.POST.get('data-inicio', '')
+                    )
+
+                    if request.POST.get('data-fim', ''):
+                        projeto.data_fim = request.POST.get('data-fim', '')
+
+                    for integrante in request.POST.getlist('integrantes', ''):
+                        projeto.integrantes.add(Pesquisador.objects.get(pk=int(integrante)))
+                    
+                    projeto.save()
+
+                    informacao.projetos.add(projeto)
+
+            messages.warning(request, 'Projeto cadastrado com sucesso.')
+        else:
+            projeto = Projeto.objects.get(pk=pk)
+
+            projeto.titulo = request.POST.get('titulo', '')
+            projeto.descricao = request.POST.get('descricao', '')
+            projeto.coordenador = Pesquisador.objects.get(pk = request.POST.get('coordenador', ''))
+            projeto.data_inicio = request.POST.get('data-inicio', '')
+
+            if request.POST.get('data-fim', ''):
+                projeto.data_fim = request.POST.get('data-fim', '')
+            
+            projeto.integrantes.clear()
+
+            for integrante in request.POST.getlist('integrantes', ''):
+                projeto.integrantes.add(Pesquisador.objects.get(pk=int(integrante)))
+                
+            projeto.save()
+
+            messages.warning(request, 'Projeto salvo com sucesso.')
+    except:
+        messages.warning(request, 'Não foi possível salvar as informações do projeto. Por favor, tente novamente.')
+    
+    return redirect('/administracao')
+
+@login_required(login_url='/login')
+def copiar_projeto(request, idioma):
+    try:
+        grupo = Grupo.objects.get(responsavel=request.user)
+        
+        informacao_portugues = {}
+        informacao_destino = {}
+
+        for informacao in grupo.informacoes.all():
+            if informacao.idioma.sigla == 'pt':
+                informacao_portugues = informacao
+            elif informacao.idioma.sigla == idioma:
+                informacao_destino = informacao
+        copiar_projetos(informacao_portugues, informacao_destino)
+
+        messages.warning(request, 'Projetos copiados com sucesso.')
+    except:
+        messages.warning(request, 'Não foi possível copiar as informações dos projetos. Por favor, tente novamente.')
+    
+    return redirect('/administracao')
+
+@login_required(login_url='/login')
+def excluir_projeto(request, pk):
+    try:
+        Projeto.objects.get(pk=pk).delete()
+
+        messages.warning(request, 'O projeto selecionado foi excluido com sucesso.')
+    except:
+        messages.warning(request, 'Não foi possível excluir o projeto selecionado.')
+    
+    return redirect('/administracao')
 
 @login_required(login_url='/login')
 def newsletter(request):
@@ -120,18 +899,24 @@ def grupo(request, sigla, idioma = None):
     categorias = []
     subcategorias = []
 
-    for publicacao in grupo.publicacoes.all():
-        if publicacao.categoria not in categorias:
-            categorias.append(publicacao.categoria)
-        if publicacao.subcategoria not in subcategorias:
-            subcategorias.append(publicacao.subcategoria)
-
     if idioma:
         for informacao in grupo.informacoes.all():
             if idioma == informacao.idioma.sigla:
+                for publicacao in informacao.publicacoes.all():
+                    if publicacao.categoria not in categorias:
+                        categorias.append(publicacao.categoria)
+                    if publicacao.subcategoria not in subcategorias:
+                        subcategorias.append(publicacao.subcategoria)
+
                 setattr(grupo, 'informacao', informacao)
                 translation.activate(idioma)
     else:
+        for publicacao in grupo.informacoes.first().publicacoes.all():
+            if publicacao.categoria not in categorias:
+                categorias.append(publicacao.categoria)
+            if publicacao.subcategoria not in subcategorias:
+                subcategorias.append(publicacao.subcategoria)
+
         setattr(grupo, 'informacao', grupo.informacoes.first)
         translation.activate(grupo.informacoes.first().idioma.sigla)
 
@@ -181,7 +966,6 @@ def formulario(request, sigla, idioma = None):
         messages.warning(request, _('formularioNaoEnviado'))
 
     url = url_redirecionamento(sigla, idioma)
-    print(url)
     return redirect(url)
 
 def inscrever(request, sigla, idioma = None):

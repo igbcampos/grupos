@@ -30,7 +30,7 @@ class Idioma(models.Model):
 
 class Pesquisador(models.Model):
     nome = models.CharField(max_length=256, blank=True, null=True)
-    imagem = models.ImageField(upload_to=caminho)
+    imagem = models.ImageField(upload_to=caminho, blank=True)
     descricao = models.CharField(max_length=1024, blank=True, null=True)
     descricao_completa = models.TextField(max_length=300, blank=True, null=True)
     lattes = models.CharField(max_length=256, blank=True, null=True)
@@ -47,7 +47,7 @@ class Instituicao(models.Model):
     categorias = [('Nacional', 'Nacional'), ('Internacional', 'Internacional')]
 
     nome = models.CharField(max_length=256, blank=True, null=True)
-    imagem = models.ImageField(upload_to=caminho)
+    imagem = models.ImageField(upload_to=caminho, blank=True)
     categoria = models.CharField(max_length=256, blank=True, null=True, choices=categorias)
     
     def __str__(self):
@@ -174,6 +174,15 @@ class Informacao(models.Model):
     idioma = models.ForeignKey(Idioma, on_delete=models.CASCADE)
     descricao = models.CharField(max_length=1024, blank=True, null=True)
     descricao_infraestrutura = models.TextField(max_length=1024, blank=True, null=True)
+
+    pesquisadores = models.ManyToManyField(Pesquisador, blank=True)
+    instituicoes = models.ManyToManyField(Instituicao, blank=True)
+    linhas = models.ManyToManyField(Linha, blank=True)
+    servicos = models.ManyToManyField(Servico, blank=True)
+    publicacoes = models.ManyToManyField(Publicacao, blank=True)
+    premiacoes = models.ManyToManyField(Premiacao, blank=True)
+    portifolio = models.ManyToManyField(Portifolio, blank=True)
+    projetos = models.ManyToManyField(Projeto, blank=True)
     
     def __str__(self):
         return self.descricao
@@ -221,10 +230,8 @@ class Grupo(models.Model):
     responsavel = models.ForeignKey(User, on_delete=models.CASCADE)
     url = models.CharField(max_length=256, blank=True, null=True)
     sigla = models.CharField(max_length=256, blank=True, null=True)
-
     nome = models.CharField(max_length=256, blank=True, null=True)
-    sigla = models.CharField(max_length=256, blank=True, null=True)
-    imagem = models.ImageField(upload_to=caminho)
+    imagem = models.ImageField(upload_to=caminho, blank=True)
     mapa = models.TextField(default='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3974.278131225411!2d-42.80071524911858!3d-5.058599352781233!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x77c4de0a93d78d1%3A0xfcf5d4a169075b0!2sUniversidade%20Federal%20do%20Piau%C3%AD!5e0!3m2!1spt-BR!2sbr!4v1589396552722!5m2!1spt-BR!2sbr', blank=True, null=True)
     telefone = models.CharField(max_length=256, blank=True, null=True)
     email = models.CharField(max_length=256, blank=True, null=True)
@@ -233,22 +240,14 @@ class Grupo(models.Model):
     twitter = models.CharField(max_length=256, blank=True, null=True)
     instagram = models.CharField(max_length=256, blank=True, null=True)
     
-    informacoes = models.ManyToManyField(Informacao)
-    pesquisadores = models.ManyToManyField(Pesquisador)
-    instituicoes = models.ManyToManyField(Instituicao)
-    linhas = models.ManyToManyField(Linha)
-    servicos = models.ManyToManyField(Servico)
-    publicacoes = models.ManyToManyField(Publicacao)
-    premiacoes = models.ManyToManyField(Premiacao)
-    portifolio = models.ManyToManyField(Portifolio)
-    projetos = models.ManyToManyField(Projeto)
-    formularios = models.ManyToManyField(Formulario)
-    inscritos = models.ManyToManyField(Inscrito)
-    newsletters = models.ManyToManyField(Newsletter)
+    informacoes = models.ManyToManyField(Informacao, blank=True)
+    formularios = models.ManyToManyField(Formulario, blank=True)
+    inscritos = models.ManyToManyField(Inscrito, blank=True)
+    newsletters = models.ManyToManyField(Newsletter, blank=True)
 
-    imagem_infraestrutura1 = models.ImageField(upload_to=caminho)
-    imagem_infraestrutura2 = models.ImageField(upload_to=caminho)
-    imagem_infraestrutura3 = models.ImageField(upload_to=caminho)
+    imagem_infraestrutura1 = models.ImageField(upload_to=caminho, blank=True)
+    imagem_infraestrutura2 = models.ImageField(upload_to=caminho, blank=True)
+    imagem_infraestrutura3 = models.ImageField(upload_to=caminho, blank=True)
     
     def __str__(self):
         return self.responsavel.username

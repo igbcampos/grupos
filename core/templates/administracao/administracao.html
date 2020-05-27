@@ -19,10 +19,6 @@
     </div>
 
     <div>
-        <div class="section-block">
-            <h5 class="section-title">Pills tabs</h5>
-            <p>Takes the basic nav from above and adds the .nav-tabs class to generate a tabbed interface..</p>
-        </div>
         <div class="pills-regular">
             <ul class="nav nav-pills mb-1" id="pills-tab" role="tablist">
                 <li class="nav-item">
@@ -32,7 +28,7 @@
                     <a class="nav-link" id="pills-pesquisadores-tab" data-toggle="pill" href="#pills-pesquisadores" role="tab" aria-controls="pesquisadores" aria-selected="false">Pesquisadores</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="pills-instituicoes-tab" data-toggle="pill" href="#pills-instituicoes" role="tab" aria-controls="instituicoes" aria-selected="false">Instituições</a>
+                    <a class="nav-link" id="pills-instituicoes-tab" data-toggle="pill" href="#pills-instituicoes" role="tab" aria-controls="instituicoes" aria-selected="false">Parceiros</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="pills-linhas-tab" data-toggle="pill" href="#pills-linhas" role="tab" aria-controls="linhas" aria-selected="false">Linhas de Pesquisa</a>
@@ -55,445 +51,687 @@
             </ul>
             <div class="tab-content border" id="pills-tabContent" style="background-color: transparent;">
                 <div class="tab-pane fade show active" id="pills-sobre" role="tabpanel" aria-labelledby="pills-sobre-tab">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 16px; align-items: center;">
-                        <p>Sobre</p>
-                        
-                        <div>
-                            <a href="{% url 'administracao' %}" class="btn btn-secondary">Cancelar Edição</a>
-                        
-                            <a href="#" class="btn btn-success">Salvar</a>
-                        </div>
-                    </div>
 
-                    <div class="card">
-                        <div class="card-body">
-
-                            <div class="row">
-                                <div class="col">
-                                    <img src="/media/{{ grupo.imagem }}" alt="" height="150" style="object-fit: cover;">
-                                </div>
-                                
-                                <div class="form-group col">
-                                    <label for="sobre-input-imagem" class="col-form-label">Imagem</label>
-                                    <input id="sobre-input-imagem" type="file" class="form-control">
-                                </div>
-                            </div>
-                
-                            <div class="row">
-                                <div class="form-group col">
-                                    <label for="sobre-input-nome" class="col-form-label">Nome</label>
-                                    <input id="sobre-input-nome" type="text" class="form-control" value="{{ grupo.nome }}" maxlength="256">
-                                </div>
+                    <form id="formulario-sobre" action="/sobre/salvar" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
                     
-                                <div class="form-group col">
-                                    <label for="sobre-input-sigla" class="col-form-label">Sigla</label>
-                                    <input id="sobre-input-sigla" type="text" class="form-control" value="{{ grupo.sigla }}" maxlength="256">
-                                </div>
-                            </div>
-                
-                            <div class="form-group">
-                                <label for="sobre-input-descricao">Descrição</label>
-                                <textarea class="form-control" id="sobre-input-descricao" rows="3" maxlength="1024">{{ grupo.informacao.descricao }}</textarea>
-                            </div>
-                
-                            <div class="row">
-                                <div class="form-group col">
-                                    <label for="sobre-input-telefone" class="col-form-label">Telefone</label>
-                                    <input id="sobre-input-telefone" type="text" class="form-control" value="{{ grupo.telefone }}" maxlength="256">
-                                </div>
-
-                                <div class="form-group col">
-                                    <label for="sobre-input-endereco" class="col-form-label">Endereço</label>
-                                    <input id="sobre-input-endereco" type="text" class="form-control" value="{{ grupo.endereco }}" maxlength="256">
-                                </div>
-                            </div>
-                
-                            <div class="row">            
-                                <div class="form-group col">
-                                    <label for="sobre-input-email" class="col-form-label">E-mail</label>
-                                    <input id="sobre-input-email" type="email" class="form-control" value="{{ grupo.email }}" maxlength="256">
-                                </div>
-                    
-                                <div class="form-group col">
-                                    <label for="sobre-input-facebook" class="col-form-label">Facebook</label>
-                                    <input id="sobre-input-facebook" type="text" class="form-control" value="{{ grupo.facebook }}" maxlength="256">
-                                </div>
-                            </div>
-                
-                            <div class="row">
-                                <div class="form-group col">
-                                    <label for="sobre-input-twitter" class="col-form-label">Twitter</label>
-                                    <input id="sobre-input-twitter" type="text" class="form-control" value="{{ grupo.twitter }}" maxlength="256">
-                                </div>
-                    
-                                <div class="form-group col">
-                                    <label for="sobre-input-instagram" class="col-form-label">Instagram</label>
-                                    <input id="sobre-input-instagram" type="text" class="form-control" value="{{ grupo.instagram }}" maxlength="256">
-                                </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 16px; align-items: center;">
+                            <p>Sobre</p>
+                            
+                            <div>
+                                <a href="{% url 'administracao' %}" class="btn btn-secondary">Cancelar Edição</a>
+                            
+                                <button type="submit" class="btn btn-success">Salvar</button>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="tab-pane fade" id="pills-pesquisadores" role="tabpanel" aria-labelledby="pills-pesquisadores-tab">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 16px; align-items: center;">
-                        <p>Pesquisador</p>
-                        
-                        <div>
-                            <a href="#" class="btn btn-primary">Adicionar Pesquisador</a>
 
-                            <a href="{% url 'administracao' %}" class="btn btn-secondary">Cancelar Edição</a>
-                        
-                            <a href="#" class="btn btn-success">Salvar</a>
-                        </div>
-                    </div>
-                    {% for pesquisador in grupo.pesquisadores.all %}
                         <div class="card">
                             <div class="card-body">
+
                                 <div class="row">
-                                    <div class="col-2">
-                                        <img src="/media/{{ pesquisador.imagem }}" alt="" class="rounded-circle" height="150" width="150" style="object-fit: cover;">
+                                    <div class="col">
+                                        <img id="sobre-imagem" src="/media/{{ grupo.imagem }}" alt="" height="150" style="object-fit: cover;">
+                                    </div>
+                                    
+                                    <div class="form-group col">
+                                        <label for="sobre-input-imagem" class="col-form-label">Imagem</label>
+                                        <input id="sobre-input-imagem" name="imagem" type="file" class="form-control" onchange="adicionarImagem('sobre-imagem', 'sobre-input-imagem')">
+                                    </div>
+                                </div>
+                    
+                                <div class="row">
+                                    <div class="form-group col">
+                                        <label for="sobre-input-nome" class="col-form-label">Nome</label>
+                                        <input id="sobre-input-nome" name="nome" type="text" class="form-control" value="{{ grupo.nome }}" maxlength="256">
+                                    </div>
+                        
+                                    <div class="form-group col">
+                                        <label for="sobre-input-sigla" class="col-form-label">Sigla</label>
+                                        <input id="sobre-input-sigla" name="sigla" type="text" class="form-control" value="{{ grupo.sigla }}" maxlength="256">
+                                    </div>
+                                </div>
+                    
+                                <div class="row">
+                                    <div class="form-group col">
+                                        <label for="sobre-input-telefone" class="col-form-label">Telefone</label>
+                                        <input id="sobre-input-telefone" name="telefone" type="text" class="form-control" value="{{ grupo.telefone }}" maxlength="256">
+                                    </div>
+
+                                    <div class="form-group col">
+                                        <label for="sobre-input-endereco" class="col-form-label">Endereço</label>
+                                        <input id="sobre-input-endereco" name="endereco" type="text" class="form-control" value="{{ grupo.endereco }}" maxlength="256">
+                                    </div>
+                                </div>
+                    
+                                <div class="row">            
+                                    <div class="form-group col">
+                                        <label for="sobre-input-email" class="col-form-label">E-mail</label>
+                                        <input id="sobre-input-email" name="email" type="email" class="form-control" value="{{ grupo.email }}" maxlength="256">
+                                    </div>
+                        
+                                    <div class="form-group col">
+                                        <label for="sobre-input-facebook" class="col-form-label">Facebook</label>
+                                        <input id="sobre-input-facebook" name="facebook" type="text" class="form-control" value="{{ grupo.facebook }}" maxlength="256">
+                                    </div>
+                                </div>
+                    
+                                <div class="row">
+                                    <div class="form-group col">
+                                        <label for="sobre-input-twitter" class="col-form-label">Twitter</label>
+                                        <input id="sobre-input-twitter" name="twitter" type="text" class="form-control" value="{{ grupo.twitter }}" maxlength="256">
+                                    </div>
+                        
+                                    <div class="form-group col">
+                                        <label for="sobre-input-instagram" class="col-form-label">Instagram</label>
+                                        <input id="sobre-input-instagram" name="instagram" type="text" class="form-control" value="{{ grupo.instagram }}" maxlength="256">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Idiomas</label>
+                                    <div class="col-sm-6">
+                                        <div class="custom-controls-stacked">
+                                            {% for idioma in idiomas %}
+                                                <label class="custom-control custom-checkbox">
+                                                    <input id="{{ idioma }}" name="idiomas" type="checkbox" data-parsley-multiple="idioma" value="{{ idioma }}" class="custom-control-input" 
+                                                        {% if idioma == 'Português' %} 
+                                                            checked onclick="return false;" 
+                                                        {% elif idioma in idiomas_ativos %} 
+                                                            checked 
+                                                            onclick="removerIdioma('{{ idioma }}')"
+                                                            data-toggle="modal" data-target=".bd-example-modal-lg"
+                                                        {% elif idioma not in idiomas_ativos %}  
+                                                            onclick="adicionarIdioma('{{ idioma }}')"
+                                                            data-toggle="modal" data-target=".bd-example-modal-lg"
+                                                        {% endif %}>
+                                                    <span class="custom-control-label">{{ idioma }}</span>
+                                                </label>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                                        
+                                <div class="form-group">
+                                    <label for="sobre-imagem-input-infraestrutura1" class="col-form-label">Imagens infraestrutura</label>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="col">
+                                            <img id="sobre-imagem-infraestrutura1" src="/media/{{ grupo.imagem_infraestrutura1 }}" alt="" height="200" width="200" style="object-fit: cover; overflow: hidden;">
+                                        </div>
+                                        
+                                        <div class="form-group col">
+                                            <label for="sobre-imagem-input-infraestrutura1" class="col-form-label">Imagem</label>
+                                            <input id="sobre-imagem-input-infraestrutura1" name="imagem-infraestrutura1" type="file" class="form-control" onchange="adicionarImagem('sobre-imagem-infraestrutura1', 'sobre-imagem-input-infraestrutura1')">
+                                        </div>
                                     </div>
 
                                     <div class="col">
-                                        <div class="row">
-                                            <div class="form-group col">
-                                                <label for="pesquisadores-input-nome{{ forloop.counter }}" class="col-form-label">Nome</label>
-                                                <input id="pesquisadores-input-nome{{ forloop.counter }}" type="text" class="form-control" value="{{ pesquisador.nome }}" maxlength="256" required>
-                                            </div>
-                
-                                            <div class="form-group col">
-                                                <label for="pesquisadores-input-lattes{{ forloop.counter }}" class="col-form-label">Lattes</label>
-                                                <input id="pesquisadores-input-lattes{{ forloop.counter }}" type="text" class="form-control" value="{{ pesquisador.lattes }}" maxlength="256">
-                                            </div>
-                
-                                            <div class="form-group col">
-                                                <label for="pesquisadores-input-orcid{{ forloop.counter }}" class="col-form-label">ORCID</label>
-                                                <input id="pesquisadores-input-orcid{{ forloop.counter }}" type="text" class="form-control" value="{{ pesquisador.orcid }}" maxlength="256">
-                                            </div>
+                                        <div class="col">
+                                            <img id="sobre-imagem-infraestrutura2" src="/media/{{ grupo.imagem_infraestrutura2 }}" alt="" height="200" width="200" style="object-fit: cover; overflow: hidden;">
                                         </div>
-                
-                                        <div class="form-group">
-                                            <label for="pesquisadores-input-descricao{{ forloop.counter }}" class="col-form-label">Descrição resumida</label>
-                                            <input id="pesquisadores-input-descricao{{ forloop.counter }}" type="text" class="form-control" value="{{ pesquisador.descricao }}" maxlength="256" required>
-                                        </div>
-                
-                                        <div class="form-group">
-                                            <label for="pesquisadores-input-descricao-completa{{ forloop.counter }}">Descrição completa</label>
-                                            <textarea class="form-control" id="pesquisadores-input-descricao-completa{{ forloop.counter }}" rows="3"  maxlength="1024">{{ pesquisador.descricao_completa }}</textarea>
-                                        </div>
-                
+                                        
                                         <div class="form-group col">
-                                            <label for="pesquisadores-input-imagem{{ forloop.counter }}" class="col-form-label">Imagem</label>
-                                            <input id="pesquisadores-input-imagem{{ forloop.counter }}" type="file" class="form-control" value="{{ pesquisador.imagem }}">
-                                        </div>                                
+                                            <label for="sobre-imagem-input-infraestrutura2" class="col-form-label">Imagem</label>
+                                            <input id="sobre-imagem-input-infraestrutura2" name="imagem-infraestrutura2" type="file" class="form-control" onchange="adicionarImagem('sobre-imagem-infraestrutura2', 'sobre-imagem-input-infraestrutura2')">
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="col">
+                                            <img id="sobre-imagem-infraestrutura3" src="/media/{{ grupo.imagem_infraestrutura3 }}" alt="" height="200" width="200" style="object-fit: cover; overflow: hidden;">
+                                        </div>
+                                        
+                                        <div class="form-group col">
+                                            <label for="sobre-imagem-input-infraestrutura3" class="col-form-label">Imagem</label>
+                                            <input id="sobre-imagem-input-infraestrutura3" name="imagem-infraestrutura3" type="file" class="form-control" onchange="adicionarImagem('sobre-imagem-infraestrutura3', 'sobre-imagem-input-infraestrutura3')">
+                                        </div>
                                     </div>
                                 </div>
 
-                                <a href="#" class="btn btn-danger">Excluir</a>
+                                {% for informacao in grupo.informacoes.all %}
+                                    <div class="accrodion-regular">
+                                        <div id="accordion">
+                                            <div class="card">
+                                                <div class="card-header" id="sobre-heading{{ forloop.counter }}">
+                                                    <h5 class="mb-0">
+                                                        <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#sobre-collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="sobre-collapse{{ forloop.counter }}">
+                                                            {{ informacao.idioma.nome }}
+                                                        </button>
+                                                    </h5>
+                                                </div>
+                                                <div id="sobre-collapse{{ forloop.counter }}" class="collapse" aria-labelledby="sobre-heading{{ forloop.counter }}" data-parent="#accordion">
+                                                    <div class="card-body">
+                                                        <div class="form-group">
+                                                            <label for="sobre-input-descricao">Descrição</label>
+                                                            <textarea class="form-control" id="sobre-input-descricao" name="descricao-{{ informacao.idioma.sigla }}" rows="3" maxlength="1024">{{ informacao.descricao }}</textarea>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="sobre-input-descricao-infraestrutura">Descrição Infraestrutura</label>
+                                                            <textarea class="form-control" id="sobre-input-descricao-infraestrutura" name="descricao-infraestrutura-{{ informacao.idioma.sigla }}" rows="3" maxlength="1024">{{ informacao.descricao_infraestrutura }}</textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}    
+                            </div>
+                        </div>
+                    
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="pills-pesquisadores" role="tabpanel" aria-labelledby="pills-pesquisadores-tab">
+                    <p>Pesquisadores</p>
+
+                    {% for informacao in grupo.informacoes.all %}
+                        <div class="accrodion-regular">
+                            <div id="accordion">
+                                <div class="card">
+                                    <div class="card-header row" id="pesquisadores-heading{{ forloop.counter }}">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#pesquisadores-collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="pesquisadores-collapse{{ forloop.counter }}">
+                                                {{ informacao.idioma.nome }}
+                                            </button>
+                                        </h5>
+
+                                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="formularioCadastro('cadastro', 'pesquisadores', 'pesquisador', '{{ informacao.idioma.nome }}', {}, `/pesquisadores/${'{{ informacao.idioma.sigla }}'}/salvar`)">Adicionar Pesquisador</a>
+                                    </div>
+                                    <div id="pesquisadores-collapse{{ forloop.counter }}" class="collapse" aria-labelledby="pesquisadores-heading{{ forloop.counter }}" data-parent="#accordion">
+                                        <div class="card-body">
+                                            {% for pesquisador in informacao.pesquisadores.all %}
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-2">
+                                                                <img id="pesquisadores-imagem{{ pesquisador.pk }}" src="/media/{{ pesquisador.imagem }}" alt="" class="rounded-circle" height="150" width="150" style="object-fit: cover;">
+                                                            </div>
+
+                                                            <div class="col">
+                                                                <div class="row">
+                                                                    <div class="form-group col">
+                                                                        <label for="pesquisadores-input-nome{{ pesquisador.pk }}" class="col-form-label">Nome</label>
+                                                                        <input id="pesquisadores-input-nome{{ pesquisador.pk }}" type="text" class="form-control" value="{{ pesquisador.nome }}" maxlength="256" required>
+                                                                    </div>
+                                        
+                                                                    <div class="form-group col">
+                                                                        <label for="pesquisadores-input-lattes{{ pesquisador.pk }}" class="col-form-label">Lattes</label>
+                                                                        <input id="pesquisadores-input-lattes{{ pesquisador.pk }}" type="text" class="form-control" value="{{ pesquisador.lattes }}" maxlength="256">
+                                                                    </div>
+                                        
+                                                                    <div class="form-group col">
+                                                                        <label for="pesquisadores-input-orcid{{ pesquisador.pk }}" class="col-form-label">ORCID</label>
+                                                                        <input id="pesquisadores-input-orcid{{ pesquisador.pk }}" type="text" class="form-control" value="{{ pesquisador.orcid }}" maxlength="256">
+                                                                    </div>
+                                                                </div>
+                                        
+                                                                <div class="form-group">
+                                                                    <label for="pesquisadores-input-descricao{{ pesquisador.pk }}" class="col-form-label">Descrição resumida</label>
+                                                                    <input id="pesquisadores-input-descricao{{ pesquisador.pk }}" type="text" class="form-control" value="{{ pesquisador.descricao }}" maxlength="256" required>
+                                                                </div>
+                                        
+                                                                <div class="form-group">
+                                                                    <label for="pesquisadores-input-descricao-completa{{ pesquisador.pk }}">Descrição completa</label>
+                                                                    <textarea class="form-control" id="pesquisadores-input-descricao-completa{{ pesquisador.pk }}" rows="3"  maxlength="1024">{{ pesquisador.descricao_completa }}</textarea>
+                                                                </div>                              
+                                                            </div>
+                                                        </div>
+
+                                                        <a href="#" class="btn btn-danger" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="confirmarExclusao('pesquisadores', 'pesquisador', '{{ informacao.idioma.nome }}', '{{ pesquisador.nome }}', '/pesquisadores/excluir/{{ pesquisador.pk }}')">Excluir</a>
+
+                                                        <a href="#" class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="formularioCadastro('edicao', 'pesquisadores', 'pesquisador', '{{ informacao.idioma.nome }}', `{'imagem': '{{ pesquisador.imagem }}', 'nome': '{{ pesquisador.nome }}', 'lattes': '{{ pesquisador.lattes }}', 'orcid': '{{ pesquisador.orcid }}', 'descricao': '{{ pesquisador.descricao }}', 'descricao_completa': '{{ pesquisador.descricao_completa }}'}`, `/pesquisadores/${'{{ informacao.idioma.sigla }}'}/salvar/{{ pesquisador.pk }}`)">Editar</a>
+                                                    </div>
+                                                </div>
+                                            {% empty %}
+                                                <p>Ainda não há dados.</p>
+
+                                                {% if informacao.idioma.sigla != 'pt' %}
+                                                    <a href="/pesquisadores/{{ informacao.idioma.sigla }}/copiar" class="btn btn-dark">Copiar informações do Português</a>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     {% endfor %}
                 </div>
                 <div class="tab-pane fade" id="pills-instituicoes" role="tabpanel" aria-labelledby="pills-instituicoes-tab">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 16px; align-items: center;">
-                        <p>Instituição</p>
-                        
-                        <div>
-                            <a href="#" class="btn btn-primary">Adicionar Instituição</a>
+                    <p>Parceiros/Colaboradores</p>
 
-                            <a href="{% url 'administracao' %}" class="btn btn-secondary">Cancelar Edição</a>
-                        
-                            <a href="#" class="btn btn-success">Salvar</a>
-                        </div>
-                    </div>
-                    {% for instituicao in grupo.instituicoes.all %} 
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-2">
-                                        <img src="/media/{{ instituicao.imagem }}" alt="" class="rounded-circle" height="150" width="150" style="object-fit: cover;">
+                    {% for informacao in grupo.informacoes.all %}
+                        <div class="accrodion-regular">
+                            <div id="accordion">
+                                <div class="card">
+                                    <div class="card-header row" id="instituicaoes-heading{{ forloop.counter }}">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#instituicoes-collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="instituicoes-collapse{{ forloop.counter }}">
+                                                {{ informacao.idioma.nome }}
+                                            </button>
+                                        </h5>
+
+                                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="formularioCadastro('cadastro', 'instituicoes', 'instituição', '{{ informacao.idioma.nome }}', {}, `/instituicoes/${'{{ informacao.idioma.sigla }}'}/salvar`)">Adicionar Parceiro</a>
                                     </div>
+                                    <div id="instituicoes-collapse{{ forloop.counter }}" class="collapse" aria-labelledby="instituicaoes-heading{{ forloop.counter }}" data-parent="#accordion">
+                                        <div class="card-body"> 
+                                            {% for instituicao in informacao.instituicoes.all %} 
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-2">
+                                                                <img src="/media/{{ instituicao.imagem }}" alt="" class="rounded-circle" height="150" width="150" style="object-fit: cover;">
+                                                            </div>
 
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <label for="instituicoes-input-nome{{ forloop.counter }}" class="col-form-label">Nome</label>
-                                            <input id="instituicoes-input-nome{{ forloop.counter }}" type="text" class="form-control" value="{{ instituicao.nome }}" maxlength="256" required>
-                                        </div>
-                        
-                                        <div class="form-group">
-                                            <label for="pesquisadores-input-imagem{{ forloop.counter }}" class="col-form-label">Imagem</label>
-                                            <input id="pesquisadores-input-imagem{{ forloop.counter }}" type="file" class="form-control" value="{{ pesquisador.imagem }}">
-                                        </div>  
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="instituicoes-input-nome{{ instituicao.pk }}" class="col-form-label">Nome</label>
+                                                                    <input id="instituicoes-input-nome{{ instituicao.pk }}" type="text" class="form-control" value="{{ instituicao.nome }}" maxlength="256" required>
+                                                                </div>
 
-                                        <div class="form-group">
-                                            <label for="instituicoes-input-categoria{{ forloop.counter }}">Categoria</label>
-                                            <select class="form-control" id="instituicoes-input-categoria{{ forloop.counter }}">
-                                                <option {% if instituicao.subcategoria == 'Nacional' %} selected {% endif %}>Nacional</option>
-                                                <option {% if instituicao.subcategoria == 'Internacional' %} selected {% endif %}>Internacional</option>
-                                            </select>
+                                                                <div class="form-group">
+                                                                    <label for="instituicoes-input-categoria{{ instituicao.pk }}">Categoria</label>
+                                                                    <select class="form-control" id="instituicoes-input-categoria{{ instituicao.pk }}">
+                                                                        <option {% if instituicao.categoria == 'Nacional' %} selected {% endif %}>Nacional</option>
+                                                                        <option {% if instituicao.categoria == 'Internacional' %} selected {% endif %}>Internacional</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <a href="#" class="btn btn-danger" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="confirmarExclusao('instituicoes', 'parceiro', '{{ informacao.idioma.nome }}', '{{ instituicao.nome }}', '/instituicoes/excluir/{{ instituicao.pk }}')">Excluir</a>
+
+                                                        <a href="#" class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="formularioCadastro('edicao', 'instituicoes', 'parceiro', '{{ informacao.idioma.nome }}', `{'imagem': '{{ instituicao.imagem }}', 'nome': '{{ instituicao.nome }}', 'categoria': '{{ instituicao.categoria }}'}`, `/instituicoes/${'{{ informacao.idioma.sigla }}'}/salvar/{{ instituicao.pk }}`)">Editar</a>
+                                                    </div>
+                                                </div>
+                                            {% empty %}
+                                                <p>Ainda não há dados.</p>
+                                                
+                                                {% if informacao.idioma.sigla != 'pt' %}
+                                                    <a href="/instituicoes/{{ informacao.idioma.sigla }}/copiar" class="btn btn-dark">Copiar informações do Português</a>
+                                                {% endif %}
+                                            {% endfor %}
                                         </div>
                                     </div>
                                 </div>
-
-                                <a href="#" class="btn btn-danger">Excluir</a>
                             </div>
                         </div>
                     {% endfor %}
                 </div>
                 <div class="tab-pane fade" id="pills-linhas" role="tabpanel" aria-labelledby="pills-linhas-tab">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 16px; align-items: center;">
-                        <p>Linhas de Pesquisa</p>
-                        
-                        <div>
-                            <a href="#" class="btn btn-primary">Adicionar Linha de Pesquisa</a>
+                    <p>Linhas de Pesquisa</p>
+                    
+                    {% for informacao in grupo.informacoes.all %}
+                        <div class="accrodion-regular">
+                            <div id="accordion">
+                                <div class="card">
+                                    <div class="card-header row" id="linhas-heading{{ forloop.counter }}">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#linhas-collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="linhas-collapse{{ forloop.counter }}">
+                                                {{ informacao.idioma.nome }}
+                                            </button>
 
-                            <a href="{% url 'administracao' %}" class="btn btn-secondary">Cancelar Edição</a>
-                        
-                            <a href="#" class="btn btn-success">Salvar</a>
-                        </div>
-                    </div>
-                    {% for linha in grupo.linhas.all %}
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="linhas-input-nome{{ forloop.counter }}" class="col-form-label">Nome</label>
-                                    <input id="linhas-input-nome{{ forloop.counter }}" type="text" class="form-control" value="{{ linha.nome }}" maxlength="256" required>
-                                </div>
-                
-                                <div class="form-group">
-                                    <label for="linhas-input-descricao{{ forloop.counter }}">Descrição</label>
-                                    <textarea class="form-control" id="linhas-input-descricao{{ forloop.counter }}" rows="3" maxlength="1024">{{ linha.descricao }}</textarea>
-                                </div>
+                                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="formularioCadastro('cadastro', 'linhas', 'linha de pesquisa', '{{ informacao.idioma.nome }}', {}, `/linhas/${'{{ informacao.idioma.sigla }}'}/salvar`)">Adicionar Linha de Pesquisa</a>
+                                        </h5>
+                                    </div>
+                                    <div id="linhas-collapse{{ forloop.counter }}" class="collapse" aria-labelledby="linhas-heading{{ forloop.counter }}" data-parent="#accordion">
+                                        <div class="card-body">
+                                            {% for linha in informacao.linhas.all %}
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="form-group">
+                                                            <label for="linhas-input-nome{{ linha.pk }}" class="col-form-label">Nome</label>
+                                                            <input id="linhas-input-nome{{ linha.pk }}" type="text" class="form-control" value="{{ linha.nome }}" maxlength="256" required>
+                                                        </div>
+                                        
+                                                        <div class="form-group">
+                                                            <label for="linhas-input-descricao{{ linha.pk }}">Descrição</label>
+                                                            <textarea class="form-control" id="linhas-input-descricao{{ linha.pk }}" rows="3" maxlength="1024">{{ linha.descricao }}</textarea>
+                                                        </div>
 
-                                <a href="#" class="btn btn-danger">Excluir</a>
+                                                        <a href="#" class="btn btn-danger" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="confirmarExclusao('linhas', 'linha de pesquisa', '{{ informacao.idioma.nome }}', '{{ linha.nome }}', '/linhas/excluir/{{ linha.pk }}')">Excluir</a>
+
+                                                        <a href="#" class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="formularioCadastro('edicao', 'linhas', 'linha de pesquisa', '{{ informacao.idioma.nome }}', `{'nome': '{{ linha.nome }}', 'descricao': '{{ linha.descricao }}'}`, `/linhas/${'{{ informacao.idioma.sigla }}'}/salvar/{{ linha.pk }}`)">Editar</a>
+                                                    </div>
+                                                </div>
+                                            {% empty %}
+                                                <p>Ainda não há dados.</p>
+                                                
+                                                {% if informacao.idioma.sigla != 'pt' %}
+                                                    <a href="/linhas/{{ informacao.idioma.sigla }}/copiar" class="btn btn-dark">Copiar informações do Português</a>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     {% endfor %}
                 </div>
                 <div class="tab-pane fade" id="pills-servicos" role="tabpanel" aria-labelledby="pills-servicos-tab">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 16px; align-items: center;">
-                        <p>Serviços</p>
-                        
-                        <div>
-                            <a href="#" class="btn btn-primary">Adicionar Serviço</a>
+                    <p>Serviços</p>
 
-                            <a href="{% url 'administracao' %}" class="btn btn-secondary">Cancelar Edição</a>
-                        
-                            <a href="#" class="btn btn-success">Salvar</a>
-                        </div>
-                    </div>
-                    {% for servico in grupo.servicos.all %}
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="servicos-input-nome{{ forloop.counter }}" class="col-form-label">Nome</label>
-                                    <input id="servicos-input-nome{{ forloop.counter }}" type="text" class="form-control" value="{{ servico.nome }}" maxlength="256" required>
-                                </div>
-                
-                                <div class="form-group">
-                                    <label for="servicos-input-descricao{{ forloop.counter }}">Descrição</label>
-                                    <textarea class="form-control" id="servicos-input-descricao{{ forloop.counter }}" rows="3" maxlength="1024">{{ servico.descricao }}</textarea>
-                                </div>
+                    {% for informacao in grupo.informacoes.all %}
+                        <div class="accrodion-regular">
+                            <div id="accordion">
+                                <div class="card">
+                                    <div class="card-header row" id="servicos-heading{{ forloop.counter }}">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#servicos-collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="servicos-collapse{{ forloop.counter }}">
+                                                {{ informacao.idioma.nome }}
+                                            </button>
+                                        </h5>
 
-                                <a href="#" class="btn btn-danger">Excluir</a>
+                                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="formularioCadastro('cadastro', 'servicos', 'serviço', '{{ informacao.idioma.nome }}', {}, `/servicos/${'{{ informacao.idioma.sigla }}'}/salvar`)">Adicionar Serviço</a>
+                                    </div>
+                                    <div id="servicos-collapse{{ forloop.counter }}" class="collapse" aria-labelledby="servicos-heading{{ forloop.counter }}" data-parent="#accordion">
+                                        <div class="card-body">
+                                            {% for servico in informacao.servicos.all %}
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="form-group">
+                                                            <label for="servicos-input-nome{{ servico.pk }}" class="col-form-label">Nome</label>
+                                                            <input id="servicos-input-nome{{ servico.pk }}" type="text" class="form-control" value="{{ servico.nome }}" maxlength="256" required>
+                                                        </div>
+                                        
+                                                        <div class="form-group">
+                                                            <label for="servicos-input-descricao{{ servico.pk }}">Descrição</label>
+                                                            <textarea class="form-control" id="servicos-input-descricao{{ servico.pk }}" rows="3" maxlength="1024">{{ servico.descricao }}</textarea>
+                                                        </div>
+
+                                                        <a href="#" class="btn btn-danger" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="confirmarExclusao('servicos', 'serviço', '{{ informacao.idioma.nome }}', '{{ servico.nome }}', '/servicos/excluir/{{ servico.pk }}')">Excluir</a>
+
+                                                        <a href="#" class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="formularioCadastro('edicao', 'servicos', 'serviço', '{{ informacao.idioma.nome }}', `{'nome': '{{ servico.nome }}', 'descricao': '{{ servico.descricao }}'}`, `/servicos/${'{{ informacao.idioma.sigla }}'}/salvar/{{ servico.pk }}`)">Editar</a>
+                                                    </div>
+                                                </div>
+                                            {% empty %}
+                                                <p>Ainda não há dados.</p>
+                                                
+                                                {% if informacao.idioma.sigla != 'pt' %}
+                                                    <a href="/servicos/{{ informacao.idioma.sigla }}/copiar" class="btn btn-dark">Copiar informações do Português</a>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     {% endfor %}
                 </div>
                 <div class="tab-pane fade" id="pills-publicacoes" role="tabpanel" aria-labelledby="pills-publicacoes-tab">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 16px; align-items: center;">
-                        <p>Publicações</p>
+                    <p>Publicações</p>
                         
-                        <div>
-                            <a href="#" class="btn btn-primary">Adicionar Publicação</a>
+                    {% for informacao in grupo.informacoes.all %}
+                        <div class="accrodion-regular">
+                            <div id="accordion">
+                                <div class="card">
+                                    <div class="card-header row" id="publicacoes-heading{{ forloop.counter }}">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#publicacoes-collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="publicacoes-collapse{{ forloop.counter }}">
+                                                {{ informacao.idioma.nome }}
+                                            </button>
+                                        </h5>
 
-                            <a href="{% url 'administracao' %}" class="btn btn-secondary">Cancelar Edição</a>
-                        
-                            <a href="#" class="btn btn-success">Salvar</a>
-                        </div>
-                    </div>
-                    {% for publicacao in grupo.publicacoes.all %} 
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="form-group col">
-                                        <label for="publicacoes-input-nome{{ forloop.counter }}" class="col-form-label">Nome</label>
-                                        <input id="publicacoes-input-nome{{ forloop.counter }}" type="text" class="form-control" value="{{ publicacao.nome }}" maxlength="256" required>
+                                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="formularioCadastro('cadastro', 'publicacoes', 'publicação', '{{ informacao.idioma.nome }}', {}, `/publicacoes/${'{{ informacao.idioma.sigla }}'}/salvar`)">Adicionar Publicação</a>
                                     </div>
+                                    <div id="publicacoes-collapse{{ forloop.counter }}" class="collapse" aria-labelledby="publicacoes-heading{{ forloop.counter }}" data-parent="#accordion">
+                                        <div class="card-body">
+                                            {% for publicacao in informacao.publicacoes.all %} 
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="form-group col">
+                                                                <label for="publicacoes-input-nome{{ publicacao.pk }}" class="col-form-label">Nome</label>
+                                                                <input id="publicacoes-input-nome{{ publicacao.pk }}" type="text" class="form-control" value="{{ publicacao.nome }}" maxlength="256" required>
+                                                            </div>
 
-                                    <div class="form-group col">
-                                        <label for="publicacoes-input-ano{{ forloop.counter }}" class="col-form-label">Ano</label>
-                                        <input id="publicacoes-input-ano{{ forloop.counter }}" type="text" class="form-control" value="{{ publicacao.ano }}" maxlength="256">
+                                                            <div class="form-group col">
+                                                                <label for="publicacoes-input-ano{{ publicacao.pk }}" class="col-form-label">Ano</label>
+                                                                <input id="publicacoes-input-ano{{ publicacao.pk }}" type="text" class="form-control" value="{{ publicacao.ano }}" maxlength="256">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="publicacoes-input-categoria{{ publicacao.pk }}">Categoria</label>
+                                                            <select class="form-control" id="publicacoes-input-categoria{{ publicacao.pk }}">
+                                                                <option {% if publicacao.subcategoria == 'Artigos completos publicados em periódicos' %} selected {% endif %}>Artigos completos publicados em periódicos</option>
+                                                                <option {% if publicacao.subcategoria == 'Artigos aceitos para publicação' %} selected {% endif %}>Artigos aceitos para publicação</option>
+                                                                <option {% if publicacao.subcategoria == 'Livros e capítulos' %} selected {% endif %}>Livros e capítulos</option>
+                                                                <option {% if publicacao.subcategoria == 'Texto em jornal ou revista (magazine)' %} selected {% endif %}>Texto em jornal ou revista (magazine)</option>
+                                                                <option {% if publicacao.subcategoria == 'Trabalhos publicados em anais de eventos' %} selected {% endif %}>Trabalhos publicados em anais de eventos</option>
+                                                                <option {% if publicacao.subcategoria == 'Apresentação de trabalho e palestra' %} selected {% endif %}>Apresentação de trabalho e palestra</option>
+                                                                <option {% if publicacao.subcategoria == 'Partitura musical' %} selected {% endif %}>Partitura musical</option>
+                                                                <option {% if publicacao.subcategoria == 'Tradução' %} selected {% endif %}>Tradução</option>
+                                                                <option {% if publicacao.subcategoria == 'Prefácio, posfácio' %} selected {% endif %}>Prefácio, posfácio</option>
+                                                                <option {% if publicacao.subcategoria == 'Outra produção bibliográfica' %} selected {% endif %}>Outra produção bibliográfica</option>
+                                                                <option {% if publicacao.subcategoria == 'Assessoria e consultoria' %} selected {% endif %}>Assessoria e consultoria</option>
+                                                                <option {% if publicacao.subcategoria == 'Extensão tecnológica' %} selected {% endif %}>Extensão tecnológica</option>
+                                                                <option {% if publicacao.subcategoria == 'Programa de computador sem registro' %} selected {% endif %}>Programa de computador sem registro</option>
+                                                                <option {% if publicacao.subcategoria == 'Produtos' %} selected {% endif %}>Produtos</option>
+                                                                <option {% if publicacao.subcategoria == 'Processos ou técnicas' %} selected {% endif %}>Processos ou técnicas</option>
+                                                                <option {% if publicacao.subcategoria == 'Trabalhos técnicos' %} selected {% endif %}>Trabalhos técnicos</option>
+                                                                <option {% if publicacao.subcategoria == 'Cartas, mapas ou similares' %} selected {% endif %}>Cartas, mapas ou similares</option>
+                                                                <option {% if publicacao.subcategoria == 'Curso de curta duração ministrado' %} selected {% endif %}>Curso de curta duração ministrado</option>
+                                                                <option {% if publicacao.subcategoria == 'Desenvolvimento de material didático ou instrucional' %} selected {% endif %}>Desenvolvimento de material didático ou instrucional</option>
+                                                                <option {% if publicacao.subcategoria == 'Editoração' %} selected {% endif %}>Editoração</option>
+                                                                <option {% if publicacao.subcategoria == 'Manutenção de obra artística' %} selected {% endif %}>Manutenção de obra artística</option>
+                                                                <option {% if publicacao.subcategoria == 'Maquete' %} selected {% endif %}>Maquete</option>
+                                                                <option {% if publicacao.subcategoria == 'Entrevistas, mesas redondas, programas e comentários na mídia' %} selected {% endif %}>Entrevistas, mesas redondas, programas e comentários na mídia</option>
+                                                                <option {% if publicacao.subcategoria == 'Relatório de pesquisa' %} selected {% endif %}>Relatório de pesquisa</option>
+                                                                <option {% if publicacao.subcategoria == 'Redes sociais, websites e blogs' %} selected {% endif %}>Redes sociais, websites e blogs</option>
+                                                                <option {% if publicacao.subcategoria == 'Outra produção técnica' %} selected {% endif %}>Outra produção técnica</option>
+                                                                <option {% if publicacao.subcategoria == 'Artes cênicas' %} selected {% endif %}>Artes cênicas</option>
+                                                                <option {% if publicacao.subcategoria == 'Música' %} selected {% endif %}>Música</option>
+                                                                <option {% if publicacao.subcategoria == 'Artes visuais' %} selected {% endif %}>Artes visuais</option>
+                                                                <option {% if publicacao.subcategoria == 'Outra produção artística/cultural' %} selected {% endif %}>Outra produção artística/cultural</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="publicacoes-input-descricao{{ publicacao.pk }}">Descrição</label>
+                                                            <textarea class="form-control" id="publicacoes-input-descricao{{ publicacao.pk }}" rows="3" maxlength="1024">{{ publicacao.descricao }}</textarea>
+                                                        </div>
+
+                                                        <a href="#" class="btn btn-danger" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="confirmarExclusao('publicacoes', 'publicação', '{{ informacao.idioma.nome }}', '{{ publicacao.nome }}', '/publicacoes/excluir/{{ publicacao.pk }}')">Excluir</a>
+
+                                                        <a href="#" class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="formularioCadastro('edicao', 'publicacoes', 'publicação', '{{ informacao.idioma.nome }}', `{'nome': '{{ publicacao.nome }}', 'ano': '{{ publicacao.ano }}', 'subcategoria': '{{ publicacao.subcategoria }}', 'descricao': '{{ publicacao.descricao }}'}`, `/publicacoes/${'{{ informacao.idioma.sigla }}'}/salvar/{{ publicacao.pk }}`)">Editar</a>
+                                                    </div>
+                                                </div>
+                                            {% empty %} 
+                                                <p>Ainda não há dados.</p>
+                                                    
+                                                {% if informacao.idioma.sigla != 'pt' %}
+                                                    <a href="/publicacoes/{{ informacao.idioma.sigla }}/copiar" class="btn btn-dark">Copiar informações do Português</a>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
                                     </div>
                                 </div>
-
-                                <div class="form-group">
-                                    <label for="publicacoes-input-categoria{{ forloop.counter }}">Categoria</label>
-                                    <select class="form-control" id="publicacoes-input-categoria{{ forloop.counter }}">
-                                        <option {% if publicacao.subcategoria == 'Artigos completos publicados em periódicos' %} selected {% endif %}>Artigos completos publicados em periódicos</option>
-                                        <option {% if publicacao.subcategoria == 'Artigos aceitos para publicação' %} selected {% endif %}>Artigos aceitos para publicação</option>
-                                        <option {% if publicacao.subcategoria == 'Livros e capítulos' %} selected {% endif %}>Livros e capítulos</option>
-                                        <option {% if publicacao.subcategoria == 'Texto em jornal ou revista (magazine)' %} selected {% endif %}>Texto em jornal ou revista (magazine)</option>
-                                        <option {% if publicacao.subcategoria == 'Trabalhos publicados em anais de eventos' %} selected {% endif %}>Trabalhos publicados em anais de eventos</option>
-                                        <option {% if publicacao.subcategoria == 'Apresentação de trabalho e palestra' %} selected {% endif %}>Apresentação de trabalho e palestra</option>
-                                        <option {% if publicacao.subcategoria == 'Partitura musical' %} selected {% endif %}>Partitura musical</option>
-                                        <option {% if publicacao.subcategoria == 'Tradução' %} selected {% endif %}>Tradução</option>
-                                        <option {% if publicacao.subcategoria == 'Prefácio, posfácio' %} selected {% endif %}>Prefácio, posfácio</option>
-                                        <option {% if publicacao.subcategoria == 'Outra produção bibliográfica' %} selected {% endif %}>Outra produção bibliográfica</option>
-                                        <option {% if publicacao.subcategoria == 'Assessoria e consultoria' %} selected {% endif %}>Assessoria e consultoria</option>
-                                        <option {% if publicacao.subcategoria == 'Extensão tecnológica' %} selected {% endif %}>Extensão tecnológica</option>
-                                        <option {% if publicacao.subcategoria == 'Programa de computador sem registro' %} selected {% endif %}>Programa de computador sem registro</option>
-                                        <option {% if publicacao.subcategoria == 'Produtos' %} selected {% endif %}>Produtos</option>
-                                        <option {% if publicacao.subcategoria == 'Processos ou técnicas' %} selected {% endif %}>Processos ou técnicas</option>
-                                        <option {% if publicacao.subcategoria == 'Trabalhos técnicos' %} selected {% endif %}>Trabalhos técnicos</option>
-                                        <option {% if publicacao.subcategoria == 'Cartas, mapas ou similares' %} selected {% endif %}>Cartas, mapas ou similares</option>
-                                        <option {% if publicacao.subcategoria == 'Curso de curta duração ministrado' %} selected {% endif %}>Curso de curta duração ministrado</option>
-                                        <option {% if publicacao.subcategoria == 'Desenvolvimento de material didático ou instrucional' %} selected {% endif %}>Desenvolvimento de material didático ou instrucional</option>
-                                        <option {% if publicacao.subcategoria == 'Editoração' %} selected {% endif %}>Editoração</option>
-                                        <option {% if publicacao.subcategoria == 'Manutenção de obra artística' %} selected {% endif %}>Manutenção de obra artística</option>
-                                        <option {% if publicacao.subcategoria == 'Maquete' %} selected {% endif %}>Maquete</option>
-                                        <option {% if publicacao.subcategoria == 'Entrevistas, mesas redondas, programas e comentários na mídia' %} selected {% endif %}>Entrevistas, mesas redondas, programas e comentários na mídia</option>
-                                        <option {% if publicacao.subcategoria == 'Relatório de pesquisa' %} selected {% endif %}>Relatório de pesquisa</option>
-                                        <option {% if publicacao.subcategoria == 'Redes sociais, websites e blogs' %} selected {% endif %}>Redes sociais, websites e blogs</option>
-                                        <option {% if publicacao.subcategoria == 'Outra produção técnica' %} selected {% endif %}>Outra produção técnica</option>
-                                        <option {% if publicacao.subcategoria == 'Artes cênicas' %} selected {% endif %}>Artes cênicas</option>
-                                        <option {% if publicacao.subcategoria == 'Música' %} selected {% endif %}>Música</option>
-                                        <option {% if publicacao.subcategoria == 'Artes visuais' %} selected {% endif %}>Artes visuais</option>
-                                        <option {% if publicacao.subcategoria == 'Outra produção artística/cultural' %} selected {% endif %}>Outra produção artística/cultural</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="publicacoes-input-descricao{{ forloop.counter }}">Descrição</label>
-                                    <textarea class="form-control" id="publicacoes-input-descricao{{ forloop.counter }}" rows="3" maxlength="1024">{{ publicacao.descricao }}</textarea>
-                                </div>
-
-                                <a href="#" class="btn btn-danger">Excluir</a>
                             </div>
                         </div>
                     {% endfor %}
                 </div>
                 <div class="tab-pane fade" id="pills-premiacoes" role="tabpanel" aria-labelledby="pills-premiacoes-tab">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 16px; align-items: center;">
-                        <p>Premiações</p>
-                        
-                        <div>
-                            <a href="#" class="btn btn-primary">Adicionar Premiação</a>
+                    <p>Premiações</p>
 
-                            <a href="{% url 'administracao' %}" class="btn btn-secondary">Cancelar Edição</a>
-                        
-                            <a href="#" class="btn btn-success">Salvar</a>
-                        </div>
-                    </div>
-                    {% for premiacao in grupo.premiacoes.all %}
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="form-group col">
-                                        <label for="premiacoes-input-nome{{ forloop.counter }}" class="col-form-label">Nome</label>
-                                        <input id="premiacoes-input-nome{{ forloop.counter }}" type="text" class="form-control" value="{{ premiacao.nome }}" maxlength="256" required>
+                    {% for informacao in grupo.informacoes.all %}
+                        <div class="accrodion-regular">
+                            <div id="accordion">
+                                <div class="card">
+                                    <div class="card-header row" id="premiacoes-heading{{ forloop.counter }}">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#premiacoes-collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="premiacoes-collapse{{ forloop.counter }}">
+                                                {{ informacao.idioma.nome }}
+                                            </button>
+                                        </h5>
+
+                                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="formularioCadastro('cadastro', 'premiacoes', 'premiação', '{{ informacao.idioma.nome }}', {}, `/premiacoes/${'{{ informacao.idioma.sigla }}'}/salvar`)">Adicionar Premiação</a>
                                     </div>
+                                    <div id="premiacoes-collapse{{ forloop.counter }}" class="collapse" aria-labelledby="premiacoes-heading{{ forloop.counter }}" data-parent="#accordion">
+                                        <div class="card-body">
+                                            {% for premiacao in informacao.premiacoes.all %}
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="form-group col">
+                                                                <label for="premiacoes-input-nome{{ premiacao.pk }}" class="col-form-label">Nome</label>
+                                                                <input id="premiacoes-input-nome{{ premiacao.pk }}" type="text" class="form-control" value="{{ premiacao.nome }}" maxlength="256" required>
+                                                            </div>
 
-                                    <div class="form-group col">
-                                        <label for="premiacoes-input-ano{{ forloop.counter }}" class="col-form-label">Ano</label>
-                                        <input id="premiacoes-input-ano{{ forloop.counter }}" type="text" class="form-control" value="{{ premiacao.ano }}" maxlength="256">
+                                                            <div class="form-group col">
+                                                                <label for="premiacoes-input-ano{{ premiacao.pk }}" class="col-form-label">Ano</label>
+                                                                <input id="premiacoes-input-ano{{ premiacao.pk }}" type="text" class="form-control" value="{{ premiacao.ano }}" maxlength="256">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="premiacoes-input-descricao{{ premiacao.pk }}">Descrição</label>
+                                                            <textarea class="form-control" id="premiacoes-input-descricao{{ premiacao.pk }}" rows="3" maxlength="1024">{{ premiacao.descricao }}</textarea>
+                                                        </div>
+
+                                                        <a href="#" class="btn btn-danger" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="confirmarExclusao('premiacoes', 'premiação', '{{ informacao.idioma.nome }}', '{{ premiacao.nome }}', '/premiacoes/excluir/{{ premiacao.pk }}')">Excluir</a>
+
+                                                        <a href="#" class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="formularioCadastro('edicao', 'premiacoes', 'premiação', '{{ informacao.idioma.nome }}', `{'nome': '{{ premiacao.nome }}', 'ano': '{{ premiacao.ano }}', 'descricao': '{{ premiacao.descricao }}'}`, `/premiacoes/${'{{ informacao.idioma.sigla }}'}/salvar/{{ premiacao.pk }}`)">Editar</a>
+                                                    </div>
+                                                </div>
+                                            {% empty %}
+                                                <p>Ainda não há dados.</p>
+                                                
+                                                {% if informacao.idioma.sigla != 'pt' %}
+                                                    <a href="/premiacoes/{{ informacao.idioma.sigla }}/copiar" class="btn btn-dark">Copiar informações do Português</a>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
                                     </div>
                                 </div>
-
-                                <div class="form-group">
-                                    <label for="premiacoes-input-descricao{{ forloop.counter }}">Descrição</label>
-                                    <textarea class="form-control" id="premiacoes-input-descricao{{ forloop.counter }}" rows="3" maxlength="1024">{{ premiacao.descricao }}</textarea>
-                                </div>
-
-                                <a href="#" class="btn btn-danger">Excluir</a>
                             </div>
                         </div>
                     {% endfor %}
                 </div>
                 <div class="tab-pane fade" id="pills-portifolio" role="tabpanel" aria-labelledby="pills-portifolio-tab">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 16px; align-items: center;">
-                        <p>Portifólio</p>
-                        
-                        <div>
-                            <a href="#" class="btn btn-primary">Adicionar Portifólio</a>
+                    <p>Portifólio</p>
 
-                            <a href="{% url 'administracao' %}" class="btn btn-secondary">Cancelar Edição</a>
-                        
-                            <a href="#" class="btn btn-success">Salvar</a>
-                        </div>
-                    </div>
-                    {% for portifolio in grupo.portifolio.all %}
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="portifolio-input-nome{{ forloop.counter }}" class="col-form-label">Nome</label>
-                                    <input id="portifolio-input-nome{{ forloop.counter }}" type="text" class="form-control" value="{{ portifolio.nome }}" maxlength="256" required>
+                    {% for informacao in grupo.informacoes.all %}
+                        <div class="accrodion-regular">
+                            <div id="accordion">
+                                <div class="card">
+                                    <div class="card-header row" id="portifolios-heading{{ forloop.counter }}">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#portifolios-collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="portifolios-collapse{{ forloop.counter }}">
+                                                {{ informacao.idioma.nome }}
+                                            </button>
+                                        </h5>
+
+                                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="formularioCadastro('cadastro', 'portifolios', 'portifólio', '{{ informacao.idioma.nome }}', {}, `/portifolios/${'{{ informacao.idioma.sigla }}'}/salvar`)">Adicionar Portifólio</a>
+                                    </div>
+                                    <div id="portifolios-collapse{{ forloop.counter }}" class="collapse" aria-labelledby="portifolios-heading{{ forloop.counter }}" data-parent="#accordion">
+                                        <div class="card-body">
+                                            {% for portifolio in informacao.portifolio.all %}
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="form-group">
+                                                            <label for="portifolio-input-nome{{ portifolio.pk }}" class="col-form-label">Nome</label>
+                                                            <input id="portifolio-input-nome{{ portifolio.pk }}" type="text" class="form-control" value="{{ portifolio.nome }}" maxlength="256" required>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="portifolio-input-descricao{{ portifolio.pk }}">Descrição</label>
+                                                            <textarea class="form-control" id="portifolio-input-descricao{{ portifolio.pk }}" rows="3" maxlength="1024">{{ portifolio.descricao }}</textarea>
+                                                        </div>
+
+                                                        <a href="#" class="btn btn-danger" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="confirmarExclusao('portifolios', 'portifólio', '{{ informacao.idioma.nome }}', '{{ portifolio.nome }}', '/portifolios/excluir/{{ portifolio.pk }}')">Excluir</a>
+
+                                                        <a href="#" class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="formularioCadastro('edicao', 'portifolios', 'portifólio', '{{ informacao.idioma.nome }}', `{'nome': '{{ portifolio.nome }}', 'descricao': '{{ portifolio.descricao }}'}`, `/portifolios/${'{{ informacao.idioma.sigla }}'}/salvar/{{ portifolio.pk }}`)">Editar</a>
+                                                    </div>
+                                                </div>
+                                            {% empty %}
+                                                <p>Ainda não há dados.</p>
+                                                
+                                                {% if informacao.idioma.sigla != 'pt' %}
+                                                    <a href="/portifolios/{{ informacao.idioma.sigla }}/copiar" class="btn btn-dark">Copiar informações do Português</a>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
                                 </div>
-
-                                <div class="form-group">
-                                    <label for="portifolio-input-descricao{{ forloop.counter }}">Descrição</label>
-                                    <textarea class="form-control" id="portifolio-input-descricao{{ forloop.counter }}" rows="3" maxlength="1024">{{ portifolio.descricao }}</textarea>
-                                </div>
-
-                                <a href="#" class="btn btn-danger">Excluir</a>
                             </div>
                         </div>
                     {% endfor %}
                 </div>
                 <div class="tab-pane fade" id="pills-projetos" role="tabpanel" aria-labelledby="pills-projetos-tab">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 16px; align-items: center;">
-                        <p>Projetos</p>
-                        
-                        <div>
-                            <a href="#" class="btn btn-primary">Adicionar Projetos</a>
+                    <p>Projetos</p>
 
-                            <a href="{% url 'administracao' %}" class="btn btn-secondary">Cancelar Edição</a>
-                        
-                            <a href="#" class="btn btn-success">Salvar</a>
-                        </div>
-                    </div>
-                    {% for projeto in grupo.projetos.all %}
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="form-group col">
-                                        <label for="projeto-input-nome{{ forloop.counter }}" class="col-form-label">Título</label>
-                                        <input id="projeto-input-nome{{ forloop.counter }}" type="text" class="form-control" value="{{ projeto.titulo }}" maxlength="256" required>
+                    {% for informacao in grupo.informacoes.all %}
+                        <div class="accrodion-regular">
+                            <div id="accordion">
+                                <div class="card">
+                                    <div class="card-header row" id="projetos-heading{{ forloop.counter }}">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#projetos-collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="projetos-collapse{{ forloop.counter }}">
+                                                {{ informacao.idioma.nome }}
+                                            </button>
+                                        </h5>
+
+                                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="formularioCadastro('cadastro', 'projetos', 'projeto', '{{ informacao.idioma.nome }}', `{'pesquisadores': '{{ informacao.pesquisadores.values }}', 'integrantes': [{}]}`, `/projetos/${'{{ informacao.idioma.sigla }}'}/salvar`)">Adicionar Projeto</a>
                                     </div>
+                                    <div id="projetos-collapse{{ forloop.counter }}" class="collapse" aria-labelledby="projetos-heading{{ forloop.counter }}" data-parent="#accordion">
+                                        <div class="card-body">
+                                            {% for projeto in informacao.projetos.all %}
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="form-group col">
+                                                                <label for="projeto-input-titulo{{ projeto.pk }}" class="col-form-label">Título</label>
+                                                                <input id="projeto-input-titulo{{ projeto.pk }}" type="text" class="form-control" value="{{ projeto.titulo }}" maxlength="256" required>
+                                                            </div>
 
-                                    <div class="form-group col">
-                                        <label for="projeto-input-lattes{{ forloop.counter }}" class="col-form-label">Data início</label>
-                                        <input id="projeto-input-lattes{{ forloop.counter }}" type="date" class="form-control" value="{{ projeto.data_inicio }}">
-                                    </div>
+                                                            <div class="form-group col">
+                                                                <label for="projeto-input-data-inicio{{ projeto.pk }}" class="col-form-label">Data início</label>
+                                                                <input id="projeto-input-data-inicio{{ projeto.pk }}" type="date" class="form-control" value="{{ projeto.data_inicio|date:"Y-m-d" }}" required>
+                                                            </div>
 
-                                    <div class="form-group col">
-                                        <label for="projeto-input-orcid{{ forloop.counter }}" class="col-form-label">Data fim</label>
-                                        <input id="projeto-input-orcid{{ forloop.counter }}" type="date" class="form-control" value="{{ projeto.data_fim }}">
+                                                            <div class="form-group col">
+                                                                <label for="projeto-input-data-fim{{ projeto.pk }}" class="col-form-label">Data fim</label>
+                                                                <input id="projeto-input-data-fim{{ projeto.pk }}" type="date" class="form-control" value="{{ projeto.data_fim|date:"Y-m-d" }}">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="projeto-input-descricao{{ projeto.pk }}">Descrição</label>
+                                                            <textarea class="form-control" id="projeto-input-descricao{{ projeto.pk }}" rows="3">{{ projeto.descricao }}</textarea>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="projeto-input-coordenador{{ integrante.pk }}" class="col-form-label">Coordenador</label>
+                                                            <input id="projeto-input-coordenador{{ integrante.pk }}" type="text" class="form-control" value="{{ projeto.coordenador }}">
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="projeto-input-integrante{{ integrante.pk }}" class="col-form-label">Integrantes</label>
+                                                        </div>
+
+                                                        {% for integrante in projeto.integrantes.all %}
+                                                            <div class="form-group">
+                                                                <input id="projeto-input-integrante{{ integrante.pk }}" type="text" class="form-control" value="{{ integrante.nome }}">
+                                                            </div>
+                                                        {% endfor %}
+
+                                                        <a href="#" class="btn btn-danger" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="confirmarExclusao('projetos', 'projeto', '{{ informacao.idioma.nome }}', '{{ projeto.titulo }}', '/projetos/excluir/{{ projeto.pk }}')">Excluir</a>
+
+                                                        <a href="#" class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="formularioCadastro('edicao', 'projetos', 'projeto', '{{ informacao.idioma.nome }}', `{'titulo': '{{ projeto.titulo }}', 'data_inicio': '{{ projeto.data_inicio|date:"Y-m-d" }}', 'data_fim': '{{ projeto.data_fim|date:"Y-m-d" }}', 'descricao': '{{ projeto.descricao }}', 'coordenador': '{{ projeto.coordenador }}', 'integrantes': '{{ projeto.integrantes.values }}, 'pesquisadores': '{{ informacao.pesquisadores.values }}'}`, `/projetos/${'{{ informacao.idioma.sigla }}'}/salvar/{{ projeto.pk }}`)">Editar</a>
+                                                    </div>
+                                                </div>
+                                            {% empty %}
+                                                <p>Ainda não há dados.</p>
+                                                
+                                                {% if informacao.idioma.sigla != 'pt' %}
+                                                    <a href="/projetos/{{ informacao.idioma.sigla }}/copiar" class="btn btn-dark">Copiar informações do Português</a>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
                                     </div>
                                 </div>
-
-                                <div class="form-group">
-                                    <label for="projeto-input-descricao{{ forloop.counter }}">Descrição</label>
-                                    <textarea class="form-control" id="projeto-input-descricao{{ forloop.counter }}" rows="3">{{ projeto.descricao }}</textarea>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="projeto-input-coordenador{{ forloop.counter }}">Coordenador</label>
-                                    <select class="form-control" id="projeto-input-coordenador{{ forloop.counter }}">
-                                        {% for pesquisador in grupo.pesquisadores.all %}
-                                            <option {% if projeto.coordenador == pesquisador %} selected {% endif %}>{{ pesquisador.nome }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-
-                                {% for integrante in projeto.integrantes.all %}
-                                    <div class="form-group">
-                                        <label for="projeto-input-orcid{{ forloop.counter }}" class="col-form-label">Integrante</label>
-                                        <input id="projeto-input-orcid{{ forloop.counter }}" type="text" class="form-control" value="{{ integrante.nome }}" readonly>
-                                    </div>
-                                {% endfor %}
-
-                                <a href="#" class="btn btn-danger">Excluir</a>
                             </div>
                         </div>
                     {% endfor %}
@@ -501,5 +739,422 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form id="formulario-modal" action="" method="POST" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h5 id="titulo-modal" class="modal-title"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <b id="idioma-modal">Idioma: </b>
+                        <div id="conteudo-modal"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="botao-cancelar-modal" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                        <div id="botao-enviar-modal"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script id="lista-pesquisadores"></script>
+
+    <script>
+        function adicionarIdioma(idioma) {
+            let tituloModal = $('#titulo-modal');
+            tituloModal.text(`Adicionar idioma`);
+
+            let idiomaModal = $('#idioma-modal');
+            idiomaModal.text(`Idioma: ${idioma}`);
+
+            let conteudoModal = $('#conteudo-modal');
+            conteudoModal.empty();
+            
+            conteudoModal.append(
+                `<br><p>Confirmar a adição do idioma <b>${idioma}?</p>` + 
+                `<p>Todas as informações preenchidas até aqui serão <b>salvas</b> e a página será recarregada para que possamos adicionar o idioma selecionado.</p></b>` + 
+                `<p><b>Importante:</b> para maior comidade copiaremos todas as informações do grupo cadastradas em Português para o idioma selecionado. Você pode editar as informações de cada idioma posteriormente.</p>`
+            );
+
+            let botaoCancelarModal = $('#botao-cancelar-modal');
+            botaoCancelarModal.attr('onclick', `$('#${idioma}').prop('checked', false)`);
+
+            let botaoEnviarModal = $('#botao-enviar-modal');
+            botaoEnviarModal.empty();
+            botaoEnviarModal.append(`<a href="#" class="btn btn-success" onclick="$('#formulario-sobre').submit()">Adicionar</a>`);
+        }
+
+        function removerIdioma(idioma) {
+            let tituloModal = $('#titulo-modal');
+            tituloModal.text(`Remover idioma`);
+
+            let idiomaModal = $('#idioma-modal');
+            idiomaModal.text(`Idioma: ${idioma}`);
+
+            let conteudoModal = $('#conteudo-modal');
+            conteudoModal.empty();
+            
+            conteudoModal.append(
+                `<br><p>Confirmar a exclusão do idioma <b>${idioma}</b>?</p>` +
+                `<p>Todas as informações cadastradas no idioma selecionado serão <b>apagadas</b> e a página será recarregada para que possamos remover o idioma selecionado.</p></b>` + 
+                `<p><b>Importante:</b> você poderá adicionar o idioma novamente depois.</p>`
+            );
+
+            let botaoCancelarModal = $('#botao-cancelar-modal');
+            botaoCancelarModal.attr('onclick', `$('#${idioma}').prop('checked', false)`);
+
+            let botaoEnviarModal = $('#botao-enviar-modal');
+            botaoEnviarModal.empty();
+            botaoEnviarModal.append(`<a href="#" class="btn btn-danger" onclick="$('#formulario-sobre').submit()">Remover</a>`);
+        }
+
+        function formularioCadastro(opcao, tipo, nome, idioma, objeto, link) {
+            let objetoParseado = objeto;
+            let tituloModal = $('#titulo-modal');
+
+            if(opcao == 'cadastro' && tipo != 'projetos') {
+                tituloModal.text(`Cadastro de ${nome}`);
+            }
+            else {
+                tituloModal.text(`Edição de ${nome}`);
+
+                objetoParseado = objeto.replace(/'/g, '"');
+
+                if(tipo == 'projetos') {
+                    objetoParseado = objetoParseado.replace(/<QuerySet /g, '');
+                    objetoParseado = objetoParseado.replace(/>/g, '');
+                    objetoParseado = objetoParseado.replace(/"\[/g, '[');
+                    objetoParseado = objetoParseado.replace(/\]"/g, ']');
+                    objetoParseado = objetoParseado.replace(/ None/g, '"None"');
+                }
+
+                objetoParseado = JSON.parse(objetoParseado);
+            }
+
+            let idiomaModal = $('#idioma-modal');
+            idiomaModal.text(`Idioma: ${idioma}`);
+
+            let conteudoModal = $('#conteudo-modal');
+            conteudoModal.empty();
+
+            let formularioModal = $('#formulario-modal');
+            formularioModal.attr('action', link);
+
+            if(tipo == 'pesquisadores') {
+                conteudoModal.append(
+                    '{% csrf_token %}' +
+
+                    '<div class="row">' +
+                        '<div class="col-3">' +
+                            `<img id="pesquisadores-imagem" src="/media/${ objetoParseado.imagem }" alt="" class="rounded-circle" height="150" width="150" style="object-fit: cover;">` +
+                        '</div>' +
+    
+                        '<div class="form-group col">' +
+                            '<label for="pesquisadores-input-imagem" class="col-form-label">Imagem</label>' +
+                            `<input id="pesquisadores-input-imagem" name="imagem" type="file" class="form-control" onchange="adicionarImagem('pesquisadores-imagem', 'pesquisadores-input-imagem')">` +
+                        '</div>' +                        
+                    '</div>' +
+
+                    '<div class="col">' +
+                        '<div class="row">' +
+                            '<div class="form-group col">' +
+                                '<label for="pesquisadores-input-nome" class="col-form-label">Nome</label>' +
+                                `<input id="pesquisadores-input-nome" name="nome" type="text" class="form-control" value="${ objetoParseado.nome || '' }" maxlength="256" required>` +
+                            '</div>' +
+
+                            '<div class="form-group col">' +
+                                '<label for="pesquisadores-input-lattes" class="col-form-label">Lattes</label>' +
+                                `<input id="pesquisadores-input-lattes" name="lattes" type="text" class="form-control" value="${ objetoParseado.lattes || '' }" maxlength="256">` +
+                            '</div>' +
+
+                            '<div class="form-group col">' +
+                                '<label for="pesquisadores-input-orcid" class="col-form-label">ORCID</label>' +
+                                `<input id="pesquisadores-input-orcid" name="orcid" type="text" class="form-control" value="${ objetoParseado.orcid || '' }" maxlength="256">` +
+                            '</div>' +
+                        '</div>' +
+
+                        '<div class="form-group">' +
+                            '<label for="pesquisadores-input-descricao" class="col-form-label">Descrição resumida</label>' +
+                            `<input id="pesquisadores-input-descricao" name="descricao" type="text" class="form-control" value="${ objetoParseado.descricao || '' }" maxlength="256" required>` +
+                        '</div>' +
+
+                        '<div class="form-group">' +
+                            '<label for="pesquisadores-input-descricao-completa">Descrição completa</label>' +
+                            `<textarea class="form-control" id="pesquisadores-input-descricao-completa" name="descricao-completa" rows="3"  maxlength="1024">${ objetoParseado.descricao_completa || '' }</textarea>` +
+                        '</div>' +
+                    '</div>'
+                );
+            }
+            else if(tipo == 'instituicoes') {
+                conteudoModal.append(
+                    '{% csrf_token %}' +
+
+                    '<div class="row">' +
+                        '<div class="col-3">' +
+                            `<img id="instituicoes-imagem" src="/media/${ objetoParseado.imagem }" alt="" class="rounded-circle" height="150" width="150" style="object-fit: cover;">` +
+                        '</div>' +
+            
+                        '<div class="form-group col">' +
+                            '<label for="instituicoes-input-imagem" class="col-form-label">Imagem</label>' +
+                            `<input id="instituicoes-input-imagem" name="imagem" type="file" class="form-control" onchange="adicionarImagem('instituicoes-imagem', 'instituicoes-input-imagem')">` +
+                        '</div>' +
+                    '</div>' +
+                    
+                    '<div class="form-group">' +
+                        '<label for="instituicoes-input-nome" class="col-form-label">Nome</label>' +
+                        `<input id="instituicoes-input-nome" name="nome" type="text" class="form-control" value="${ objetoParseado.nome || '' }" maxlength="256" required>` +
+                    '</div>' +
+
+                    '<div class="form-group">' +
+                        '<label for="instituicoes-input-categoria">Categoria</label>' +
+                        '<select class="form-control" id="instituicoes-input-categoria" name="categoria">' +
+                            `<option ${ objetoParseado.categoria == "Nacional" ? 'selected' : undefined }>Nacional</option>` +
+                            `<option ${ objetoParseado.categoria == "Internacional" ? 'selected' : undefined }>Internacional</option>` +
+                        '</select>' +
+                    '</div>' 
+                );
+            }
+            else if(tipo == 'linhas') {
+                conteudoModal.append(
+                    '{% csrf_token %}' +
+
+                    '<div class="form-group">' +
+                        '<label for="linhas-input-nome" class="col-form-label">Nome</label>' +
+                        `<input id="linhas-input-nome" name="nome" type="text" class="form-control" value="${ objetoParseado.nome || '' }" maxlength="256" required>` +
+                    '</div>' +
+    
+                    '<div class="form-group">' +
+                        '<label for="linhas-input-descricao">Descrição</label>' +
+                        `<textarea class="form-control" id="linhas-input-descricao" name="descricao" rows="3" maxlength="1024">${ objetoParseado.descricao || '' }</textarea>` +
+                    '</div>'
+                );
+            }
+            else if(tipo == 'servicos') {
+                conteudoModal.append(
+                    '{% csrf_token %}' +
+
+                    '<div class="form-group">' +
+                        '<label for="servicos-input-nome" class="col-form-label">Nome</label>' +
+                        `<input id="servicos-input-nome" name="nome" type="text" class="form-control" value="${ objetoParseado.nome || '' }" maxlength="256" required>` +
+                    '</div>' +
+
+                    '<div class="form-group">' +
+                        '<label for="servicos-input-descricao">Descrição</label>' +
+                        `<textarea class="form-control" id="servicos-input-descricao" name="descricao" rows="3" maxlength="1024">${ objetoParseado.descricao || '' }</textarea>` +
+                    '</div>'
+                );
+            }
+            else if(tipo == 'publicacoes') {
+                conteudoModal.append(
+                    '{% csrf_token %}' +
+
+                    '<div class="row">' +
+                        '<div class="form-group col">' +
+                            '<label for="publicacoes-input-nome" class="col-form-label">Nome</label>' +
+                            `<input id="publicacoes-input-nome" name="nome" type="text" class="form-control" value="${ objetoParseado.nome || '' }" maxlength="256" required>` +
+                        '</div>' +
+
+                        '<div class="form-group col">' +
+                            '<label for="publicacoes-input-ano" class="col-form-label">Ano</label>' +
+                            `<input id="publicacoes-input-ano" name="ano" type="text" class="form-control" value="${ objetoParseado.ano || '' }" maxlength="256">` +
+                        '</div>' +
+                    '</div>' +
+
+                    '<div class="form-group">' +
+                        '<label for="publicacoes-input-categoria">Categoria</label>' +
+                        '<select class="form-control" id="publicacoes-input-categoria" name="subcategoria">' +
+                            `<option ${ objetoParseado.subcategoria == 'Artigos completos publicados em periódicos' ? 'selected' : undefined }>Artigos completos publicados em periódicos</option>` +
+                            `<option ${ objetoParseado.subcategoria == 'Artigos aceitos para publicação' ? 'selected' : undefined }>Artigos aceitos para publicação</option>` +
+                            `<option ${ objetoParseado.subcategoria == 'Livros e capítulos' ? 'selected' : undefined }>Livros e capítulos</option>` +
+                            `<option ${ objetoParseado.subcategoria == 'Texto em jornal ou revista (magazine)' ? 'selected' : undefined }>Texto em jornal ou revista (magazine)</option>` +
+                            `<option ${ objetoParseado.subcategoria == 'Trabalhos publicados em anais de eventos' ? 'selected' : undefined }>Trabalhos publicados em anais de eventos</option>` +
+                            `<option ${ objetoParseado.subcategoria == 'Apresentação de trabalho e palestra' ? 'selected' : undefined }>Apresentação de trabalho e palestra</option>` +
+                            `<option ${ objetoParseado.subcategoria == 'Partitura musical' ? 'selected' : undefined }>Partitura musical</option>` +
+                            `<option ${ objetoParseado.subcategoria == 'Tradução' ? 'selected' : undefined }>Tradução</option>` +
+                            `<option ${ objetoParseado.subcategoria == 'Prefácio, posfácio' ? 'selected' : undefined }>Prefácio, posfácio</option>` +
+                            `<option ${ objetoParseado.subcategoria == 'Outra produção bibliográfica' ? 'selected' : undefined }>Outra produção bibliográfica</option>` +
+                            `<option ${ objetoParseado.subcategoria == 'Assessoria e consultoria' ? 'selected' : undefined }>Assessoria e consultoria</option>` +
+                            `<option ${ objetoParseado.subcategoria == 'Extensão tecnológica' ? 'selected' : undefined }>Extensão tecnológica</option>` +
+                            `<option ${ objetoParseado.subcategoria == 'Programa de computador sem registro' ? 'selected' : undefined }>Programa de computador sem registro</option>` +
+                            `<option ${ objetoParseado.subcategoria == 'Produtos' ? 'selected' : undefined }>Produtos</option>` +
+                            `<option ${ objetoParseado.subcategoria == 'Processos ou técnicas' ? 'selected' : undefined }>Processos ou técnicas</option>` +
+                            `<option ${ objetoParseado.subcategoria == 'Trabalhos técnicos' ? 'selected' : undefined }>Trabalhos técnicos</option>` +
+                            `<option ${ objetoParseado.subcategoria == 'Cartas, mapas ou similares' ? 'selected' : undefined }>Cartas, mapas ou similares</option>` +
+                            `<option ${ objetoParseado.subcategoria == 'Curso de curta duração ministrado' ? 'selected' : undefined }>Curso de curta duração ministrado</option>` +
+                            `<option ${ objetoParseado.subcategoria == 'Desenvolvimento de material didático ou instrucional' ? 'selected' : undefined }>Desenvolvimento de material didático ou instrucional</option>` +
+                            `<option ${ objetoParseado.subcategoria == 'Editoração' ? 'selected' : undefined }>Editoração</option>` +
+                            `<option ${ objetoParseado.subcategoria == 'Manutenção de obra artística' ? 'selected' : undefined }>Manutenção de obra artística</option>` +
+                            `<option ${ objetoParseado.subcategoria == 'Maquete' ? 'selected' : undefined }>Maquete</option>` +
+                            `<option ${ objetoParseado.subcategoria == 'Entrevistas, mesas redondas, programas e comentários na mídia' ? 'selected' : undefined }>Entrevistas, mesas redondas, programas e comentários na mídia</option>` +
+                            `<option ${ objetoParseado.subcategoria == 'Relatório de pesquisa' ? 'selected' : undefined }>Relatório de pesquisa</option>` +
+                            `<option ${ objetoParseado.subcategoria == 'Redes sociais, websites e blogs' ? 'selected' : undefined }>Redes sociais, websites e blogs</option>` +
+                            `<option ${ objetoParseado.subcategoria == 'Outra produção técnica' ? 'selected' : undefined }>Outra produção técnica</option>` +
+                            `<option ${ objetoParseado.subcategoria == 'Artes cênicas' ? 'selected' : undefined }>Artes cênicas</option>` +
+                            `<option ${ objetoParseado.subcategoria == 'Música' ? 'selected' : undefined }>Música</option>` +
+                            `<option ${ objetoParseado.subcategoria == 'Artes visuais' ? 'selected' : undefined }>Artes visuais</option>` +
+                            `<option ${ objetoParseado.subcategoria == 'Outra produção artística/cultural' ? 'selected' : undefined }>Outra produção artística/cultural</option>` +
+                        '</select>' +
+                    '</div>' +
+
+                    '<div class="form-group">' +
+                        '<label for="publicacoes-input-descricao">Descrição</label>' +
+                        `<textarea class="form-control" id="publicacoes-input-descricao" name="descricao" rows="3" maxlength="1024">${ objetoParseado.descricao || '' }</textarea>` +
+                    '</div>'
+                );
+            }
+            else if(tipo == 'premiacoes') {
+                conteudoModal.append(
+                    '{% csrf_token %}' +
+
+                    '<div class="row">' +
+                        '<div class="form-group col">' +
+                            '<label for="premiacoes-input-nome" class="col-form-label">Nome</label>' +
+                            `<input id="premiacoes-input-nome" name="nome" type="text" class="form-control" value="${ objetoParseado.nome || '' }" maxlength="256" required>` +
+                        '</div>' +
+
+                        '<div class="form-group col">' +
+                            '<label for="premiacoes-input-ano" class="col-form-label">Ano</label>' +
+                            `<input id="premiacoes-input-ano" name="ano" type="text" class="form-control" value="${ objetoParseado.ano || '' }" maxlength="256">` +
+                        '</div>' +
+                    '</div>' +
+
+                    '<div class="form-group">' +
+                        '<label for="premiacoes-input-descricao">Descrição</label>' +
+                        `<textarea class="form-control" id="premiacoes-input-descricao" name="descricao" rows="3" maxlength="1024">${ objetoParseado.descricao || '' }</textarea>` +
+                    '</div>' 
+                );
+            }
+            else if(tipo == 'portifolios') {
+                conteudoModal.append(
+                    '{% csrf_token %}' +
+
+                    '<div class="form-group">' +
+                        '<label for="portifolios-input-nome" class="col-form-label">Nome</label>' +
+                        `<input id="portifolios-input-nome" name="nome" type="text" class="form-control" value="${ objetoParseado.nome || '' }" maxlength="256" required>` +
+                    '</div>' +
+
+                    '<div class="form-group">' +
+                        '<label for="portifolios-input-descricao">Descrição</label>' +
+                        `<textarea class="form-control" id="portifolios-input-descricao" name="descricao" rows="3" maxlength="1024">${ objetoParseado.descricao || '' }</textarea>` +
+                    '</div>'
+                );
+            }
+            else if(tipo == 'projetos') {
+                $('#lista-pesquisadores').empty();
+                $('#lista-pesquisadores').text(JSON.stringify(objetoParseado));
+
+                conteudoModal.append(
+                    '{% csrf_token %}' +
+                    
+                    '<div class="form-group">' +
+                        '<label for="projeto-input-nome" class="col-form-label">Título</label>' +
+                        `<input id="projeto-input-nome" name="titulo" type="text" class="form-control" value="${ objetoParseado.titulo || '' }" maxlength="256" required>` +
+                    '</div>' +
+
+                    '<div class="row">' +
+                        '<div class="form-group col">' +
+                            '<label for="projeto-input-data-inicio" class="col-form-label">Data início</label>' +
+                            `<input id="projeto-input-data-inicio" name="data-inicio" type="date" class="form-control" value="${ objetoParseado.data_inicio }" required>` +
+                        '</div>' +
+
+                        '<div class="form-group col">' +
+                            '<label for="projeto-input-data-fim" class="col-form-label">Data fim</label>' +
+                            `<input id="projeto-input-data-fim" name="data-fim" type="date" class="form-control" value="${ objetoParseado.data_fim }">` +
+                        '</div>' +
+                    '</div>' +
+
+                    '<div class="form-group">' +
+                        '<label for="projeto-input-descricao">Descrição</label>' +
+                        `<textarea class="form-control" id="projeto-input-descricao" name="descricao" rows="3">${ objetoParseado.descricao || '' }</textarea>` +
+                    '</div>' +
+
+                    '<div class="form-group">' +
+                        '<label for="projeto-input-coordenador">Coordenador</label>' +
+                        '<select class="form-control" id="projeto-input-coordenador" name="coordenador">' +
+                            objetoParseado.pesquisadores.map(pesquisador => 
+                                `<option ${ objetoParseado.coordenador == pesquisador.nome ? 'selected' : undefined } value="${pesquisador.id}">${ pesquisador.nome }</option>` 
+                            ) +
+                        '</select>' +
+                    '</div>' +
+
+                    '<div id="integrantes">' +
+                        '<div class="form-group">' +
+                            `<label for="projetos-input-integrantes">Integrantes</label>` +
+                        '</div>' +
+
+                        objetoParseado.integrantes.map((integrante, index) => 
+                            '<div class="form-group">' +
+                                `<select class="form-control" id="projetos-input-integrantes" name="integrantes">` +
+                                    objetoParseado.pesquisadores.map(pesquisador => 
+                                        `<option ${ pesquisador.nome == integrante.nome ? 'selected' : undefined } value="${pesquisador.id}">${ pesquisador.nome }</option>`
+                                    ) +
+                                '</select>' +
+                            '</div>'
+                        ).join(' ') +                        
+                        
+                    '</div>' +
+
+                    `<a href="#" class="btn btn-success" onclick="adicionarIntegrante()">Adicionar integrante</a>`
+                );
+            }
+
+            let botaoEnviarModal = $('#botao-enviar-modal');
+            botaoEnviarModal.empty();
+            botaoEnviarModal.append('<button type="submit" class="btn btn-success">Salvar</button>');
+        }
+
+        function confirmarExclusao(tipo, nome, idioma, descricao, link) {
+            let tituloModal = $('#titulo-modal');
+            tituloModal.text(`Confirmar exclusão`);
+
+            let idiomaModal = $('#idioma-modal');
+            idiomaModal.text(`Idioma: ${idioma}`);
+
+            let conteudoModal = $('#conteudo-modal');
+            conteudoModal.empty();
+            
+            conteudoModal.append(
+                `<p>Confirmar a exclusão do ${nome} <b>${descricao}</b>?</p>`
+            );
+
+            let botaoEnviarModal = $('#botao-enviar-modal');
+            botaoEnviarModal.empty();
+            botaoEnviarModal.append(`<a href="${link}" class="btn btn-danger">Excluir</a>`);
+        }
+
+        function adicionarImagem(idImagem, idCampo) {
+            const imagem = document.getElementById(idImagem);
+            const arquivo = document.getElementById(idCampo).files[0];
+            const leitor = new FileReader();
+
+            leitor.addEventListener("load", function () {
+                imagem.src = leitor.result;
+            }, false);
+
+            if (arquivo) {
+                leitor.readAsDataURL(arquivo);
+            }
+        }
+
+        function adicionarIntegrante() {
+            objetoParseado = JSON.parse($('#lista-pesquisadores').text());
+
+            $('#integrantes').append(
+                '<div class="form-group">' +
+                    `<select class="form-control" id="projetos-input-integrantes" name="integrantes">` +
+                        objetoParseado.pesquisadores.map(pesquisador => 
+                            `<option value="${pesquisador.id}">${ pesquisador.nome }</option>`
+                        ) +
+                    '</select>' +
+                '</div>'
+            );
+        }
+    </script>
 
 {% endblock %}

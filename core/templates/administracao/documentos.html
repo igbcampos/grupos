@@ -1,0 +1,113 @@
+{% extends 'administracao/base_logado.html' %}
+{% load static %}
+
+{% block conteudo_logado %}
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="page-header">
+                <h2 class="pageheader-title">Documentos </h2>
+                <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>
+                <div class="page-breadcrumb">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item active" aria-current="page">Documentos</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="accrodion-regular">
+        <div id="accordion">
+
+            <div class="card">
+                <div class="card-header row" id="heading{{forloop.counter}}">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{forloop.counter}}" aria-expanded="true" aria-controls="collapse{{forloop.counter}}">
+                            Enviar documento
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapse{{forloop.counter}}" class="collapse" aria-labelledby="heading{{forloop.counter}}" data-parent="#accordion">
+                    <div class="card-body">
+                        <form action="/documentos/salvar" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                        
+                            <div class="form-group">
+                                <label for="nome" class="col-form-label">Nome</label>
+                                <input id="nome" name="nome" type="text" class="form-control" maxlength="256" required>
+                            </div>
+
+                            <div class="form-group col">
+                                <label for="arquivo" class="col-form-label">Arquivo</label>
+                                <input id="arquivo" name="arquivo" type="file" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="/documentos" class="btn btn-light">Cancelar</a>
+
+                            <button type="submit" class="btn btn-success">Enviar</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form id="formulario-modal" action="" method="POST" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h5 id="titulo-modal" class="modal-title">Confirmar exclusão</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Confirmar a exclusão do documento <b id="nome-arquivo"></b></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="botao-cancelar-modal" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                        
+                        <a id="link-arquivo" href="#" class="btn btn-danger">Excluir</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <h3>Documentos enviados</h3>
+
+    <div class="row">
+        {% for arquivo in grupo.documentos.all %}
+            <div class="col-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ arquivo.nome }}</h3>
+                        <p class="card-text">{{ arquivo.data }}</p>
+                        <a href="/media/{{ arquivo.link }}" target="_blank">Acessar arquivo</a>
+
+                        <br>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="btn btn-danger" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="$('#nome-arquivo').text('{{ arquivo.nome }}'); $('#link-arquivo').attr('href', '/documentos/excluir/{{ arquivo.pk }}')">Excluir</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Ainda não foram enviados documentos.</h3>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+            
+{% endblock %}

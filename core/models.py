@@ -16,10 +16,21 @@ def caminho(instance, filename):
 
     return os.path.join(nome_caminho, nome_arquivo)
 
+def caminho_arquivo(instance, filename):
+    nome_caminho = 'arquivos/'
+    ext = filename.split('.')[-1]
+    
+    if instance.pk:
+        nome_arquivo = '{}.{}'.format(instance.pk, ext)
+    else:
+        nome_arquivo = '{}.{}'.format(uuid4().hex, ext)
+
+    return os.path.join(nome_caminho, nome_arquivo)
+
 class Documento(models.Model):
     nome = models.CharField(max_length=256, blank=True, null=True)
-    link = models.CharField(max_length=256, blank=True, null=True)
-    data = models.DateField(null=True, blank=True)     
+    link = models.FileField(upload_to=caminho_arquivo, blank=True, null=True)
+    data = models.DateField(default=timezone.now, null=True, blank=True)     
     
     def __str__(self):
         return self.nome + ' - ' + str(self.data)

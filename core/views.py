@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.http import Http404
-from .models import Idioma, Inscrito, Pesquisador, Instituicao, Linha, Servico, Publicacao, Premiacao, Portifolio, Projeto, Formulario, Informacao, Newsletter, Grupo
+from .models import Documento, Idioma, Inscrito, Pesquisador, Instituicao, Linha, Servico, Publicacao, Premiacao, Portifolio, Projeto, Formulario, Informacao, Newsletter, Grupo
 
 from django.template.loader import render_to_string
 from django.core.mail import send_mail
@@ -915,6 +915,45 @@ def despublicar_newsletter(request, pk):
     messages.success(request, 'Newsletter removida das notícias com sucesso.')
 
     return redirect('/newsletter')     
+
+@login_required(login_url='/login')
+def documentos(request):
+    grupo = Grupo.objects.get(responsavel=request.user)
+
+    contexto = {'grupo': grupo}
+
+    return render(request, 'administracao/documentos.html', contexto)   
+
+@login_required(login_url='/login')
+def salvar_documento(request):
+    try:
+        grupo = Grupo.objects.get(responsavel=request.user)
+
+        documento = Documento.objects.create(
+            nome = request.POST.get('nome', ''),
+            link = request.FILES['arquivo']
+        )
+
+        grupo.documentos.add(documento)
+        grupo.save()
+
+        messages.success(request, 'Documento enviado com sucesso.')
+    except:
+        messages.warning(request, 'Não foi possível enviar o documento. Por favor, tente novamente.')
+
+    return redirect('/documentos')   
+
+@login_required(login_url='/login')
+def excluir_documento(request, pk):
+    try:
+        documento = get_object_or_404(Documento, pk = pk)
+        documento.delete()
+
+        messages.success(request, 'Documento removido com sucesso.')
+    except:
+        messages.warning(request, 'Não foi possível remover o documento selecionado. Por favor, tente novamente.')
+
+    return redirect('/documentos')    
 
 def grupo(request, sigla, idioma = None):
     grupo = get_object_or_404(Grupo, sigla=sigla)

@@ -1,0 +1,153 @@
+{% extends 'template/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block conteudo %}
+
+<main id="main">
+  
+  <!-- ======= Documents Section ======= -->
+  <section id="noticias" class="services">
+    <div class="container">
+  
+      <div class="section-title" data-aos="fade-up">
+        <h2>{% trans 'noticias' %}</h2>
+        <p>{% trans 'noticiasDescricao' %}</p>
+      </div>
+
+      <div class="row">
+
+        {% for newsletter in grupo.noticias %}
+          <div class="col-12 align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+            <div class="icon-box">
+              <h4 class="title"><a href="/newsletter/{{ newsletter.pk }}">{{ newsletter.assunto }}</a></h4>
+              <p class="description">Criado em: {{ newsletter.data_criacao }}</p>
+              <br>
+              {{ newsletter.mensagem|safe }}
+            </div>
+          </div>
+        {% empty %}
+        <div class="col-12 align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+          <div class="icon-box">
+            <h4 class="title">Ainda não há notícias.</h4>
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+  
+    </div>
+  </section><!-- End Documents Section -->
+
+</main><!-- End #main -->
+
+<script>
+  window.onload = () => {
+    let categoria = document.getElementsByClassName('categorias')[0].innerText;
+    
+    selecionarCategoria(categoria);
+  }
+
+  function selecionarCategoria(categoria) {
+    let producoes = document.getElementsByClassName('producao');
+
+    Object.values(producoes).map(producao => {
+      if(producao.classList.toString().includes(categoria)) {
+        producao.parentElement.parentElement.parentElement.hidden = false;
+      }
+      else {
+        producao.parentElement.parentElement.parentElement.hidden = true;
+      }
+    });
+  }
+</script>
+
+<!-- ======= Footer ======= -->
+<footer id="footer">
+
+  <div class="footer-newsletter" data-aos="fade-up">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-6">
+          <h4>{% trans 'newsletter' %}</h4>
+          <p>{% trans 'newsletterDescricao' %}</p>
+          <form action="/{{grupo.sigla}}/{{ grupo.informacao.idioma.sigla }}/inscrever" method="POST">
+            {% csrf_token %}
+            <input type="email" name="email"><input type="submit" value="{% trans 'inscreverNewsletter' %}">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-top">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-lg-3 col-md-6 footer-contact" data-aos="fade-up" data-aos-delay="100">
+          <h3>{{ grupo.sigla | upper }}</h3>
+          <p>
+            {{ grupo.endereco }}<br><br>
+            <strong>{% trans 'telefone' %}:</strong> {{ grupo.telefone }}<br>
+            <strong>{% trans 'email' %}:</strong> {{ grupo.email }}<br>
+          </p>
+        </div>
+
+        <div class="col-lg-3 col-md-6 footer-links" data-aos="fade-up" data-aos-delay="200">
+          <h4>{% trans 'paginas' %}</h4>
+          <ul>
+            <li><i class="bx bx-chevron-right"></i> <a href="/{{ grupo.sigla }}#hero">{% trans 'inicio' %}</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="/{{ grupo.sigla }}#about">{% trans 'sobre' %}</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="/{{ grupo.sigla }}#lines">{% trans 'linhasDePesquisa' %}</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="/{{ grupo.sigla }}#team">{% trans 'pesquisadores' %}</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="/{{ grupo.sigla }}#products">{% trans 'producoes' %}</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="/{{ grupo.sigla }}#projects">{% trans 'projetos' %}</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="/{{ grupo.sigla }}#servicos">{% trans 'servicos' %}</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="/{{ grupo.sigla }}#portfolio">{% trans 'portifolio' %}</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="/{{ grupo.sigla }}#document">{% trans 'documentos' %}</a></li> 
+            <li><i class="bx bx-chevron-right"></i> <a href="/{{ grupo.sigla }}#infrastructure">{% trans 'infraestrutura' %}</a></li>          
+            <li><i class="bx bx-chevron-right"></i> <a href="/{{ grupo.sigla }}#clients">{% trans 'parceiros' %}</a></li>          
+            <li><i class="bx bx-chevron-right"></i> <a href="/{{ grupo.sigla }}/pt/noticias">{% trans 'noticias' %}</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="/{{ grupo.sigla }}#contact">{% trans 'contato' %}</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-6 footer-links" data-aos="fade-up" data-aos-delay="300">
+          <h4>{% trans 'redesSociais' %}</h4>
+          <p>{% trans 'redesSociaisDescricao' %}</p>
+          <div class="social-links mt-3">
+            <a href="{{ grupo.twitter }}" class="twitter"><i class="bx bxl-twitter"></i></a>
+            <a href="{{ grupo.facebook }}" class="facebook"><i class="bx bxl-facebook"></i></a>
+            <a href="{{ grupo.instagram }}" class="instagram"><i class="bx bxl-instagram"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 footer-links" data-aos="fade-up" data-aos-delay="400">
+          <h4>{% trans 'apoio' %}</h4>
+          <a href="http://ufpi.br/"><img src="{% static 'ufpi.png' %}" class="img-fluid" alt="UFPI"></a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="container py-4" style="display: flex; align-items: center; justify-content: space-between;">
+    <div class="copyright">
+      &copy; Copyright <strong><span>Ninestars</span></strong>. All Rights Reserved
+    </div>
+
+    <div>
+      {% trans 'desenvolvidoPor' %} <a href="http://lasco.ufpi.br/"><img src="{% static 'lasco.png' %}" height="100" alt="LASCÔ"/></a>
+    </div>
+
+    <div class="credits">
+      <!-- All the links in the footer should remain intact. -->
+      <!-- You can delete the links only if you purchased the pro version. -->
+      <!-- Licensing information: https://bootstrapmade.com/license/ -->
+      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/ninestars-free-bootstrap-3-theme-for-creative/ -->
+      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+    </div>
+  </div>
+</footer><!-- End Footer -->
+
+{% endblock %}

@@ -196,6 +196,37 @@
 
     </div>
   </section>
+
+  <section id="portfolio" class="portfolio">
+    <div class="container">
+
+      <div class="section-title" data-aos="fade-up">
+        <h2>{% trans 'portifolio' %}</h2>
+        <p>{% trans 'portifolioDescricao' %}</p>
+      </div>
+
+      <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
+        {% for projeto in grupo.informacao.projetos.all %}
+        <div class="col-lg-4 col-md-6 portfolio-item">
+          <div class="portfolio-wrap">
+            <img src="{{ projeto.imagem }}" class="img-fluid" alt="">
+            {% if projeto.link %}
+            <div class="portfolio-links">
+              <a href="{{ projeto.link }}" title="Mais Detalhes"><i class="icofont-link"></i></a>
+            </div>
+            {% endif %}
+            <div class="portfolio-info">
+              <h4>{{ projeto.nome }}</h4>
+              <p>{{ projeto.tipo }}</p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+
+    </div>
+  </section><!-- End Portfolio Section -->
   
   <!-- ======= Documents Section ======= -->
   <section id="document" class="team faq">
@@ -207,9 +238,9 @@
       </div>
   
       <ul class="faq-list">
-        {% for documento in grupo.informacao.documentos.all %}
+        {% for documento in grupo.documentos.all %}
           <li data-aos="fade-up" data-aos-delay="100">
-            <a href="{{documento.link}}">{{documento}}</a>
+            <a href="{{documento.link}}">{{ documento }}</a>
           </li>
         {% endfor %}
       </ul>
@@ -427,10 +458,11 @@
             <li><i class="bx bx-chevron-right"></i> <a href="#products">{% trans 'producoes' %}</a></li>
             <li><i class="bx bx-chevron-right"></i> <a href="#projects">{% trans 'projetos' %}</a></li>
             <li><i class="bx bx-chevron-right"></i> <a href="#servicos">{% trans 'servicos' %}</a></li>
-            <!-- <li><i class="bx bx-chevron-right"></i> <a href="#portfolio">{% trans 'portifolio' %}</a></li>  -->
+            <li><i class="bx bx-chevron-right"></i> <a href="#portfolio">{% trans 'portifolio' %}</a></li>
             <li><i class="bx bx-chevron-right"></i> <a href="#document">{% trans 'documentos' %}</a></li> 
             <li><i class="bx bx-chevron-right"></i> <a href="#infrastructure">{% trans 'infraestrutura' %}</a></li>          
             <li><i class="bx bx-chevron-right"></i> <a href="#clients">{% trans 'parceiros' %}</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="/{{ grupo.sigla }}/pt/noticias">{% trans 'noticias' %}</a></li>
             <li><i class="bx bx-chevron-right"></i> <a href="#contact">{% trans 'contato' %}</a></li>
           </ul>
         </div>

@@ -229,6 +229,7 @@ class Inscrito(models.Model):
 class Newsletter(models.Model):
     assunto = models.CharField(verbose_name='Assunto', max_length=256, blank=False, null=False)
     mensagem = models.TextField(verbose_name='Mensagem', blank=False, null=False)
+    publicado = models.BooleanField(verbose_name='Publicar como notícia', blank=False, null=False)
     data_criacao = models.DateTimeField(verbose_name='Data de criação', default=timezone.now)
 
     def __str__(self):

@@ -71,18 +71,19 @@
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <li><a href="#header">{% trans 'inicio' %}</a></li>
-          <li><a href="#about">{% trans 'sobre' %}</a></li>
-          <li><a href="#lines">{% trans 'linhasDePesquisa' %}</a></li>
-          <li><a href="#team">{% trans 'pesquisadores' %}</a></li>
-          <li><a href="#products">{% trans 'producoes' %}</a></li>
-          <li><a href="#projects">{% trans 'projetos' %}</a></li>
-          <li><a href="#servicos">{% trans 'servicos' %}</a></li>
-          <!-- <li><a href="#portfolio">{% trans 'portifolio' %}</a></li> -->
-          <li><a href="#document">{% trans 'documentos' %}</a></li>
-          <li><a href="#infrastructure">{% trans 'infraestrutura' %}</a></li>
-          <li><a href="#clients">{% trans 'parceiros' %}</a></li>
-          <li><a href="#contact">{% trans 'contato' %}</a></li>
+          <li><a href="/{{ grupo.sigla }}#hero">{% trans 'inicio' %}</a></li>
+          <li><a href="/{{ grupo.sigla }}#about">{% trans 'sobre' %}</a></li>
+          <li><a href="/{{ grupo.sigla }}#lines">{% trans 'linhasDePesquisa' %}</a></li>
+          <li><a href="/{{ grupo.sigla }}#team">{% trans 'pesquisadores' %}</a></li>
+          <li><a href="/{{ grupo.sigla }}#products">{% trans 'producoes' %}</a></li>
+          <li><a href="/{{ grupo.sigla }}#projects">{% trans 'projetos' %}</a></li>
+          <li><a href="/{{ grupo.sigla }}#servicos">{% trans 'servicos' %}</a></li>
+          <li><a href="/{{ grupo.sigla }}#portfolio">{% trans 'portifolio' %}</a></li>
+          <li><a href="/{{ grupo.sigla }}#document">{% trans 'documentos' %}</a></li>
+          <li><a href="/{{ grupo.sigla }}#infrastructure">{% trans 'infraestrutura' %}</a></li>
+          <li><a href="/{{ grupo.sigla }}#clients">{% trans 'parceiros' %}</a></li>
+          <li><a href="/{{ grupo.sigla }}/pt/noticias">{% trans 'noticias' %}</a></li>
+          <li><a href="/{{ grupo.sigla }}#contact">{% trans 'contato' %}</a></li>
           <li class="drop-down"><a href="#"><img src="/media/{{ grupo.informacao.idioma.imagem }}" height="32"> {{ grupo.informacao.idioma.nome }}</a>
             <ul>
               {% for informacao in grupo.informacoes.all %}

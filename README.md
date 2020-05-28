@@ -1,4 +1,4 @@
-# Sites do Grupos de Pesquisa da UFPI
+# Site dos Grupos de Pesquisa da UFPI
 
 Sistema da Universidade Federal do Piauí para criação de páginas de Grupos de Pesquisa da UFPI. Além de disponibilizar as informações dos grupos internacionalmente, os usuário têm acesso a formúlario de contato e newsletter para manter contato com seus seguidores.
 

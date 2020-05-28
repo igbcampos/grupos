@@ -78,7 +78,6 @@ def administracao(request):
 
 def copiar_pesquisadores(informacao_portugues, informacao_destino):
     for pesquisador in informacao_portugues.pesquisadores.all():
-        print(pesquisador)
         pesquisador.pk = None
         pesquisador.save()
 
@@ -180,8 +179,6 @@ def salvar_sobre(request):
                         nova_informacao.save()
 
                         grupo.informacoes.add(nova_informacao)
-
-                        print('\t\tinformacao: {}, nova informacao: {}'.format(informacao_portugues.pk, nova_informacao.pk))
 
                         copiar_pesquisadores(informacao_portugues, nova_informacao)
                         copiar_instituicoes(informacao_portugues, nova_informacao)
@@ -873,8 +870,12 @@ def enviar_newsletter(request):
 
         assunto = request.POST.get('assunto', '')
         mensagem = request.POST.get('mensagem', '')
+        publicar = False
 
-        newsletter = Newsletter.objects.create(assunto=assunto, mensagem=mensagem)
+        if 'publicar' in request.POST:
+            publicar = True
+
+        newsletter = Newsletter.objects.create(assunto=assunto, mensagem=mensagem, publicado=publicar)
 
         grupo.newsletters.add(newsletter)
 
@@ -892,6 +893,28 @@ def enviar_newsletter(request):
         messages.warning(request, 'Não foi possível enviar a newsletter. Por favor, tente novamente.')
 
     return redirect('/newsletter') 
+
+@login_required(login_url='/login')
+def publicar_newsletter(request, pk):
+    newsletter = get_object_or_404(Newsletter, pk=pk)
+
+    newsletter.publicado = True
+    newsletter.save()
+
+    messages.success(request, 'Newsletter publicada com sucesso.')
+
+    return redirect('/newsletter')
+
+@login_required(login_url='/login')
+def despublicar_newsletter(request, pk):
+    newsletter = get_object_or_404(Newsletter, pk=pk)
+
+    newsletter.publicado = False
+    newsletter.save()
+
+    messages.success(request, 'Newsletter removida das notícias com sucesso.')
+
+    return redirect('/newsletter')     
 
 def grupo(request, sigla, idioma = None):
     grupo = get_object_or_404(Grupo, sigla=sigla)
@@ -926,6 +949,31 @@ def grupo(request, sigla, idioma = None):
     contexto = {'grupo': grupo}
 
     return render(request, 'template/grupo.html', contexto)
+
+def noticias(request, sigla, idioma = None):
+    grupo = get_object_or_404(Grupo, sigla=sigla)
+
+    if idioma:
+        for informacao in grupo.informacoes.all():
+            if idioma == informacao.idioma.sigla:
+                setattr(grupo, 'informacao', informacao)
+                translation.activate(idioma)
+    else:
+        setattr(grupo, 'informacao', grupo.informacoes.first)
+        translation.activate(grupo.informacoes.first().idioma.sigla)
+
+    noticias = []
+
+    for newsletter in grupo.newsletters.all():
+        if newsletter.publicado:
+            noticias.append(newsletter)
+
+    setattr(grupo, 'noticias', noticias)
+    translation.activate(idioma)
+
+    contexto = {'grupo': grupo}
+
+    return render(request, 'template/noticias.html', contexto)
 
 def url_redirecionamento(sigla, idioma):
     url = '/' + str(sigla)

@@ -1,7 +1,7 @@
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import inicio, logar, deslogar, administracao, salvar_sobre, salvar_pesquisador, copiar_pesquisador, excluir_pesquisador, salvar_instituicao, copiar_instituicao, excluir_instituicao, salvar_linha, copiar_linha, excluir_linha, salvar_servico, copiar_servico, excluir_servico, salvar_publicacao, copiar_publicacao, excluir_publicacao, salvar_premiacao, copiar_premiacao, excluir_premiacao, salvar_portifolio, copiar_portifolio, excluir_portifolio, salvar_projeto, copiar_projeto, excluir_projeto, newsletter, criar_newsletter, enviar_newsletter, grupo, formulario, inscrever
+from .views import inicio, logar, deslogar, administracao, salvar_sobre, salvar_pesquisador, copiar_pesquisador, excluir_pesquisador, salvar_instituicao, copiar_instituicao, excluir_instituicao, salvar_linha, copiar_linha, excluir_linha, salvar_servico, copiar_servico, excluir_servico, salvar_publicacao, copiar_publicacao, excluir_publicacao, salvar_premiacao, copiar_premiacao, excluir_premiacao, salvar_portifolio, copiar_portifolio, excluir_portifolio, salvar_projeto, copiar_projeto, excluir_projeto, newsletter, criar_newsletter, enviar_newsletter, publicar_newsletter, despublicar_newsletter, grupo, noticias, formulario, inscrever
 
 urlpatterns = [
     path('', inicio, name='inicio'),
@@ -15,6 +15,8 @@ urlpatterns = [
     path('newsletter', newsletter, name='newsletter'),
     path('newsletter/criar', criar_newsletter, name='criar_newsletter'),
     path('newsletter/enviar', enviar_newsletter, name='enviar_newsletter'),
+    path('newsletter/publicar/<pk>', publicar_newsletter, name='publicar_newsletter'),
+    path('newsletter/despublicar/<pk>', despublicar_newsletter, name='despublicar_newsletter'),
 
     path('sobre/salvar', salvar_sobre, name='salvar_sobre'),
 
@@ -60,8 +62,13 @@ urlpatterns = [
     
     path('<sigla>', grupo, name='grupo'),
     path('<sigla>/<idioma>', grupo, name='grupo'),
+
+    path('<sigla>/noticias', noticias, name='noticias'),
+    path('<sigla>/<idioma>/noticias', noticias, name='noticias'),
+
     path('<sigla>/formulario', formulario, name='formulario'),
     path('<sigla>/<idioma>/formulario', formulario, name='formulario'),
+    
     path('<sigla>/inscrever', inscrever, name='inscrever'),
     path('<sigla>/<idioma>/inscrever', inscrever, name='inscrever'),
 ]

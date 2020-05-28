@@ -1,0 +1,79 @@
+{% extends 'administracao/base_logado.html' %}
+{% load static %}
+
+{% block conteudo_logado %}
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="page-header">
+                <h2 class="pageheader-title">Contatos </h2>
+                <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>
+                <div class="page-breadcrumb">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item active" aria-current="page">Contatos</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h3>Contatos enviados</h3>
+
+    <div class="row">
+        {% for formulario in grupo.formularios.all %}
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Assunto: {{ formulario.assunto }}</h3>
+
+                        <p class="card-text">Remetente: {{ formulario.nome }} - {{ formulario.email }}</p>
+
+                        <p class="card-text">Mensagem: {{ formulario.mensagem }}</p>
+
+                        <div class="accrodion-regular">
+                            <div id="accordion{{ formulario.pk }}">
+                                <div class="card">
+                                    <div class="card-header row" id="heading{{ formulario.pk }}">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ formulario.pk }}" aria-expanded="true" aria-controls="collapse{{ formulario.pk }}">
+                                                Enviar resposta
+                                            </button>
+                                        </h5>
+                                    </div>
+                                    <div id="collapse{{ formulario.pk }}" class="collapse" aria-labelledby="heading{{ formulario.pk }}" data-parent="#accordion">
+                                        <div class="card-body">
+                                            <form action="/contatos/responder/{{ formulario.pk }}" method="POST" enctype="multipart/form-data">
+                                                {% csrf_token %}
+
+                                                <div class="form-group">
+                                                    <label class="control-label sr-only" for="mensagem{{ formulario.pk }}">Mensagem </label>
+                                                    <textarea class="form-control" name="mensagem" id="mensagem{{ formulario.pk }}" rows="6" placeholder="Mensagem" required></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer">
+                                                <a href="/contatos" class="btn btn-light">Cancelar</a>
+                    
+                                                <button type="submit" class="btn btn-success">Enviar</button>
+                                            </form>
+                    
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Ainda não foram enviados contatos.</h3>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+            
+{% endblock %}

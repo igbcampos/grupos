@@ -1,7 +1,7 @@
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import inicio, logar, deslogar, administracao, salvar_sobre, salvar_pesquisador, copiar_pesquisador, excluir_pesquisador, salvar_instituicao, copiar_instituicao, excluir_instituicao, salvar_linha, copiar_linha, excluir_linha, salvar_servico, copiar_servico, excluir_servico, salvar_publicacao, copiar_publicacao, excluir_publicacao, salvar_premiacao, copiar_premiacao, excluir_premiacao, salvar_portifolio, copiar_portifolio, excluir_portifolio, salvar_projeto, copiar_projeto, excluir_projeto, newsletter, criar_newsletter, enviar_newsletter, publicar_newsletter, despublicar_newsletter, documentos, salvar_documento, excluir_documento, grupo, noticias, formulario, inscrever
+from .views import inicio, logar, deslogar, administracao, salvar_sobre, salvar_pesquisador, copiar_pesquisador, excluir_pesquisador, salvar_instituicao, copiar_instituicao, excluir_instituicao, salvar_linha, copiar_linha, excluir_linha, salvar_servico, copiar_servico, excluir_servico, salvar_publicacao, copiar_publicacao, excluir_publicacao, salvar_premiacao, copiar_premiacao, excluir_premiacao, salvar_portifolio, copiar_portifolio, excluir_portifolio, salvar_projeto, copiar_projeto, excluir_projeto, newsletter, criar_newsletter, enviar_newsletter, publicar_newsletter, despublicar_newsletter, documentos, salvar_documento, excluir_documento, contatos, responder_contato, grupo, noticias, formulario, inscrever
 
 urlpatterns = [
     path('', inicio, name='inicio'),
@@ -21,6 +21,9 @@ urlpatterns = [
     path('documentos', documentos, name='documentos'),
     path('documentos/salvar', salvar_documento, name='salvar_documento'),
     path('documentos/excluir/<pk>', excluir_documento, name='excluir_documento'),
+
+    path('contatos', contatos, name='contatos'),
+    path('contatos/responder/<pk>', responder_contato, name='responder_contato'),
 
     path('sobre/salvar', salvar_sobre, name='salvar_sobre'),
 

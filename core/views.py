@@ -955,6 +955,37 @@ def excluir_documento(request, pk):
 
     return redirect('/documentos')    
 
+@login_required(login_url='/login')
+def contatos(request):
+    grupo = Grupo.objects.get(responsavel=request.user)
+
+    contexto = {'grupo': grupo}
+
+    return render(request, 'administracao/contatos.html', contexto)   
+
+@login_required(login_url='/login')
+def responder_contato(request, pk):
+    try:
+        grupo = Grupo.objects.get(responsavel=request.user)
+        formulario = get_object_or_404(Formulario, pk = pk)
+
+        assunto = 'Resposta à mensagem deixada em {}'.format(grupo.sigla.upper())
+        mensagem = '{} está respondendo sua mensagem.\nMensagem: {}'.format(grupo.sigla.upper(), request.POST.get('mensagem', ''))
+        destinatarios = [grupo.responsavel.email, formulario.email]
+
+        conteudo_email = '<h2>{} está respondendo sua mensagem.</h2>'.format(grupo.sigla.upper())
+        conteudo_email += '<div class="card">'
+        conteudo_email += '    <p>Mensagem: {}</p>'.format(request.POST.get('mensagem', ''))
+        conteudo_email += '</div>'
+
+        enviar_email(assunto=assunto, mensagem=mensagem, destinatarios=destinatarios, conteudo_template=conteudo_email) 
+
+        messages.success(request, 'Sua resposta foi enviada.')
+    except:
+        messages.warning(request, 'Não foi possível enviar sua resposta. Por favor, tente novamente.')
+
+    return redirect('/contatos') 
+
 def grupo(request, sigla, idioma = None):
     grupo = get_object_or_404(Grupo, sigla=sigla)
 

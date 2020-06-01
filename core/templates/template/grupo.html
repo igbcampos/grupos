@@ -212,6 +212,7 @@
             {% if portifolio.imagem %}
               <img src="/media/{{ portifolio.imagem }}" class="img-fluid" alt="">
             {% else %}
+              <img src="{% static 'sem_imagem.png' %}" class="img-fluid" alt="">
             {% endif %}
             {% if portifolio.link %}
             <div class="portfolio-links">

@@ -169,7 +169,9 @@ class Premiacao(models.Model):
 
 class Portifolio(models.Model):
     nome = models.CharField(max_length=256, blank=True, null=True)
-    descricao = models.CharField(max_length=1024, blank=True, null=True)
+    tipo = models.CharField(max_length=256, blank=True, null=True)
+    link = models.CharField(max_length=256, blank=True, null=True)
+    imagem = models.ImageField(upload_to=caminho, blank=True)
     
     def __str__(self):
         return self.nome

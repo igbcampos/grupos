@@ -630,19 +630,32 @@
                                             {% for portifolio in informacao.portifolio.all %}
                                                 <div class="card">
                                                     <div class="card-body">
-                                                        <div class="form-group">
-                                                            <label for="portifolio-input-nome{{ portifolio.pk }}" class="col-form-label">Nome</label>
-                                                            <input id="portifolio-input-nome{{ portifolio.pk }}" type="text" class="form-control" value="{{ portifolio.nome }}" maxlength="256" required>
-                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-2">
+                                                                <img src="/media/{{ portifolio.imagem }}" alt="" class="rounded-circle" height="150" width="150" style="object-fit: cover;">
+                                                            </div>
 
-                                                        <div class="form-group">
-                                                            <label for="portifolio-input-descricao{{ portifolio.pk }}">Descrição</label>
-                                                            <textarea class="form-control" id="portifolio-input-descricao{{ portifolio.pk }}" rows="3" maxlength="1024">{{ portifolio.descricao }}</textarea>
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="portifolio-input-nome{{ portifolio.pk }}" class="col-form-label">Nome</label>
+                                                                    <input id="portifolio-input-nome{{ portifolio.pk }}" type="text" class="form-control" value="{{ portifolio.nome }}" maxlength="256" required>
+                                                                </div>
+                                                                
+                                                                <div class="form-group">
+                                                                    <label for="portifolio-input-tipo{{ portifolio.pk }}" class="col-form-label">Tipo</label>
+                                                                    <input id="portifolio-input-tipo{{ portifolio.pk }}" type="text" class="form-control" value="{{ portifolio.tipo }}" maxlength="256" required>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label for="portifolio-input-link{{ portifolio.pk }}" class="col-form-label">Link</label>
+                                                                    <input id="portifolio-input-link{{ portifolio.pk }}" type="text" class="form-control" value="{{ portifolio.link }}" maxlength="256">
+                                                                </div>
+                                                            </div>
                                                         </div>
 
                                                         <a href="#" class="btn btn-danger" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="confirmarExclusao('portifolios', 'portifólio', '{{ informacao.idioma.nome }}', '{{ portifolio.nome }}', '/portifolios/excluir/{{ portifolio.pk }}')">Excluir</a>
 
-                                                        <a href="#" class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="formularioCadastro('edicao', 'portifolios', 'portifólio', '{{ informacao.idioma.nome }}', `{'nome': '{{ portifolio.nome }}', 'descricao': '{{ portifolio.descricao }}'}`, `/portifolios/${'{{ informacao.idioma.sigla }}'}/salvar/{{ portifolio.pk }}`)">Editar</a>
+                                                        <a href="#" class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="formularioCadastro('edicao', 'portifolios', 'portifólio', '{{ informacao.idioma.nome }}', `{'nome': '{{ portifolio.nome }}', 'tipo': '{{ portifolio.tipo }}', 'link': '{{ portifolio.link }}', 'imagem': '{{ portifolio.imagem }}'}`, `/portifolios/${'{{ informacao.idioma.sigla }}'}/salvar/{{ portifolio.pk }}`)">Editar</a>
                                                     </div>
                                                 </div>
                                             {% empty %}
@@ -1034,14 +1047,30 @@
                 conteudoModal.append(
                     '{% csrf_token %}' +
 
+                    '<div class="row">' +
+                        '<div class="col-3">' +
+                            `<img id="portifolios-imagem" src="/media/${ objetoParseado.imagem }" alt="" class="rounded-circle" height="150" width="150" style="object-fit: cover;">` +
+                        '</div>' +
+
+                        '<div class="form-group col">' +
+                            '<label for="portifolios-input-imagem" class="col-form-label">Imagem</label>' +
+                            `<input id="portifolios-input-imagem" name="imagem" type="file" class="form-control" onchange="adicionarImagem('portifolios-imagem', 'portifolios-input-imagem')">` +
+                        '</div>' +                        
+                    '</div>' +
+
                     '<div class="form-group">' +
                         '<label for="portifolios-input-nome" class="col-form-label">Nome</label>' +
                         `<input id="portifolios-input-nome" name="nome" type="text" class="form-control" value="${ objetoParseado.nome || '' }" maxlength="256" required>` +
                     '</div>' +
 
                     '<div class="form-group">' +
-                        '<label for="portifolios-input-descricao">Descrição</label>' +
-                        `<textarea class="form-control" id="portifolios-input-descricao" name="descricao" rows="3" maxlength="1024">${ objetoParseado.descricao || '' }</textarea>` +
+                        '<label for="portifolios-input-tipo" class="col-form-label">Tipo</label>' +
+                        `<input id="portifolios-input-tipo" name="tipo" type="text" class="form-control" value="${ objetoParseado.tipo || '' }" maxlength="256" required>` +
+                    '</div>' +
+
+                    '<div class="form-group">' +
+                        '<label for="portifolios-input-link" class="col-form-label">Link</label>' +
+                        `<input id="portifolios-input-link" name="link" type="text" class="form-control" value="${ objetoParseado.link || '' }" maxlength="256">` +
                     '</div>'
                 );
             }

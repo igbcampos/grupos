@@ -687,15 +687,25 @@ def salvar_portifolio(request, idioma, pk = None):
                 if idioma != 'pt':
                     portifolio = Portifolio.objects.create(
                         nome = request.POST.get('nome', ''),
-                        descricao = request.POST.get('descricao', ''),
+                        tipo = request.POST.get('tipo', ''),
+                        link = request.POST.get('link', ''),
                     )
+
+                    if 'imagem' in request.FILES:
+                        portifolio.imagem = request.FILES['imagem']
+                        portifolio.save()
 
                     informacao.portifolio.add(portifolio)
                 else:
                     portifolio = Portifolio.objects.create(
                         nome = request.POST.get('nome', ''),
-                        descricao = request.POST.get('descricao', ''),
+                        tipo = request.POST.get('tipo', ''),
+                        link = request.POST.get('link', ''),
                     )
+
+                    if 'imagem' in request.FILES:
+                        portifolio.imagem = request.FILES['imagem']
+                        portifolio.save()
 
                     informacao.portifolio.add(portifolio)
 
@@ -704,7 +714,11 @@ def salvar_portifolio(request, idioma, pk = None):
             portifolio = Portifolio.objects.get(pk=pk)
 
             portifolio.nome = request.POST.get('nome', '')
-            portifolio.descricao = request.POST.get('descricao', '')
+            portifolio.tipo = request.POST.get('tipo', '')
+            portifolio.link = request.POST.get('link', '')
+
+            if 'imagem' in request.FILES:
+                portifolio.imagem = request.FILES['imagem']
                 
             portifolio.save()
 

@@ -206,18 +206,21 @@
       </div>
 
       <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
-        {% for projeto in grupo.informacao.projetos.all %}
+        {% for portifolio in grupo.informacao.portifolio.all %}
         <div class="col-lg-4 col-md-6 portfolio-item">
           <div class="portfolio-wrap">
-            <img src="{{ projeto.imagem }}" class="img-fluid" alt="">
-            {% if projeto.link %}
+            {% if portifolio.imagem %}
+              <img src="/media/{{ portifolio.imagem }}" class="img-fluid" alt="">
+            {% else %}
+            {% endif %}
+            {% if portifolio.link %}
             <div class="portfolio-links">
-              <a href="{{ projeto.link }}" title="Mais Detalhes"><i class="icofont-link"></i></a>
+              <a href="{{ portifolio.link }}" title="Mais Detalhes"><i class="icofont-link"></i></a>
             </div>
             {% endif %}
             <div class="portfolio-info">
-              <h4>{{ projeto.nome }}</h4>
-              <p>{{ projeto.tipo }}</p>
+              <h4>{{ portifolio.nome }}</h4>
+              <p>{{ portifolio.tipo }}</p>
             </div>
           </div>
         </div>
@@ -240,7 +243,7 @@
       <ul class="faq-list">
         {% for documento in grupo.documentos.all %}
           <li data-aos="fade-up" data-aos-delay="100">
-            <a href="{{documento.link}}">{{ documento }}</a>
+            <a href="/media/{{documento.link}}">{{ documento }}</a>
           </li>
         {% endfor %}
       </ul>
@@ -311,7 +314,7 @@
       </div>
 
       <div class="owl-carousel clients-carousel" data-aos="fade-up" data-aos-delay="100">
-        {% for instituicao in grupo.instituicoes.all %}
+        {% for instituicao in grupo.informacao.instituicoes.all %}
           <img src="/media/{{ instituicao.imagem }}" alt="{{ instituicao.nome }}" title="{{ instituicao.nome }}">
         {% endfor %}
       </div>
@@ -453,6 +456,7 @@
           <ul>
             <li><i class="bx bx-chevron-right"></i> <a href="#header">{% trans 'inicio' %}</a></li>
             <li><i class="bx bx-chevron-right"></i> <a href="#about">{% trans 'sobre' %}</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="/{{ grupo.sigla }}/pt/noticias">{% trans 'noticias' %}</a></li>
             <li><i class="bx bx-chevron-right"></i> <a href="#lines">{% trans 'linhasDePesquisa' %}</a></li>
             <li><i class="bx bx-chevron-right"></i> <a href="#team">{% trans 'pesquisadores' %}</a></li>
             <li><i class="bx bx-chevron-right"></i> <a href="#products">{% trans 'producoes' %}</a></li>
@@ -462,7 +466,6 @@
             <li><i class="bx bx-chevron-right"></i> <a href="#document">{% trans 'documentos' %}</a></li> 
             <li><i class="bx bx-chevron-right"></i> <a href="#infrastructure">{% trans 'infraestrutura' %}</a></li>          
             <li><i class="bx bx-chevron-right"></i> <a href="#clients">{% trans 'parceiros' %}</a></li>
-            <li><i class="bx bx-chevron-right"></i> <a href="/{{ grupo.sigla }}/pt/noticias">{% trans 'noticias' %}</a></li>
             <li><i class="bx bx-chevron-right"></i> <a href="#contact">{% trans 'contato' %}</a></li>
           </ul>
         </div>
